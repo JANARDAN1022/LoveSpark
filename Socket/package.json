@@ -1,0 +1,16 @@
+{
+  "name": "socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "socket.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "get-user-media-promise": "^1.1.4",
+    "simple-peer": "^9.11.1",
+    "socket.io": "^4.7.1"
+  }
+}
