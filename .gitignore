@@ -1,3 +1,3 @@
 # LoveSpark/.gitignore
-.env
+backend/Config/config.env
 node_modules/
