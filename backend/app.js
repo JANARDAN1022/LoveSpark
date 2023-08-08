@@ -14,8 +14,8 @@ const MessageRoutes = require('./Routes/ChattingRoutes/MessageRoute.js');
 const SwipedRoutes = require('./Routes/swipeRoutes.js');
 const MatchedRoutes = require('./Routes/MatchesRoutes.js');
 const ReportRoutes = require('./Routes/ReportRoutes.js');
+const Stripe = require('stripe')(process.env.Stripe_Sec_Key);
 const app = express();
-
 
 
 app.use(bodyparser.urlencoded({extended:true}));
@@ -36,6 +36,33 @@ credentials: true,
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+    const session = await Stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Love Spark Premium',
+            },
+            unit_amount: 39900, // Amount in cents ($399 * 100)
+          },
+          quantity: 1, // Only one Premium version
+        },
+      ],
+      success_url: `${process.env.CLIENT}/StripeSuccess`, // Redirect to success page
+      cancel_url: `${process.env.CLIENT}/StripeFail`, // Redirect to cancel page
+    });
+
+    res.json({ url: session.url });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 
 app.use('/api/Users/',UserRoutes);

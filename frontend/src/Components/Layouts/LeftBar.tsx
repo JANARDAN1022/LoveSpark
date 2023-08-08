@@ -32,14 +32,23 @@ interface Matched {
 
 interface LeftBarProps {
   unReadMessages:number,
-  setunReadMessages: React.Dispatch<React.SetStateAction<number>>
+  setunReadMessages: React.Dispatch<React.SetStateAction<number>>,
+  onlineUsers:[{
+    socKetId:string,
+    unreadMessages:number,
+    userId:string,
+  }]
 }
 
-const LeftBar = ({unReadMessages,setunReadMessages}:LeftBarProps) => {
+const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers}:LeftBarProps) => {
   const [activeTab, setActiveTab] = useState('matches');
   const [Tooltip,setTooltip]=useState({
     Settings:false,
     Logout: false
+  });
+  const [ShowReport,setShowReport]=useState({
+    show: false,
+    for:'Messages'
   });
   const [indicatorPosition, setIndicatorPosition] = useState(0);
   const {setShowComponent,ShowComponent,ChangeTab,setChangeTab,setMatchedId,ReFetchMatches,setReFetchUsers} = useContext(MainPageContext);
@@ -113,7 +122,7 @@ const FetchMatches = useCallback( async()=>{
 
   return (
     <div className="h-full  md:w-[280px] lg:w-[392px] flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20">
-      <div className="flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative">
+      <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
         <div className="flex justify-center items-center gap-5">
           <img
          onClick={()=>{
@@ -137,10 +146,12 @@ const FetchMatches = useCallback( async()=>{
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className={`flex flex-col ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''}`}>
         <div  className="relative h-16 shadow-md flex gap-20 pt-5 pl-5 bg-gray-100 font-bold">
           <span
-            className={`cursor-pointer ${
+            className={`
+            ${ShowReport.show && ShowReport.for==='Messages'?'b lur-sm cursor-none':'cursor-pointer'}
+            ${
               activeTab === 'matches' ? 'text-pink-500' : 'text-gray-500'
             }`}
             onClick={() =>{
@@ -153,7 +164,9 @@ const FetchMatches = useCallback( async()=>{
             Matches
           </span>
           <span
-            className={`cursor-pointer ${
+            className={`
+            ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
+            ${
               activeTab === 'messages' ? 'text-pink-500' : 'text-gray-500'
             }`}
             onClick={() => handleTabChange('messages', 1.2)}
@@ -175,7 +188,7 @@ const FetchMatches = useCallback( async()=>{
       </div>
         
         {activeTab==='messages'?
-        <Messages  unReadMessages={unReadMessages}/>
+        <Messages ShowReport={ShowReport} onlineUsers={onlineUsers} setShowReport={setShowReport}  unReadMessages={unReadMessages}/>
         :activeTab==='Settings'?
         <AccountSettings />
          :

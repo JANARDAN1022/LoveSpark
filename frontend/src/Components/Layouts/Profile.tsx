@@ -113,7 +113,7 @@ useEffect(()=>{
       </div>
       <div className='flex gap-2 items-center flex-wrap ml-5'>
         {MatchedUser?.interests.map((Interest)=>(
-          <span className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base p-1 rounded-[5px]`}>{Interest}</span>
+          <span key={Interest} className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base p-1 rounded-[5px]`}>{Interest}</span>
         ))
         }
         </div>

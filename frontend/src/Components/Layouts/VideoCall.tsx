@@ -1,5 +1,4 @@
 // eslint-disable-next-line
-import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 
 

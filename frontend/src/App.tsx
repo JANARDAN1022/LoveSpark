@@ -9,6 +9,8 @@ import CompleteProfile from './Components/Pages/CompleteProfile';
 import axios from 'axios';
 import { Loaduser } from './Actions/userAction';
 import { useAppDispatch} from './Hooks';
+import Success from './Components/Pages/Payment/Stripe/Success';
+import Fail from './Components/Pages/Payment/Stripe/Fail';
 //import Calls from './Components/Layouts/Calls';
 import VideoCall from './Components/Layouts/VideoCall';
 //import Footer from './Components/Layouts/Footer';
@@ -56,6 +58,8 @@ const App = () => {
       <Route path='/MainPage' element={<MainPage />} />
       <Route path='/CompleteProfile' element={<CompleteProfile />} />
       <Route path='/VideoCall' element={<VideoCall />} />
+      <Route path='/StripeSuccess' element={<Success />} />
+      <Route path='/StripeFail' element={<Fail />} />
      </Routes>
     </Router>
   )

@@ -36,14 +36,14 @@ export default function Example() {
     age:'',
   });
   const [interests, setinterests] = useState<string[]>([]);
+  const [Error,setError]=useState('');
   const MaleRef = useRef<HTMLInputElement>(null);
   const FemaleRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
   const Id = user?._id;
-  console.log(CoverPic);
-  console.log("photo", ProfilePic);
+ 
 
   const Status = user?.ProfileStatus && user?.ProfileStatus;
   
@@ -128,7 +128,10 @@ setCoverPic(file);
     });
     
     if (isEmpty) {
-      console.log("do Error");
+      setError('Please Provide All Required Fields');
+      setTimeout(() => {
+        setError('');
+      }, 3000);
     } else if (Id && !isEmpty && ProfilePic !== null && CoverPic !== null && interests.length >= 2) {
       const profileRef = ref(storage, `ProfilePics/${ProfilePic.name + v4() + user.FirstName}`);
       const CoverRef = ref(storage, `CoverPics/${CoverPic.name + v4() + `123#` + user.FirstName}`);
@@ -699,15 +702,16 @@ setCoverPic(file);
         </div>
       </div>
 
-      <div className="mt-3 flex  ml-[50%] mb-[50px]">
+      <div className="mt-3 flex flex-col items-center gap-3 ml-[50%] mb-[50px]">
         <button
           type="submit"
           className="rounded-md w-[120px]  md:w-[170px] bg-pink-600 px-3 py-2 text-sm md:text-lg font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"
           onClick={HandleSave}
         >
           Save
-        </button>
-      </div>
+        </button>  
+       <span className={`${Error!==''?'':'hidden'} text-red-700 font-bold`}>{Error}*</span>
+       </div>
     </form>
   );
 }

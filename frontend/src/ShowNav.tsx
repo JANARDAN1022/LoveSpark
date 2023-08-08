@@ -5,7 +5,7 @@ import NavBar from "./Components/Layouts/NavBar";
 const ShowNav = ()=> {
   const location = useLocation();
   const Location = location.pathname;
-  const hideNav =  Location === "/CompleteProfile" || Location==="/MainPage" || Location==='/VideoCall';
+  const hideNav =  Location === "/CompleteProfile" || Location==="/MainPage" || Location==='/VideoCall' || Location==='/StripeSuccess' || Location==='/StripeFail';
 
   if (hideNav) {
     return null; // Return null to hide the navbar

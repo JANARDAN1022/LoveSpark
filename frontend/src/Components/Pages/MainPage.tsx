@@ -39,7 +39,6 @@ const MainPage = () => {
     body.style.overflowX = 'hidden';
   }, [user?._id]);
 
-console.log('onlineUsers:',OnlineUsers);
 
 
 useEffect(() => {
@@ -49,7 +48,6 @@ useEffect(() => {
     if(ShowComponent!=='Chat'){
       setunReadMessages((prev)=>prev + 1);
     }   
-    console.log('receive-message',data);
   });
   // eslint-disable-next-line
 }, [setMessages]);
@@ -68,7 +66,7 @@ useEffect(() => {
   return (
     <div className={`flex overflow-scroll scrollbar relative`}>
       <div className="flex-[1]">
-      <LeftBar unReadMessages={unReadMessages} setunReadMessages={setunReadMessages}/>
+      <LeftBar unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
     </div>
     <div className="flex-[3] bg-pink-100 h-[745px]">
     {ShowComponent==='Chat'?
