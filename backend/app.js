@@ -30,7 +30,7 @@ app.use(passport.session());
 
 const allowedOrigins = [
   'http://localhost:3000', // Add other origins as needed
-  'https://love-spark-frontend.vercel.app/', // Remove the trailing slash from the URL
+  'https://love-spark-frontend.vercel.app', // Remove the trailing slash from the URL
 ];
 
 app.use(cors({
