@@ -10,8 +10,6 @@ import { storage } from "../../firebase";
 import {v4} from 'uuid';
 import { MainPageContext } from "../../Context/MainPageContext";
 import axios from "axios";
-//import ImageCompressor from "image-compressor";
-//import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function Example() {
   const [ProfilePic, setProfilePic] = useState<any | null>(null);
@@ -49,7 +47,7 @@ export default function Example() {
   
   const AllUsers = useCallback(async () => {
     if(Id){
-    const route = `http://localhost:5000/api/Users/All/${Id}`;
+    const route = `https://love-spark.vercel.app/api/Users/All/${Id}`;
     const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
   
     try {

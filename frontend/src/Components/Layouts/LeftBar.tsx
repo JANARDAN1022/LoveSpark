@@ -2,7 +2,6 @@ import { useState,useContext,useCallback,useEffect } from 'react';
 import Matches from './Matches';
 import Messages from "../Layouts/Messages";
 import { MainPageContext } from '../../Context/MainPageContext';
-//import {AiOutlineSearch} from 'react-icons/ai';
 import {IoMdSettings} from 'react-icons/io';
 import {BiLogOut} from 'react-icons/bi';
 import AccountSettings from './AccountSettings';
@@ -11,7 +10,7 @@ import { LogoutUser} from '../../Actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from 'axios';
-//mport {io,Socket} from 'socket.io-client';
+
 
 
 interface Matched {
@@ -60,11 +59,11 @@ const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers}:LeftBarProps) =>
 
   const ID = user?._id;
 
-//  const socket = useRef();
+
 
 const FetchMatches = useCallback( async()=>{
   if(ID){
-  const Route = `http://localhost:5000/api/Matches/All/${ID}`;
+  const Route = `https://love-spark.vercel.app/api/Matches/All/${ID}`;
   const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
   const {data} = await axios.get<any>(Route,config);
   setmatches(data.Matches);
@@ -91,7 +90,7 @@ const FetchMatches = useCallback( async()=>{
   
   const HandleDeleteMatches = async(id:string)=>{
     try {
-      const Route = `http://localhost:5000/api/Matches/Delete/${id}`
+      const Route = `https://love-spark.vercel.app/api/Matches/Delete/${id}`
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
       await axios.delete(Route,config);
       FetchMatches();

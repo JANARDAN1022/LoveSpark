@@ -49,7 +49,7 @@ const Chat = ({socket,Messages,setMessages}:ChatProps) => {
     const Fetchmessages = useCallback(async()=>{
       if(ChatUser?._id){
       try {
-      const Route=`http://localhost:5000/api/Messages/${ChatUser?._id}`;
+      const Route=`https://love-spark.vercel.app/api/Messages/${ChatUser?._id}`;
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
       const {data} = await axios.get<any>(Route,config);
      setMessages(data.ChatMessages);
@@ -71,18 +71,6 @@ useEffect(()=>{
   }
 },[ShowComponent,Messages]);
 
-
-/*const HandleAudiCall = ()=>{
-
-  const data = {
-    calledId:ID,
-    UserName:user?.FirstName,
-    UserId:user?._id,
-    VideoCall:false,
-  }
-  socket.emit('call-user',(data));
-  Navigate(`/Calls/${user?._id}/${ID}`);
-}*/
 
 
 const HandleVideoCall = ()=>{

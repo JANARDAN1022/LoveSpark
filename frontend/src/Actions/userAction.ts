@@ -20,7 +20,7 @@ import {
 //import {useAppDispatch} from '../Hooks';
 
 const instance = axios.create({
-    baseURL:"http://localhost:5000/api/Users/"   //Api Base Url
+    baseURL:"https://love-spark.vercel.app/api/Users/"   //Api Base Url
 });
 
 //const dispatch = useAppDispatch();

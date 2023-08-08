@@ -10,9 +10,7 @@ import { MainPageContext } from '../../Context/MainPageContext';
 import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
-//import Bottles from '../../Audio/I Be Popping Bottles Sparkles And Champagne.mp3';
-//import axios from "axios";
-//import { User } from "../../Types/UserTypes";
+
 
 
 
@@ -25,8 +23,7 @@ const MainPage = () => {
   const [Messages,setMessages]=useState<MessagesData[]>([]);
   const [unReadMessages,setunReadMessages]=useState<number>(0);
  const Navigate = useNavigate();
- //const audioRef = useRef<HTMLAudioElement | null>(null);
- //const buttonRef = useRef<HTMLButtonElement | null>(null);
+
 
 
 

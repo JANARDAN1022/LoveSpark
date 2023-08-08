@@ -2,7 +2,6 @@ import {useContext, useState,useEffect, useCallback,useRef} from 'react'
 import { MainPageContext } from '../../Context/MainPageContext'
 import {RxCross1} from 'react-icons/rx';
 import {MdReportProblem} from 'react-icons/md';
-//import IMG from '../../Assets/pexels.jpeg';
 import { useAppSelector } from '../../Hooks';
 import axios from 'axios';
 import { User } from '../../Types/UserTypes';
@@ -29,7 +28,7 @@ const Profile = () => {
     const FetchMatchedUser = useCallback(async()=>{
       if(MatchedId!==''){
       try {
-        const Route = `http://localhost:5000/api/Users/${MatchedId}`;
+        const Route = `https://love-spark.vercel.app/api/Users/${MatchedId}`;
         const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
         const {data} = await axios.get<Data>(Route,config);
         setMatchedUser(data.user);
@@ -51,7 +50,7 @@ const HandleReportSubmit = async(ID:string)=>{
   if(ID){
     if(Reason!==''){
       try {
-        const Route = `http://localhost:5000/api/Reports/AddReport`;
+        const Route = `https://love-spark.vercel.app/api/Reports/AddReport`;
         const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
         const {data} =  await  axios.post(Route,{UserID:user?._id,ReportedUserID:ID,Reason:Reason},config);     
        if(data){       

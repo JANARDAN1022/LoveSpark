@@ -2,9 +2,7 @@ import{useContext,useState,useRef} from 'react'
 import {RxCross1} from 'react-icons/rx';
 import { MainPageContext } from '../../Context/MainPageContext';
 import Slider from './ImgSlider';
-//import IMG from '../../Assets/pexels.jpeg';
 import {BiSolidEdit} from 'react-icons/bi';
-//import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import {Country} from 'country-state-city';
 import { useAppSelector } from '../../Hooks';
 
@@ -13,8 +11,6 @@ const EditProfile = () => {
 
     const {setShowComponent} = useContext(MainPageContext);
     const {user} = useAppSelector((state)=>state.user);
-  //  const [selectedProfilePhoto, setselectedProfilePhoto] = useState(null);
-   // const [selectedCoverPhoto, setselectedCoverPhoto] = useState(null);
    const INTERESTS = user?.interests?user?.interests:[];
     const [Interests,setInterests]=useState<string[]>(INTERESTS);
     const [PersonalInfo,setPersonalInfo] = useState({
@@ -92,19 +88,6 @@ const EditProfile = () => {
      }
    }
  
-   /*const handlePhotoChange = (event:any)=> {
-     const file = event.target.files[0];
-     setselectedProfilePhoto(file);
- 
-     // You can also perform additional processing or upload the file to the server here
-   };
-   const handleCoverChange = (event:any)=> {
-     const file = event.target.files[0];
-     setselectedCoverPhoto(file);
- 
-     // You can also perform additional processing or upload the file to the server here
-   };
- */
    const HandleSave = (e:any)=>{
      e.preventDefault();
    }

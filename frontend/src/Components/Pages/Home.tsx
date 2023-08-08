@@ -12,7 +12,7 @@ import {useAppDispatch,useAppSelector} from '../../Hooks';
 import {RegisterUser,LoginUser} from '../../Actions/userAction';
 import { unwrapResult } from '@reduxjs/toolkit';
 //import { Skeleton } from '@mui/material';
-//import IMG from '../../Assets/wepik.png';
+
 
 const Home = () => {
   const {ShowLogin,setshowLogin,ShowSignUp,setShowSignUp,scroll}=useContext(LoginContext);
@@ -22,11 +22,10 @@ const Home = () => {
   const [loginpassword,setloginpassword]=useState('');
   const [Confirmpassword,setConfirmpassword]=useState(''); 
   const [Error,setError]=useState('');
-   //const {error} = useAppSelector((state)=>state.user); 
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
   
-  // const Mainref = useRef();
+
   const EmailRef = useRef<HTMLInputElement>(null);
   const PassRef = useRef<HTMLInputElement>(null);
   const ConfirmPassRef = useRef<HTMLInputElement>(null);

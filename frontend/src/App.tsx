@@ -21,7 +21,7 @@ const App = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/auth/login/success', {
+        const response = await axios.get('https://love-spark.vercel.app/auth/login/success', {
           withCredentials: true, // include credentials in the request
         });
         

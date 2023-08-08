@@ -11,7 +11,7 @@ const AccountSettings = () => {
     if(user?.role!=='Premium'){
     try {
       setShowLoading(true);
-      const Route = `http://localhost:5000/create-checkout-session`
+      const Route = `https://love-spark.vercel.app/create-checkout-session`
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
     const {data} =  await axios.post(Route,config);
       window.location = data.url

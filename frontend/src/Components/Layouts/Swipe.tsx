@@ -20,7 +20,7 @@ const Swipe = () => {
 
   const fetchAllUsers = useCallback(async () => {
     if (user?._id) {
-      const route = `http://localhost:5000/api/Users/All/${user._id}`;
+      const route = `https://love-spark.vercel.app/api/Users/All/${user._id}`;
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
 
       try {
@@ -34,7 +34,7 @@ const Swipe = () => {
 
   const AddSwipe = useCallback(
     async (ID: string, Dir: string) => {
-      const Route = `http://localhost:5000/api/Swipe/AddSwipe`;
+      const Route = `https://love-spark.vercel.app/api/Swipe/AddSwipe`;
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
       try {
        await axios.post<any>(Route, { userId: user?._id, SwipedId: ID, direction: Dir }, config);
