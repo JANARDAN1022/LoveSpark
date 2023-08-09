@@ -1,4 +1,5 @@
-const io = require('socket.io')(8800, {
+require('dotenv').config({path:"C:/Users/janar/OneDrive/Desktop/LoveSpark/Socket/config.env"});
+const io = require('socket.io')(process.env.PORT || 8800, {
     cors: {
       origin: 'https://love-spark-frontend.vercel.app',// Replace with your frontend URL
       credentials: true,
