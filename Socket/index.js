@@ -1,6 +1,6 @@
 const io = require('socket.io')(8800, {
     cors: {
-      origin: "http://localhost:3000",// Replace with your frontend URL
+      origin: 'https://love-spark-frontend.vercel.app',// Replace with your frontend URL
       credentials: true,
     }
   });
