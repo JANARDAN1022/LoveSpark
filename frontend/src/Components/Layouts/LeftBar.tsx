@@ -51,7 +51,7 @@ const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers}:LeftBarProps) =>
   });
   const [indicatorPosition, setIndicatorPosition] = useState(0);
   const {setShowComponent,ShowComponent,ChangeTab,setChangeTab,setMatchedId,ReFetchMatches,setReFetchUsers} = useContext(MainPageContext);
-  const {user} = useAppSelector((state)=>state.user);
+  const {user,loading} = useAppSelector((state)=>state.user);
   const Navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [matches,setmatches]=useState<Matched[]>([]);
@@ -78,13 +78,13 @@ const FetchMatches = useCallback( async()=>{
 
 
   const HandleLogout = async()=>{
-    if(user){
+    if(user && !loading){
    const response = await dispatch(LogoutUser());
    const result = unwrapResult(response);
    if(result?.success){
     Navigate('/');  
+    setShowComponent('Swipe');
    }
-   setShowComponent('Swipe');
   }
   }
   

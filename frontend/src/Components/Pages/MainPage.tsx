@@ -18,7 +18,7 @@ export const socket = io('https://lovespark-socke.onrender.com:8800');
  
 const MainPage = () => {
   const {ShowComponent,setSender} = useContext(MainPageContext);
-  const {user} = useAppSelector((state)=>state.user);
+  const {user,loading} = useAppSelector((state)=>state.user);
   const [OnlineUsers,setOnlineUsers]=useState<any>(null);
   const [Messages,setMessages]=useState<MessagesData[]>([]);
   const [unReadMessages,setunReadMessages]=useState<number>(0);
@@ -50,6 +50,7 @@ useEffect(() => {
 }, [setMessages]);
 
   useEffect(()=>{
+    if(!loading){
         if(user){
              if(user.ProfileStatus && user.ProfileStatus!=="Complete"){
                   Navigate('/CompleteProfile');
@@ -57,6 +58,7 @@ useEffect(() => {
         }else{
           Navigate('/');
         }
+      }
   },[Navigate,user]);
 
   
