@@ -28,19 +28,13 @@ app.use(cookieSession({name:'Session',keys:[process.env.SessionKey],maxAge:proce
 app.use(passport.initialize());
 app.use(passport.session());
 
-const allowedOrigins = [
+/*const allowedOrigins = [
   'http://localhost:3000', // Add other origins as needed
   'https://love-spark-frontend.vercel.app', // Remove the trailing slash from the URL
-];
+];*/
 
 app.use(cors({
-  origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-      } else {
-          callback(new Error('Not allowed by CORS'));
-      }
-  },
+  origin:'https://love-spark-frontend.vercel.app' || 'http://localhost:3000', 
   credentials: true
 }));
 
