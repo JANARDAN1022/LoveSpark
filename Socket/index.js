@@ -8,7 +8,7 @@ const io = require('socket.io')(8800, {
 
   
 let activeUsers = []; // Change to let, as this variable will be updated
-
+console.log('started')
 io.on("connection", (socket) => {
 console.log("A user connected:", socket.id);
   
