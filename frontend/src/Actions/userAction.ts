@@ -36,6 +36,7 @@ export const LoginUser = createAsyncThunk('user/Login',async(loginData:{email:st
           withCredentials: true,
         };
         const { data } = await instance.post(route, loginData, config);
+        document.cookie = `token=${data.token}; path=/; secure=true;`;
         dispatch(loginSuccess(data.user));
         return { success: true }; // Return success status
     } catch (error:any) {
@@ -54,6 +55,7 @@ export const RegisterUser = createAsyncThunk('user/register',async(registerData:
           withCredentials: true,
         };
         const { data } = await instance.post(route, registerData, config);
+        document.cookie = `token=${data.token}; path=/; secure=true;`;
         dispatch(registerSuccess(data.user));
         console.log(data.user);
 
