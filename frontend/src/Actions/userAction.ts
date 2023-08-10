@@ -95,10 +95,10 @@ export const UpdateUser = createAsyncThunk('user/Update',async(Body:{id:string,d
 });
 
 //Load User On Reload
-export const Loaduser = createAsyncThunk('user/Load', async (_, { dispatch }) => {
+export const Loaduser = createAsyncThunk('user/Load', async (ID:string, { dispatch }) => {
     try {
       dispatch(loadrequest());
-      const route = `/Me`;
+      const route = `/Me/${ID}`;
       const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
       const { data } = await instance.get(route, config);
       dispatch(loadsuccess(data.user));

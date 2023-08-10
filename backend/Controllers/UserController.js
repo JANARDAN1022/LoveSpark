@@ -126,11 +126,16 @@ exports.updateUser = asyncerrorhandler(async (req, res, next) => {
 
 //Load User On Reload 
 exports.LoadUser = asyncerrorhandler(async(req,res,next)=>{
-  const user = await User.findById(req.user.id);
+  const ID = req.params.id;
+  if(ID){
+  const user = await User.findById(ID);
   res.status(200).json({
       success:true,
       user
   });
+}else{
+ next({message:'No Id Provided',statusCode:403}); 
+}
 });
 
 // GetAllUsers

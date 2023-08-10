@@ -8,7 +8,7 @@ import MainPage from './Components/Pages/MainPage';
 import CompleteProfile from './Components/Pages/CompleteProfile';
 import axios from 'axios';
 import { Loaduser } from './Actions/userAction';
-import { useAppDispatch} from './Hooks';
+import { useAppDispatch, useAppSelector} from './Hooks';
 import Success from './Components/Pages/Payment/Stripe/Success';
 import Fail from './Components/Pages/Payment/Stripe/Fail';
 //import Calls from './Components/Layouts/Calls';
@@ -18,6 +18,7 @@ import VideoCall from './Components/Layouts/VideoCall';
 const App = () => {
   const [User,setUser]=useState(null);
   const dispatch = useAppDispatch();
+  const {user} = useAppSelector((state)=>state.user);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -42,8 +43,8 @@ const App = () => {
 
 
   useEffect(()=>{
-    dispatch(Loaduser());
-},[dispatch]);
+    if(user?._id) dispatch(Loaduser(user._id));
+},[dispatch,user]);
 
   
   
