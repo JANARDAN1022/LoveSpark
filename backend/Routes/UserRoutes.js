@@ -5,7 +5,7 @@ const {RegisterUser,LoginUser,logout, updateUser,LoadUser,GetAllUsers,GetUser} =
 
 router.route('/Register').post(RegisterUser);
 router.route('/LogIn').post(LoginUser);
-router.route('/Logout').get(authenticate,logout);
+router.route('/Logout').get(logout);
 router.route('/Me').get(authenticate,LoadUser);
 router.route('/All/:id').get(authenticate,GetAllUsers);
 router.route('/:id').get(authenticate,GetUser);
