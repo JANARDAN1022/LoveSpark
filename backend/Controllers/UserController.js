@@ -126,12 +126,13 @@ exports.updateUser = asyncerrorhandler(async (req, res, next) => {
 
 //Load User On Reload 
 exports.LoadUser = asyncerrorhandler(async(req,res,next)=>{
-  const {token} = req.cookies;
+
   const user = await User.findById(req.user.id);
   res.status(200).json({
       success:true,
       user
   });
+
 });
 
 // GetAllUsers
