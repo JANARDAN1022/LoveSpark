@@ -9,7 +9,7 @@ const sendtoken = (user,statuscode,res)=>{
         httpOnly: true,
         path:'/',
         secure: true, // Only if your frontend is served over HTTPS
-        sameSite: 'none' // Add this line    
+        sameSite: 'none'   
     };
     res.status(statuscode).cookie('token',token,options).json({success:true,user,token});
 

@@ -156,7 +156,7 @@ const Swipe = () => {
                         </span>
                       ))}
                     </div>
-                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio}</span>
+                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio.slice(0,150)}</span>
                   </div>
                 </div>
               </TinderCard>
