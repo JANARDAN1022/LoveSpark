@@ -70,8 +70,7 @@ exports.logout = asyncerrorhandler(async (req,res,next)=>{
       expires: new Date(Date.now()),
       httpOnly: true,
       path:'/',
-      secure: true,// Only if your frontend is served over HTTPS   
-      sameSite: 'none'   
+      secure: true,// Only if your frontend is served over HTTPS     
    });  
   res.status(200).json({success:true,message:"logged out"});
 });
