@@ -14,7 +14,6 @@ const NavBar = () => {
     }else{
       setChangeColor(false)
     }
-    console.log();
   }
 
   useEffect(()=>{

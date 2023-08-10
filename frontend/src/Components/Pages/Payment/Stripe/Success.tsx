@@ -7,7 +7,6 @@ const Success = () => {
     const dispatch = useAppDispatch();
     const Updaterole = useCallback(async()=>{
         if(user?._id){
-          console.log(user?._id);
       dispatch(UpdateUser({id:user._id,data:{role:'Premium'}}));
         }
     },[user,dispatch]);

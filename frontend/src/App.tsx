@@ -1,5 +1,5 @@
-import {useEffect,useState} from 'react';
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import {useCallback, useEffect,useState} from 'react';
+import { BrowserRouter as Router,Routes,Route, useLocation } from 'react-router-dom';
 import Home from './Components/Pages/Home';
 import NotFound from './Components/Pages/NotFound';
 //import NavBar from  "./Components/Layouts/NavBar";
@@ -18,6 +18,8 @@ import VideoCall from './Components/Layouts/VideoCall';
 const App = () => {
   const [User,setUser]=useState(null);
   const dispatch = useAppDispatch();
+  const Location = useLocation();
+  const Path = Location.pathname;
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -40,15 +42,21 @@ const App = () => {
     
   }, []);
 
+  const LoadUser = useCallback(async()=>{
+    if(Path!=='/'){
+      dispatch(Loaduser());
+    }
+  },[Path]);
+
 
   useEffect(()=>{
-    dispatch(Loaduser());
-},[dispatch]);
+    LoadUser();
+},[LoadUser]);
 
   
   
 
-  console.log(User);
+
   return (
     <Router>
       <ShowNav />

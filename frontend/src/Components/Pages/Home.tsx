@@ -74,7 +74,7 @@ const Home = () => {
 
   const HandleLogin = async(e:any)=>{
     e.preventDefault();
-   // console.log('clicked');
+  
   
     if (loginEmail === '' || loginpassword === '') {
       if(loginEmail===''){
