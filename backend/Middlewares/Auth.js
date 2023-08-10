@@ -7,6 +7,7 @@ const user = require('../Models/UserModel');
 
 exports.authenticate = catchasyncerror(async (req,res,next)=>{
     const {token} = req.cookies;
+    console.log(token);
     
     if(!token){
         return next({message:"Please login",statusCode:401});
