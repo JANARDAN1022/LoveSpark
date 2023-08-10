@@ -69,6 +69,8 @@ export const LogoutUser = createAsyncThunk('user/Logout',async(_,{ dispatch })=>
     try {
         const route = `/Logout`;
         const config =  {headers:{"Content-Type":"application/json"},withCredentials: true};
+       // Clear the token cookie explicitly
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure=true;';
         await instance.get(route,config);
         dispatch(logoutSuccess());
         return { success: true }; // Return success status
