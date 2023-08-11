@@ -14,7 +14,7 @@ import {MessagesData} from '../../Types/UserTypes';
 
 
 
-export const socket = io('https://lovespark-socke.onrender.com:8800');
+export const socket = io('https://abalone-balanced-flyaway.glitch.me');
  
 const MainPage = () => {
   const {ShowComponent,setSender} = useContext(MainPageContext);
