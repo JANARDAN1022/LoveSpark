@@ -11,18 +11,7 @@ import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
 
-
-
-
-export const socket = io('https://abalone-balanced-flyaway.glitch.me',{
-  transportOptions:{
-    polling:{
-    extraHeaders:{
-    "User-agent":"Google Chrome"
-  }
-}
-}
-});
+export const socket = io('http://localhost:8800');
  
 const MainPage = () => {
   const {ShowComponent,setSender} = useContext(MainPageContext);
