@@ -15,9 +15,13 @@ import {MessagesData} from '../../Types/UserTypes';
 
 
 export const socket = io('https://abalone-balanced-flyaway.glitch.me',{
-  extraHeaders:{
+  transportOptions:{
+    polling:{
+    extraHeaders:{
     "User-agent":"Google Chrome"
   }
+}
+}
 });
  
 const MainPage = () => {
