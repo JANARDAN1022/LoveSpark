@@ -14,7 +14,11 @@ import {MessagesData} from '../../Types/UserTypes';
 
 
 
-export const socket = io('http://localhost:8800');
+export const socket = io('https://abalone-balanced-flyaway.glitch.me',{
+  extraHeaders:{
+    "User-agent":"Google Chrome"
+  }
+});
  
 const MainPage = () => {
   const {ShowComponent,setSender} = useContext(MainPageContext);
