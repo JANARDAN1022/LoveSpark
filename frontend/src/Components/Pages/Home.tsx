@@ -66,7 +66,7 @@ const Home = () => {
 
 
   const HandleGoogleLogin = ()=>{
-    window.open("http://localhost:5000/auth/google","_self")
+    window.open("https://love-spark.vercel.app/auth/google","_self")
    }
    const HandleCreateAC = ()=>{
      setShowSignUp(true);
