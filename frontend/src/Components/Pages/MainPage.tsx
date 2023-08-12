@@ -11,6 +11,8 @@ import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
 
+
+
 export const socket = io('http://localhost:8800');
  
 const MainPage = () => {
@@ -56,7 +58,7 @@ useEffect(() => {
           Navigate('/');
         }
       }
-  },[Navigate,user]);
+  },[Navigate,user,loading]);
 
   
   return (

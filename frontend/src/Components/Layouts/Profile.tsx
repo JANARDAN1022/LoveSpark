@@ -5,6 +5,7 @@ import {MdReportProblem} from 'react-icons/md';
 import { useAppSelector } from '../../Hooks';
 import axios from 'axios';
 import { User } from '../../Types/UserTypes';
+import { v4 } from 'uuid';
 
 interface Data {
   Success:boolean,
@@ -135,7 +136,7 @@ useEffect(()=>{
       </div>
       <div className='flex gap-2 items-center flex-wrap ml-5'>
         {user?.interests.map((Interest)=>(
-          <span className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base p-1 rounded-[5px]`}>{Interest}</span>
+          <span key={v4()} className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base p-1 rounded-[5px]`}>{Interest}</span>
         ))
         }
         </div>

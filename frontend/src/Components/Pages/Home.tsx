@@ -11,7 +11,7 @@ import { LoginContext } from '../../Context/LoginContext';
 import {useAppDispatch,useAppSelector} from '../../Hooks';
 import {RegisterUser,LoginUser} from '../../Actions/userAction';
 import { unwrapResult } from '@reduxjs/toolkit';
-//import { Skeleton } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 
 const Home = () => {
@@ -75,7 +75,7 @@ const Home = () => {
 
   const HandleLogin = async(e:any)=>{
     e.preventDefault();
-  
+    
   
     if (loginEmail === '' || loginpassword === '') {
       if(loginEmail===''){
@@ -199,6 +199,10 @@ const Home = () => {
 
 
   return (
+    loading && !LOADING?
+    <Skeleton width='100vw' height='100vh' className="bg-gradient-to-r from-pink-600 to-rose-400" variant="rectangular" animation='wave'/>
+    :
+
     <div  className={`Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}>
              <div>
     <div className={`${ShowLogin || ShowSignUp?'':'hidden'} absolute top-10 right-0 left-0 m-auto `}>
@@ -258,7 +262,7 @@ const Home = () => {
                  
                  <span className={`text-center  text-sm text-red-600`}>{Error?`${Error}*`:''}</span>
                 <div className='relative flex items-center'>
-                <button onClick={ShowSignUp?HandleSignup:HandleLogin} className="w-full text-pink-200 bg-pink-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{ShowSignUp?'Sign Up':`Sign in`}</button>
+                <button onClick={ShowSignUp?HandleSignup:HandleLogin} className={`${LOADING?'cursor-none':'cursor-pointer'} w-full text-pink-200 ${LOADING? 'bg-pink-700':'bg-pink-500 hover:bg-pink-700'} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>{ShowSignUp?'Sign Up':`Sign in`}</button>
                    <div className={`${LOADING?'':'hidden'} absolute right-5`}>
                    <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
