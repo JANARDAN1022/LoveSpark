@@ -5,7 +5,7 @@ const passport = require('passport');
 passport.use(new GoogleStrategy({
   clientID: process.env.G_CLIENT_ID,
   clientSecret: process.env.G_CLIENT_SEC,
-  callbackURL: "http://localhost:5000/auth/google/callback"
+  callbackURL: "https://love-spark.vercel.app/auth/google/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
