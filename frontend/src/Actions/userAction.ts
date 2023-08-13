@@ -87,6 +87,7 @@ export const UpdateUser = createAsyncThunk('user/Update',async(Body:{id:string,d
     const config =  {headers:{"Content-Type":"application/json"},withCredentials: true};
     const {data} = await instance.put(route,Body.data,config)   
      dispatch(updateSuccess(data.updatedUser));
+     return { success: true }; // Return success status
  } catch (error:any) {
      dispatch(updateFail(error.response.data.message));
      console.log(error);
