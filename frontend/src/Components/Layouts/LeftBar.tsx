@@ -10,6 +10,7 @@ import { LogoutUser} from '../../Actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { LoginContext } from '../../Context/LoginContext';
 
 
 
@@ -51,6 +52,7 @@ const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers}:LeftBarProps) =>
   });
   const [indicatorPosition, setIndicatorPosition] = useState(0);
   const {setShowComponent,ShowComponent,ChangeTab,setChangeTab,setMatchedId,ReFetchMatches,setReFetchUsers} = useContext(MainPageContext);
+  const {setLoggedOut} = useContext(LoginContext);
   const {user,loading} = useAppSelector((state)=>state.user);
   const Navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -87,6 +89,7 @@ const FetchMatches = useCallback( async()=>{
    const response = await dispatch(LogoutUser());
    const result = unwrapResult(response);
    if(result?.success){
+    setLoggedOut(true);
     setLOADING({...LOADING,LogoutLoading:false});
     Navigate('/');  
     setShowComponent('Swipe');

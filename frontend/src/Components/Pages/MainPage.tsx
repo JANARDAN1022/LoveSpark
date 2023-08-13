@@ -10,6 +10,7 @@ import { MainPageContext } from '../../Context/MainPageContext';
 import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
+import { LoginContext } from "../../Context/LoginContext";
 
 
 
@@ -21,6 +22,7 @@ const MainPage = () => {
   const [OnlineUsers,setOnlineUsers]=useState<any>(null);
   const [Messages,setMessages]=useState<MessagesData[]>([]);
   const [unReadMessages,setunReadMessages]=useState<number>(0);
+  const {setLoggedOut} = useContext(LoginContext);
  const Navigate = useNavigate();
 
 
@@ -59,6 +61,10 @@ useEffect(() => {
         }
       }
   },[Navigate,user,loading]);
+
+  useEffect(()=>{
+ setLoggedOut(false);
+  },[setLoggedOut]);
 
   
   return (

@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useContext} from 'react';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Home from './Components/Pages/Home';
 import NotFound from './Components/Pages/NotFound';
@@ -13,11 +13,13 @@ import Success from './Components/Pages/Payment/Stripe/Success';
 import Fail from './Components/Pages/Payment/Stripe/Fail';
 //import Calls from './Components/Layouts/Calls';
 import VideoCall from './Components/Layouts/VideoCall';
+import { LoginContext } from './Context/LoginContext';
 //import Footer from './Components/Layouts/Footer';
 
 const App = () => {
   const [User,setUser]=useState(null);
   const dispatch = useAppDispatch();
+  const {LoggedOut} = useContext(LoginContext);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -42,10 +44,12 @@ const App = () => {
 
 
   useEffect(()=>{
+    if(!LoggedOut){
     dispatch(Loaduser());
-},[dispatch]);
+    }
+},[dispatch,LoggedOut]);
 
-  
+console.log(LoggedOut);  
   
 
 

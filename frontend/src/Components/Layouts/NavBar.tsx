@@ -5,7 +5,7 @@ import { LogoutUser} from '../../Actions/userAction';
 const NavBar = () => {
   const {setshowLogin,setShowSignUp,setscroll}=useContext(LoginContext);
   const [ChangeColor,setChangeColor]=useState(false);
-  const {user} = useAppSelector((state)=>state.user);
+  const {isAuthenticated,loading} = useAppSelector((state)=>state.user);
   const dispatch = useAppDispatch();
   const ChangeNavColor = () => {
     
@@ -23,7 +23,7 @@ const NavBar = () => {
 
   const HandleLoginClick = ()=>{
 
-    if(!user){
+    if(!isAuthenticated && !loading){
     setshowLogin(true);
     setShowSignUp(false);
     setscroll(true);
@@ -51,7 +51,7 @@ const NavBar = () => {
         <a href='/' className="mr-3 md:mr-5 hover:text-pink-500">Fourth Link</a>
       </nav>
       <button onClick={HandleLoginClick} className="inline-flex items-center bg-pink-400 border-2 border-pink-500 text-pink-100 py-1 px-3 lg:px-5 focus:outline-none hover:bg-pink-500 rounded-[10px] sm:text-[14px] md:text-[18px] mt-4 sm:mt-0 lg:mr-14">
-          {!user?'Log In':'Log Out'}
+          {!loading && !isAuthenticated?'Log In':'Log Out'}
         <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-5 h-5 ml-1" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
