@@ -6,6 +6,7 @@ import {MdDelete} from 'react-icons/md';
 import {BiBlock} from 'react-icons/bi';
 import { Chat } from '../../Types/UserTypes';
 import {RxCross1} from 'react-icons/rx';
+import Skeleton from '@mui/material/Skeleton/Skeleton';
 
 interface MessageProps {
   unReadMessages:number,
@@ -26,7 +27,7 @@ onlineUsers:[{
 
 const Messages = ({unReadMessages,ShowReport,setShowReport,onlineUsers}:MessageProps) => {
     const {setShowComponent,setChatUser,ChatUser,setChangeTab} = useContext(MainPageContext);
-    const {user} = useAppSelector((state)=>state.user);
+    const {user,loading} = useAppSelector((state)=>state.user);
     const [Chats,setChats]=useState<Chat[] | null>(null);
     const [Reason,setReason]=useState('');
     const [ReportInfo,setReportInfo]=useState({
@@ -159,7 +160,12 @@ const OnlineIds = onlineUsers.map((User)=>User.userId);
       :
       <div className='flex justify-center items-center h-[400px]'>
         <div className='flex flex-col gap-3 items-center'>
+          {
+      loading?
+      <Skeleton animation='wave' variant='circular' width={120} height={120} sx={{bgcolor:'pink'}} className='border-2 border-pink-500'/>
+      :
         <img onClick={()=>setShowComponent('Profile')} src={user?.ProfileUrl} alt='ProfilePic' className='cursor-pointer hover:border-pink-400 border-2 border-pink-500 w-[120px] h-[120px] rounded-full' />
+          }
         <span className='text-pink-500 font-bold'>No Messages Yet</span>
         <span className='text-pink-500 font-bold'>Find Your Spark And Start Messaging</span>
         </div>

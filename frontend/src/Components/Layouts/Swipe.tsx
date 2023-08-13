@@ -4,9 +4,10 @@ import axios from 'axios';
 import { useAppSelector } from '../../Hooks';
 import { User } from '../../Types/UserTypes';
 import { MainPageContext } from '../../Context/MainPageContext';
+import Skeleton from '@mui/material/Skeleton/Skeleton';
 
 const Swipe = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const { user,loading } = useAppSelector((state) => state.user);
   const {setReFetchMatches,ReFetchUsers} = useContext(MainPageContext);
   const [users, setUsers] = useState<User[]>([]);
   //const [DATA,setDATA]=useState<any>(null);
@@ -124,6 +125,9 @@ const Swipe = () => {
   return (
     <div className='SwipeCard flex justify-center h-[743px] w-[1140.5px] bg-gradient-to-r from-pink-500 to-rose-500 hide-scrollbar'>
       <div className='swiper-container flex flex-col justify-center'>
+        {loading?
+        <Skeleton animation='wave' variant='rectangular' height={590} className='rounded-[10px]'/>
+        :
         <div className='cardContainer'>
           {users.length > 0 &&
             users.map((character, index) => (
@@ -162,6 +166,7 @@ const Swipe = () => {
               </TinderCard>
             ))}
         </div>
+        }
         <div className='p-2'>
           {lastDirection ? (
             <h2 className='infoText text-white text-center text-xl'>
@@ -169,31 +174,43 @@ const Swipe = () => {
             </h2>
           ) : (
             <h2 className='infoText text-white text-center text-xl'>Swipe Left Or Right</h2>
-          )}
+            )}
         </div>
         <div className='flex justify-center text-pink-400 gap-10 mt-2'>
+          {loading?
+          <Skeleton animation='wave' width={100} variant='rectangular' height={30} className='rounded-[5px]'/>
+          :
           <button
-            className='bg-white w-[100px] h-[30px] rounded-[5px]'
+            className={`bg-white w-[100px] h-[30px] rounded-[5px]`}
             onClick={() => swipe('left')}
-            disabled={!canSwipe}
+            disabled={!canSwipe || loading}
           >
             Left
           </button>
+} 
+         {loading?
+          <Skeleton animation='wave' width={200} variant='rectangular' height={30} className='rounded-[5px]'/>
+          :
           <button
-            className='bg-white w-[200px] h-[30px] rounded-[5px]'
+            className={`bg-white w-[200px] h-[30px] rounded-[5px]`}
             onClick={goBack}
-            disabled={!canGoBack}
+            disabled={!canGoBack || loading}
           >
             Undo Last Swipe
           </button>
-          <button
-            className='bg-white w-[100px] h-[30px] rounded-[5px]'
+}
+          {loading?
+          <Skeleton animation='wave' width={100} variant='rectangular' height={30} className='rounded-[5px]'/>
+          :
+         <button
+            className={`bg-white w-[100px] h-[30px] rounded-[5px]`}
             onClick={() => swipe('right')}
-            disabled={!canSwipe}
+            disabled={!canSwipe || loading}
           >
             Right
           </button>
-        </div>
+           }
+       </div>
       </div>
     </div>
   );

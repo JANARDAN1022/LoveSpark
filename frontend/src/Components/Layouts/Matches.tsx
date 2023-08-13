@@ -4,6 +4,7 @@ import { useAppSelector } from '../../Hooks';
 import axios from 'axios';
 import { MainPageContext } from '../../Context/MainPageContext';
 import {RxCross1} from 'react-icons/rx';
+import {Skeleton} from '@mui/material';
 
 interface Matched {
   _id:string,
@@ -38,7 +39,7 @@ interface MatchesProp {
 
 const Matches = ({matches,HandleDelete,MatchLoading}:MatchesProp) => {
   const {setShowComponent,setChatUser,setChangeTab,setMatchedId} = useContext(MainPageContext);
-  const {user} = useAppSelector((state)=>state.user);
+  const {user,loading} = useAppSelector((state)=>state.user);
   const [HoverdId,setHoverdId]=useState('');
 
 const HandleSendMessage = async(ID:string)=>{
@@ -79,10 +80,14 @@ const HandleSendMessage = async(ID:string)=>{
         </div>
       )):
       <div className='flex justify-center  items-center self-center h-[500px]'>
-         <div className='flex flex-col items-center'>
+         <div className='flex flex-col items-center gap-2'>
           <div className='flex justify-center'>
+            {loading?
+             <Skeleton animation='wave' width={120} height={120} variant='circular' sx={{bgcolor:'pink'}} className=''/>
+             :
             <img src={user?.ProfileUrl} alt='ProfilePic' className='w-[120px] h-[120px] rounded-full'/>
-          </div>
+            }
+            </div>
           <div className='flex flex-col items-center'>
               <span className='text-pink-500 text-lg'>No Matches Yet {user?.FirstName}</span>
               <span className='text-pink-500 text-lg w-[290px]'>Find Your Love Spark Keep Swiping</span>

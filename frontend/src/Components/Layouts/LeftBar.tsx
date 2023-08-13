@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { LoginContext } from '../../Context/LoginContext';
-
+import { Skeleton } from '@mui/material';
 
 
 interface Matched {
@@ -134,6 +134,9 @@ const FetchMatches = useCallback( async()=>{
     <div className="h-full  md:w-[280px] lg:w-[392px] flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20">
       <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
         <div className="flex justify-center items-center gap-5">
+          {loading?
+          <Skeleton animation='wave' width={45} height={45} variant='circular' sx={{bgcolor:'pink'}} className='ml-5 mt-1'/>
+          :
           <img
          onClick={()=>{
           setShowComponent('Profile')
@@ -143,6 +146,7 @@ const FetchMatches = useCallback( async()=>{
             src={user?.ProfileUrl}
             alt="Date"
           />
+        }
           <span onClick={()=>{
             setShowComponent('Profile')
             setMatchedId('');
