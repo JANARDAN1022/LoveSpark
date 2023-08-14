@@ -40,11 +40,13 @@ const Home = () => {
     body.classList.add('hide-scrollbar');
     if(ShowLogin || ShowSignUp || scroll){
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      body.style.overflow = 'hidden';
     }
 
     return () => {
       // Restore the scrollbar on component unmount
       body.classList.remove('hide-scrollbar');
+      body.style.overflow = '';
     };
   }, [ShowLogin,ShowSignUp,scroll]);
 

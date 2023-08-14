@@ -3,10 +3,12 @@ import { MainPageContext } from '../../Context/MainPageContext';
 import axios from 'axios';
 import { useAppSelector } from '../../Hooks';
 import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../../Context/LoginContext';
 
 const AccountSettings = () => {
   const {setShowComponent} = useContext(MainPageContext);
   const {user} = useAppSelector((state)=>state.user);
+  const {setLoggedOut} = useContext(LoginContext);
   const Navigate = useNavigate();
   const [ShowLoading,setShowLoading]=useState({
     Stripe:false,
@@ -34,8 +36,10 @@ const AccountSettings = () => {
 const HandleDeleteAccount = async()=>{
   try {
     setShowLoading({Stripe:false,Delete:true});
+    setLoggedOut(true);
    const Route = `https://love-spark.vercel.app/api/Users/${user?._id}`;
-    await axios.delete(Route);
+   const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
+    await axios.delete(Route,config);
     setShowLoading({Stripe:false,Delete:false});
     Navigate('/');
   } catch (error) {

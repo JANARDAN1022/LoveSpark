@@ -83,7 +83,6 @@ export const LogoutUser = createAsyncThunk('user/Logout',async(_,{ dispatch })=>
 export const UpdateUser = createAsyncThunk('user/Update',async(Body:{id:string,data:{}},{ dispatch }: { dispatch: Dispatch })=>{
  try {
     const route = `/Update/${Body.id}`;
-    console.log(Body.data);
     const config =  {headers:{"Content-Type":"application/json"},withCredentials: true};
     const {data} = await instance.put(route,Body.data,config)   
      dispatch(updateSuccess(data.updatedUser));

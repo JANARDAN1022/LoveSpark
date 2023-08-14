@@ -147,14 +147,24 @@ const FetchMatches = useCallback( async()=>{
             alt="Date"
           />
         }
+        {loading?
+        <Skeleton width={80} height={40} animation='wave' />
+        :       
           <span onClick={()=>{
             setShowComponent('Profile')
             setMatchedId('');
-            }} className='text-[rgba(255,255,255,0.8)] transition-all duration-200 hover:text-white font-bold cursor-pointer'>My Profile</span>
-        </div>
+            }} className='text-[rgba(255,255,255,0.8)] transition-all duration-200 hover:text-white font-bold cursor-pointer'>
+              My Profile
+            </span>
+            }
+         </div>
         <div className="flex justify-center gap-5 mr-5 items-center">
           <IoMdSettings onClick={()=>setActiveTab('Settings')} size={25} className='text-white cursor-pointer' onMouseEnter={()=>setTooltip({...Tooltip,Settings:true})} onMouseLeave={()=>setTooltip({...Tooltip,Settings:false})}/>
+         {loading?
+         <Skeleton variant='rectangular' animation='wave' height={30} width={25} />
+         :
          <BiLogOut onClick={HandleLogout} onMouseEnter={()=>setTooltip({...Tooltip,Logout:true})} onMouseLeave={()=>setTooltip({...Tooltip,Logout:false})} size={30} className={`text-[rgba(255,255,255,0.7)] hover:text-white ${LOADING.LogoutLoading?'cursor-none':'cursor-pointer'}`}/>
+        }
         <span className={`${Tooltip.Settings===true?'':'hidden'} absolute bottom-0 right-6 text-sm text-white`}>Account Settings</span>
         <span className={`${Tooltip.Logout===true && !LOADING.LogoutLoading?'':'hidden'} absolute bottom-1 right-2 text-sm text-white`}>Log Out</span>
                     <div className={`${LOADING.LogoutLoading?'':'hidden'} absolute top-0 right-3  text-white`}>

@@ -84,7 +84,7 @@ useEffect(()=>{
 
     
   return (
-   MatchedId!=='' && MatchedUser!==null?
+    MatchedId!=='' && MatchedUser!==null?
    <div  className={`flex justify-center items-center relative w-[1140.5px] h-[742px] bg-pink-600`}>
     <div  className={`absolute z-20 justify-center items-center gap-5 right-0 left-0 m-auto flex flex-col bg-white ${ShowReport?'':'hidden'} w-[400px] h-[300px] rounded-[10px]`}>
     <RxCross1 className='text-pink-500  cursor-pointer ml-[88%]' size={25} onClick={()=>{
@@ -102,7 +102,7 @@ useEffect(()=>{
     </div>
     <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className={`${ShowReport?'blur-sm':''} text-white absolute top-10 cursor-pointer right-[25%]`} size={40} onClick={()=>{setShowComponent('Swipe'); setMatchedId(''); setMatchedUser(null);}} />
     <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
-    <div style={{ backgroundImage:`url(${MatchedUser.CoverUrl})`}} className={`${ShowReport?'blur-sm':''} Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white`}>
+      <div style={{ backgroundImage:`url(${MatchedUser.CoverUrl})`}} className={`${ShowReport?'blur-sm':''} Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white`}>
     <MdReportProblem onClick={()=>setShowReport(true)} size={38} onMouseEnter={()=>setTooltip({...Tooltip,Report:true})} onMouseLeave={()=>setTooltip({...Tooltip,Report:false})} className='absolute right-5 top-5 text-[rgba(255,255,255,0.8)] hover:text-white transition-all duration-100 ease-in-out  cursor-pointer'/>
      <span className={`text-white ${Tooltip.Report?'':'hidden'} absolute right-16 top-5`}>Report {MatchedUser.FirstName}</span>
      <div className='flex flex-col self-end  gap-5  cursor-default'>
