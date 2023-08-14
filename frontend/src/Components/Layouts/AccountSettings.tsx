@@ -19,7 +19,7 @@ const AccountSettings = () => {
       setShowLoading({Stripe:true,Delete:false});
       const Route = `https://love-spark.vercel.app/create-checkout-session`
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
-    const {data} =  await axios.post(Route,config);
+      const {data} =  await axios.post(Route);
       window.location = data.url
       setShowLoading({Stripe:false,Delete:false});
     } catch (error) {
@@ -34,8 +34,7 @@ const HandleDeleteAccount = async()=>{
   try {
     setShowLoading({Stripe:false,Delete:true});
     const Route = `https://love-spark.vercel.app/Users/${user?._id}`;
-    const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
-    await axios.delete(Route,config);
+    await axios.delete(Route);
     setShowLoading({Stripe:false,Delete:false});
     Navigate('/');
   } catch (error) {
