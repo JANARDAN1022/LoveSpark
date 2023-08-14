@@ -20,18 +20,10 @@ const app = express();
 
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(cookieSession({name:'Session',keys:[process.env.SessionKey],maxAge:process.env.Age}));
-/*app.use(session({
-    secret:process.env.SessionKey,
-    resave: false,
-    saveUninitialized: true
-  }));*/
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*const allowedOrigins = [
-  'http://localhost:3000', // Add other origins as needed
-  'https://love-spark-frontend.vercel.app', // Remove the trailing slash from the URL
-];*/
+
 
 app.use(cors({
   origin:['https://love-spark-frontend.vercel.app' , 'http://localhost:3000'], 
