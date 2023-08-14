@@ -498,7 +498,7 @@ setCoverPic(file);
                if (!LOADING) {
               setPersonalInfo({...PersonalInfo,age:e.target.value.toString()})
               }  
-            }} className={`${!LOADING?'cursor-not-allowed':''} w-[60px] pl-4 outline-none ${LOADING?'text-white':'text-pink-500'} h-[30px] rounded-[5px]`}/>
+            }} className={`${LOADING?'cursor-not-allowed':''} w-[60px] pl-4 outline-none ${LOADING?'text-white':'text-pink-500'} h-[30px] rounded-[5px]`}/>
           </div>
 
         <div className="">
