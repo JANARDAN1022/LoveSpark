@@ -119,6 +119,7 @@ const Home = () => {
             loginEmailRef.current?.focus();
           }
           setError('Invalid Email or Password');
+          setLOADING(false);
           setloginEmail('');
           setloginpassword('');
         }
@@ -136,14 +137,12 @@ const Home = () => {
     e.preventDefault();
     if(email!=='' && password!=='' && Confirmpassword!=='' && Error==='' && Confirmpassword===password){
       setLOADING(true);
-      setTimeout(() => {
-        setLOADING(false);
-      }, 5000);
       const response = await dispatch(RegisterUser({email:email,password:password,confirmPassword:Confirmpassword}));
       const result = unwrapResult(response); // Unwrap the result to get the action payload
   
-      if (result?.success) {
+      if (result?.success){
       setLoggedOut(false);
+      setLOADING(false);
       setemail('');
       setpassword('');
       setConfirmpassword('');
@@ -152,6 +151,7 @@ const Home = () => {
       }else{
         setemail('');
       setpassword('');
+      setLOADING(false);
       setConfirmpassword('');
         if(EmailRef.current!==null){
           EmailRef.current.focus();
