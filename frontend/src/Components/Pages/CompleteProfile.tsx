@@ -99,6 +99,7 @@ export default function Example() {
   };
 
   const HandleInterests = (Interest: string) => {
+    if(!LOADING){
     if (interests.includes(Interest)) {
       setinterests(interests.filter((INT) => INT !== Interest));
     } else if (interests.length === 4) {
@@ -106,6 +107,7 @@ export default function Example() {
     } else {
       setinterests([...interests, Interest]);
     }
+  }
   };
 
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,9 +178,16 @@ setCoverPic(file);
       }
     }
   };
+
+  useEffect(()=>{
+ if(LOADING){
+  const body = document.body;
+  body.style.overflow = 'hidden';
+ }
+  },[LOADING]);
   
   return (
-    <form className="flex flex-col items-center  justify-center  bg-gradient-to-r from-pink-600 to-rose-400">
+    <form className={`flex flex-col items-center  justify-center  bg-gradient-to-r from-pink-600 to-rose-400`}>
       <div className="space-y-12 p-10  lg:w-[1000px] flex flex-col">
         <span className="text-3xl text-white  border-b-2 self-center border-pink-300 p-2 rounded-[5px]">
           Complete Your Profile
@@ -483,9 +492,13 @@ setCoverPic(file);
           </div>
         </div>
 
-        <div className="flex gap-5 items-center">
+        <div className={`flex gap-5 items-center`}>
             <h3 className="text-white font-bold">Your Age:</h3>
-            <input type="number"  onChange={(e)=>setPersonalInfo({...PersonalInfo,age:e.target.value.toString()})} className="w-[60px] pl-4 outline-none text-pink-500 h-[30px] rounded-[5px]"/>
+            <input type="number" disabled={LOADING}  onChange={(e)=>{
+               if (!LOADING) {
+              setPersonalInfo({...PersonalInfo,age:e.target.value.toString()})
+              }  
+            }} className={`${!LOADING?'cursor-not-allowed':''} w-[60px] pl-4 outline-none ${LOADING?'text-white':'text-pink-500'} h-[30px] rounded-[5px]`}/>
           </div>
 
         <div className="">
@@ -499,6 +512,7 @@ setCoverPic(file);
                   id="Male"
                   name="Male"
                   type="checkbox"
+                  disabled={LOADING}
                   className="h-4 w-4 md:h-6 md:w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   onClick={HandleMaleGender}
                   ref={MaleRef}
@@ -517,6 +531,7 @@ setCoverPic(file);
                   id="Female"
                   name="Female"
                   type="checkbox"
+                  disabled={LOADING}
                   className="h-4 w-4 md:h-6 md:w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   onClick={HandleFemaleGender}
                   ref={FemaleRef}
@@ -543,7 +558,8 @@ setCoverPic(file);
                   id="Customgender"
                   name="Customgender"
                   type="text"
-                  className="h-8 w-32 rounded-[5px] border-pink-500 border-2 text-pink-600 outline-none md:text-base md:p-2"
+                  disabled={LOADING}
+                  className={`h-8 w-32 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2`}
                   onChange={HandleCustomGender}
                 />
               </div>
@@ -573,8 +589,9 @@ setCoverPic(file);
                         id="Sexuality"
                         name="sexuality"
                         type="text"
+                        disabled={LOADING}
                         placeholder="ex:- Straight or Lesbian Or Bi or...."
-                        className="h-6 sm:h-8 w-52 placeholder:text-[12px] pl-2 md:w-64 rounded-[5px] border-pink-500 border-2 text-pink-600 outline-none md:text-base md:p-2 md:pl-3"
+                        className={`h-6 sm:h-8 w-52 placeholder:text-[12px] pl-2 md:w-64 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2 md:pl-3`}
                         onChange={(e) =>
                           setPersonalInfo({
                             ...PersonalInfo,
@@ -606,7 +623,8 @@ setCoverPic(file);
                         name="Occupation"
                         type="text"
                         placeholder="ex:-Student/SoftwareDev/....."
-                        className="h-6 sm:h-8 w-52 placeholder:text-[14px] pl-2 md:w-56 rounded-[5px] border-pink-500 border-2 text-pink-600 outline-none md:text-base md:p-2 md:pl-3"
+                        disabled={LOADING}
+                        className={`h-6 sm:h-8 w-52 placeholder:text-[14px] pl-2 md:w-56 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2 md:pl-3`}
                         onChange={(e) =>
                           setPersonalInfo({
                             ...PersonalInfo,

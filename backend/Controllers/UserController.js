@@ -184,5 +184,12 @@ exports.GetUser = asyncerrorhandler(async(req,res,next)=>{
 });
 
 
+//Delete User Account
+exports.DeleteAccount = asyncerrorhandler(async(req,res,next)=>{
+  const UserId = req.params.id;
+  await User.findByIdAndDelete(UserId);
+  res.status(200).json({message:'User Deleted'});
+});
+
 
 
