@@ -49,7 +49,7 @@ const App = () => {
     }
 },[dispatch,LoggedOut]);
 
-console.log(LoggedOut);  
+ 
   
 
 
