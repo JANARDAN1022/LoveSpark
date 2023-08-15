@@ -8,7 +8,8 @@ import { useAppSelector } from '../../Hooks';
 
 
 const EditProfile = () => {
-
+    const [ProfilePic, setProfilePic] = useState<any | null>(null);
+    const [CoverPic, setCoverPic] = useState<any | null>(null);
     const {setShowComponent} = useContext(MainPageContext);
     const {user} = useAppSelector((state)=>state.user);
    const INTERESTS = user?.interests?user?.interests:[];
@@ -71,6 +72,14 @@ const EditProfile = () => {
       ProfileFileInputRef.current.click();
     }
    }
+const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+     setProfilePic(file);
+  };
+  const handleCoverChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+setCoverPic(file);
+  };
 
    const HandleCoverEdit = ()=>{
     if(CoverFileInputRef.current){
@@ -91,19 +100,31 @@ const EditProfile = () => {
    const HandleSave = (e:any)=>{
      e.preventDefault();
    }
+  
   return (
     <div className='relative  flex flex-col h-full w-[1140.5px]'>
-      <div>
+      <div className='slide-container'>
+        {CoverPic===null?
     <Slider />
+    :
+    <div className='slideshowdivIMG'>
+    <div className='slideshowdiv'>
+    <img src={URL.createObjectURL(CoverPic)} alt='Sider'/>
+    </div>
+  </div>    }
     </div>
     <div className='absolute left-[42%] top-[50%] '>
+    {ProfilePic===null?
     <img src={user?.ProfileUrl} alt='IMG' className='w-[170px] h-[170px] rounded-full object-cover'/>
+  :  
+  <img src={URL.createObjectURL(ProfilePic)} alt='IMG' className='w-[170px] h-[170px] rounded-full object-cover'/>
+  }
     <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,DP:true})} onMouseLeave={()=> setTooltip({...Tooltip,DP:false})} size={30} onClick={HandleProfileEdit} className='text-white absolute right-0 top-5 cursor-pointer'/>
-    <input type="file" accept="image/*" style={{ display: "none" }} ref={ProfileFileInputRef} />
+    <input onChange={handlePhotoChange} type="file" accept="image/*" style={{ display: "none" }} ref={ProfileFileInputRef} />
     </div>
     <RxCross1 onMouseEnter={()=> setTooltip({...Tooltip,Cancel:true})} onMouseLeave={()=> setTooltip({...Tooltip,Cancel:false})} size={40} onClick={()=>setShowComponent('Swipe')} className='text-white absolute right-10 top-10 cursor-pointer'/>
     <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,Edit:true})} onMouseLeave={()=> setTooltip({...Tooltip,Edit:false})} size={30} onClick={HandleCoverEdit} className='text-white absolute left-10 top-10 cursor-pointer'/>
-    <input type="file" accept="image/*" style={{ display: "none" }} ref={CoverFileInputRef} />
+    <input onChange={handleCoverChange} type="file" accept="image/*" style={{ display: "none" }} ref={CoverFileInputRef} />
     <span className={`${Tooltip.Edit===true?'':'hidden'} text-white absolute left-5 top-3`}>Edit Cover Photos</span>
     <span className={`${Tooltip.Cancel===true?'':'hidden'} text-white absolute right-5 top-20`}>Go Back Swiping</span>
     <span className={`${Tooltip.DP===true?'':'hidden'} text-white absolute left-[57.5%] top-[52%]`}>Edit Profile Photo</span>
@@ -163,70 +184,6 @@ const EditProfile = () => {
               </div>
              </div>
 
-           {/* <div className={`absolute top-[50%] left-[30%] border-2 border-white col-span-full ${EditPhoto.ProfilePic===true?'':'hidden'}  bg-gradient-to-r from-pink-500 to-rose-500 w-[400px] h-[400px]`}>
-  <label htmlFor="photo" className="block text-sm md:text-2xl md:mb-5 font-medium leading-6 text-white">
-    Photo
-  </label>
-  <div className="mt-2 flex items-center gap-x-10">
-  {selectedProfilePhoto ? (
-          <img
-            src={URL.createObjectURL(selectedProfilePhoto)}
-            alt="selectedProfilePhoto"
-            className="h-12 w-12 md:w-32 md:h-32 rounded-full object-cover"
-          />
-        ) : (
-          <UserCircleIcon className="h-12 w-12 md:w-32 md:h-32 text-white" aria-hidden="true" />
-        )}
-    <div className="flex items-center gap-x-3">
-      <input
-        type="file"
-        id="photo"
-        accept="image/*" // Specify the accepted file types if needed
-        className="hidden" // Hide the input element visually
-        onChange={handlePhotoChange}
-      />
-      <label
-        htmlFor="photo"
-        className="rounded-md md:w-[150px] md:text-center bg-white px-2.5 py-1.5 text-sm md:text-lg font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"
-      >
-        Change
-      </label>
-    </div>
-  </div>
-        </div> */}
-
-{/*
-            <div className="col-span-full">
-              <label htmlFor="cover-photo" className="block text-sm md:text-2xl font-medium leading-6 text-white">
-                Cover photo
-              </label>
-              <span className='text-white text-sm'>(This Image is What Other User Will Swipe Left or Right)</span>
-              <div className="mt-2 ml-[20%] md:w-[500px] h-[600px] flex justify-center items-center rounded-lg border border-dashed border-pink-500 py-5">
-                <div className="flex flex-col items-center">
-                {selectedCoverPhoto ? (
-          <img
-            src={URL.createObjectURL(selectedCoverPhoto)}
-            alt="selectedProfilePhoto"
-            className="CardImg"
-          />
-        ) : (
-          <PhotoIcon className="h-12 w-12 md:w-52 md:h-52 text-white" aria-hidden="true" />
-        )}
-                </div>
-          </div>
-          
-          <div className="justify-center items-center  mt-4 flex text-sm leading-6   text-white">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer p-2 pl-3 pr-3  rounded-md bg-pink-100 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-pink-600 focus-within:ring-offset-2 hover:text-white"
-                    >
-                      <span >Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleCoverChange} />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                    <p className="ml-5 text-xs leading-5 text-white">PNG, JPG, GIF up to 10MB</p>
-                  </div>
-              </div> */}
             </div>
         </div>
 
