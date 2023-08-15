@@ -7,7 +7,7 @@ import { UpdateUser } from "../../Actions/userAction";
 import { useAppSelector } from "../../Hooks";
 import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
 import { storage } from "../../firebase";
-import {v4} from 'uuid';
+//import {v4} from 'uuid';
 import { MainPageContext } from "../../Context/MainPageContext";
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from "axios";
@@ -135,8 +135,8 @@ setCoverPic(file);
         setError('');
       }, 3000);
     } else if (Id && !isEmpty && ProfilePic !== null && CoverPic !== null && interests.length >= 2) {
-      const profileRef = ref(storage, `ProfilePics/${ProfilePic.name + v4() + user.FirstName}`);
-      const CoverRef = ref(storage, `CoverPics/${CoverPic.name + v4() + `123#` + user.FirstName}`);
+      const profileRef = ref(storage, `ProfilePics/${ProfilePic.name + user._id + user.FirstName}`);
+      const CoverRef = ref(storage, `CoverPics/${CoverPic.name + user._id + `123#` + user.FirstName}`);
   
       try {
         setLOADING(true);

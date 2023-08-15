@@ -136,25 +136,25 @@ const OnlineIds = onlineUsers.map((User)=>User.userId);
     <button onClick={()=>HandleReportSubmit(ReportInfo.ID)} className='bg-pink-500 rounded-[10px] cursor-pointer w-[150px] h-[30px] flex justify-center items-center text-white'>Report {ReportInfo.FirstName}</button>
     </div>
       {filteredParticipant && filteredParticipant.length>0?filteredParticipant.map((data)=>(
-        <div key={data._id} className={`${ShowReport.show?'blur-sm':''} flex justify-between relative  ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
-        ${ChatUser?._id===data._id?'bg-[#f6d2e7] hover:bg-[#f6d2e7]':'hover:bg-pink-100'} p-5 items-center `}>
+        <div key={data?._id} className={`${ShowReport.show?'blur-sm':''} flex justify-between relative  ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
+        ${ChatUser?._id===data?._id?'bg-[#f6d2e7] hover:bg-[#f6d2e7]':'hover:bg-pink-100'} p-5 items-center `}>
           
-          <span className={`${OnlineIds.includes(data.participants[0]._id)?'':'hidden'} z-20 bg-green-500 top-2 left-12 w-[20px] h-[20px] rounded-full absolute`}></span>
-          <div className='flex relative  gap-6 items-center' onClick={()=>HandleMessageClick(data._id)}>
-        <img src={data.participants[0].ProfileUrl} alt='URL' className='h-[45px] w-[45px] rounded-full hover:border border-pink-500' />
-        <span className='text-[20px] text-pink-500'>{data.participants[0].FirstName}</span>
+          <span className={`${OnlineIds.includes(data.participants[0]?._id)?'':'hidden'} z-20 bg-green-500 top-2 left-12 w-[20px] h-[20px] rounded-full absolute`}></span>
+          <div className='flex relative  gap-6 items-center' onClick={()=>HandleMessageClick(data?._id)}>
+        <img src={data.participants[0]?.ProfileUrl} alt='URL' className='h-[45px] w-[45px] rounded-full hover:border border-pink-500' />
+        <span className='text-[20px] text-pink-500'>{data.participants[0]?.FirstName}</span>
         </div>
         <div className='flex gap-5 mr-1'>
-        <MdDelete onClick={()=>HandleDeleteChat(data._id)} size={25} onMouseEnter={()=>setTooltip({...Tooltip,delete:data.participants[0]._id})} onMouseLeave={()=>setTooltip({...Tooltip,delete:''})} className={` ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
+        <MdDelete onClick={()=>HandleDeleteChat(data?._id)} size={25} onMouseEnter={()=>setTooltip({...Tooltip,delete:data.participants[0]?._id})} onMouseLeave={()=>setTooltip({...Tooltip,delete:''})} className={` ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
             text-red-400  cursor-pointer hover:text-red-500 transition-all`}/>
         <BiBlock onClick={()=>{
-          setReportInfo({ID:data.participants[0]._id,FirstName:data.participants[0].FirstName});
+          setReportInfo({ID:data.participants[0]?._id,FirstName:data.participants[0]?.FirstName});
           setShowReport({...ShowReport,show:true});
-        }} size={25} onMouseEnter={()=>setTooltip({...Tooltip,block:data.participants[0]._id})} onMouseLeave={()=>setTooltip({...Tooltip,block:''})} className={`text-red-400   ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
+        }} size={25} onMouseEnter={()=>setTooltip({...Tooltip,block:data.participants[0]?._id})} onMouseLeave={()=>setTooltip({...Tooltip,block:''})} className={`text-red-400   ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
         hover:text-red-500 transition-all`} />
         </div>
-        <span className={`${Tooltip.delete===data.participants[0]._id?'':'hidden'} absolute top-2 right-1 text-sm text-red-400 `}>Delete  Conversation</span>
-        <span className={`${Tooltip.block===data.participants[0]._id?'':'hidden'} absolute top-2 right-1 text-sm text-red-400 `}>Block user</span>
+        <span className={`${Tooltip.delete===data.participants[0]?._id?'':'hidden'} absolute top-2 right-1 text-sm text-red-400 `}>Delete  Conversation</span>
+        <span className={`${Tooltip.block===data.participants[0]?._id?'':'hidden'} absolute top-2 right-1 text-sm text-red-400 `}>Block user</span>
         </div>
       ))
       :

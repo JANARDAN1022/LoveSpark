@@ -62,19 +62,19 @@ const HandleSendMessage = async(ID:string)=>{
     <div className='flex  scrollbar flex-col gap-5 bg-pink-50 overflow-x-hidden overflow-y-scroll h-full z-50'>
       {matches.length>0?
        matches.map((data)=>(
-        <div key={data.swipedUser._id===user?._id?data.user._id:data.swipedUser._id} className='flex  justify-between relative p-5 hover:bg-pink-100 cursor-pointer items-center'>
+        <div key={data.swipedUser?._id===user?._id?data.user?._id:data.swipedUser._id} className='flex  justify-between relative p-5 hover:bg-pink-100 cursor-pointer items-center'>
           <div onClick={()=>{
             setMatchedId(data.swipedUser?._id===user?._id?data.user._id:data.swipedUser._id);
             setShowComponent('Profile');
             }}  className='flex gap-10 items-center'>
-          <img  src={data.swipedUser.ProfileUrl===user?.ProfileUrl?data.user.ProfileUrl:data.user.ProfileUrl===user?.ProfileUrl?data.swipedUser.ProfileUrl:''} alt='URL' className='h-[45px] w-[45px] rounded-full hover:border border-pink-500'/>
-          <span  className='text-[20px] text-pink-500'>{data.swipedUser.FirstName===user?.FirstName?data.user.FirstName:data.user.FirstName===user?.FirstName?data.swipedUser.FirstName:''}</span>
+          <img  src={data.swipedUser?.ProfileUrl===user?.ProfileUrl?data.user?.ProfileUrl:data.user?.ProfileUrl===user?.ProfileUrl?data.swipedUser?.ProfileUrl:''} alt='URL' className='h-[45px] w-[45px] rounded-full hover:border border-pink-500'/>
+          <span  className='text-[20px] text-pink-500'>{data.swipedUser?.FirstName===user?.FirstName?data.user?.FirstName:data.user?.FirstName===user?.FirstName?data.swipedUser?.FirstName:''}</span>
           </div>
            <div className='flex items-center gap-3 '>
-             <AiFillMessage onClick={()=>HandleSendMessage(data.swipedUser._id===user?._id?data.user._id:data.swipedUser._id)} size={30} className='text-pink-400 mr-3 cursor-pointer hover:text-pink-500 transition-all'/>
-            <RxCross1 onClick={()=>HandleDelete(data._id)} onMouseEnter={()=>setHoverdId(data.swipedUser._id===user?._id?data.user._id:data.swipedUser._id)} 
+             <AiFillMessage onClick={()=>HandleSendMessage(data.swipedUser?._id===user?._id?data.user?._id:data.swipedUser._id)} size={30} className='text-pink-400 mr-3 cursor-pointer hover:text-pink-500 transition-all'/>
+            <RxCross1 onClick={()=>HandleDelete(data._id)} onMouseEnter={()=>setHoverdId(data.swipedUser?._id===user?._id?data.user?._id:data.swipedUser._id)} 
               onMouseLeave={()=>setHoverdId('')} size={20} className='text-red-400 hover:text-red-600'/>
-            <span className={`absolute text-red-500 top-[5px] text-sm right-[3px] ${HoverdId===(data.swipedUser._id===user?._id?data.user._id:data.swipedUser._id)?'':'hidden'}`} >Remove Match</span>
+            <span className={`absolute text-red-500 top-[5px] text-sm right-[3px] ${HoverdId===(data.swipedUser?._id===user?._id?data.user?._id:data.swipedUser._id)?'':'hidden'}`} >Remove Match</span>
            <div className={`${MatchLoading && HoverdId!==''?'':'hidden'} absolute text-pink-500 w-[372px] animate-pulse bottom-0 left-0 bg-red-500 h-1 rounded-[8px]`}></div>
            </div>
         </div>
