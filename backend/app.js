@@ -24,7 +24,7 @@ app.use(passport.session());
 
 
 app.use(cors({
-  origin:'http://localhost:3000', 
+  origin:['https://love-spark-frontend.vercel.app' , 'http://localhost:3000'], 
   credentials: true
 }));
 
