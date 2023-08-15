@@ -37,6 +37,8 @@ const App = () => {
         console.log(err);
       }
     };
+
+    console.log(User);
     
     getUser();
     
