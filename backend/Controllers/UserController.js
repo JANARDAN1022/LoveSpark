@@ -96,26 +96,29 @@ exports.updateUser = asyncerrorhandler(async (req, res, next) => {
         return next({ message: 'Invalid current password', statusCode: 401 });
       }
     }
-  
-    // Update user fields
-    Object.assign(user, updateFields);
 
-  
-   //Update the ProfileStatus after fields updated
-   user.ProfileStatus="Complete";
+    // Update user fields
+    for (const field in updateFields) {
+      if (updateFields[field] !== '') {
+        user[field] = updateFields[field];
+      }
+    }
+
+    // Update the ProfileStatus after fields are updated
+    user.ProfileStatus = 'Complete';
 
     // Update password if a new password is provided
     if (newPassword) {
-      if(newPassword===currentPassword){
-          return next({message:'NewPassword Cannot Be Same As Old Password',statusCode:401})
+      if (newPassword === currentPassword) {
+        return next({ message: 'NewPassword Cannot Be Same As Old Password', statusCode: 401 });
       }
       user.password = newPassword;
     }
 
     // Save the updated user
-  const updatedUser =  await user.save();
+    const updatedUser = await user.save();
 
-    res.status(200).json({ success: true, message: 'User updated successfully' ,updatedUser});
+    res.status(200).json({ success: true, message: 'User updated successfully', updatedUser });
   } catch (error) {
     console.error(error);
     next(error);

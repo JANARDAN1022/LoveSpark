@@ -20,29 +20,30 @@ const App = () => {
   const [User,setUser]=useState(null);
   const dispatch = useAppDispatch();
   const {LoggedOut} = useContext(LoginContext);
+  
   useEffect(() => {
     const getUser = async () => {
       try {
+        console.log('Starting Request');
         const response = await axios.get('https://love-spark.vercel.app/auth/login/success', {
           withCredentials: true, // include credentials in the request
         });
-        
+        console.log('Request Sent');
         if (response.status === 200) {
           const resObject = response.data;
           setUser(resObject.user);
+          console.log(`User Set To ${resObject.user}`);
         } else {
           throw new Error("Authentication has failed");
         }
       } catch (err) {
         console.log(err);
+        console.log('Request Failed');
       }
     };
-
     console.log(User);
-    
     getUser();
-    
-  }, []);
+  }, [User]);
 
 
   useEffect(()=>{

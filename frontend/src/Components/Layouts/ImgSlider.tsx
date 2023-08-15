@@ -1,11 +1,11 @@
 import { Slide } from 'react-slideshow-image';
 //import './Slider.css';
 import 'react-slideshow-image/dist/styles.css';
-import { Icon } from 'react-icons-kit';
-import {arrow_left} from 'react-icons-kit/ikons/arrow_left'
-import {arrow_right} from 'react-icons-kit/ikons/arrow_right'
+//import { Icon } from 'react-icons-kit';
+//import {arrow_left} from 'react-icons-kit/ikons/arrow_left'
+//import {arrow_right} from 'react-icons-kit/ikons/arrow_right'
 //import IMG from '../../Assets/freeP.jpeg';
-import IMG2 from '../../Assets/pexelsPhoto.jpeg';
+//import IMG2 from '../../Assets/pexelsPhoto.jpeg';
 import { useAppSelector } from '../../Hooks';
 //import { MainPageContext } from '../../Context/MainPageContext';
 
@@ -20,27 +20,24 @@ const Slider = () => {
   const slideImages = [
     {
       url:coverUrl
-    },
-    {
-      url:IMG2
     }
   ]
-  const buttonStyle = {
+ /* const buttonStyle = {
     width: "90px",
     height:'150px',
     backgroundcolor:'hsla(0,0%,100%,.99)',
     border: '0px',
     color:'white'
-};
+};*/
 
-const properties = {
+/*const properties = {
     prevArrow: <button style={{ ...buttonStyle }}><Icon icon={arrow_left} size={40} /></button>,
     nextArrow: <button style={{ ...buttonStyle }}><Icon icon={arrow_right} size={40} /></button>
-}
+}*/
 
     return (
       <div className="slide-container">
-        <Slide  autoplay={false} {...properties}>
+        <Slide  autoplay={false} arrows={false}>
          {slideImages.map((slideImage, index)=> (
             <div key={index} className='slideshowdivIMG'>
               <div className='slideshowdiv'>
