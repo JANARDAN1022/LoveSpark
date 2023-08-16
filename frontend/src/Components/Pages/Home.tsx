@@ -239,7 +239,7 @@ const Home = () => {
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-pink-900 dark:text-white">Your email</label>
-                  <input ref={ShowSignUp?EmailRef:loginEmailRef} value={ShowSignUp?email:loginEmail} onChange={(e)=>{
+                  <input disabled={LOADING} ref={ShowSignUp?EmailRef:loginEmailRef} value={ShowSignUp?email:loginEmail} onChange={(e)=>{
                     if(ShowSignUp){
                     setemail(e.target.value)
                     }else{
@@ -249,7 +249,7 @@ const Home = () => {
                 </div>
                 <div>
                   <label htmlFor="password" className="block mb-2 text-sm font-medium text-pink-900 dark:text-white">Password</label>
-                  <input ref={ShowSignUp?PassRef:loginPassRef} value={ShowSignUp?password:loginpassword} onChange={(e)=>{
+                  <input disabled={LOADING} ref={ShowSignUp?PassRef:loginPassRef} value={ShowSignUp?password:loginpassword} onChange={(e)=>{
                     if(ShowSignUp){
                     setpassword(e.target.value);
                     }else{
@@ -260,13 +260,13 @@ const Home = () => {
                 
                    <div className={`${ShowSignUp?'':'hidden'}`}>
                    <label htmlFor="Confirmpassword" className="block mb-2 text-sm font-medium text-pink-900 dark:text-white">Confirm Password</label>
-                   <input ref={ConfirmPassRef} onChange={(e)=>setConfirmpassword(e.target.value)} type="password" name="Confirmpassword" id="Confirmpassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                   <input disabled={LOADING} ref={ConfirmPassRef} onChange={(e)=>setConfirmpassword(e.target.value)} type="password" name="Confirmpassword" id="Confirmpassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                  </div>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
                     <div className="flex items-center h-5">
-                      <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"  />
+                      <input disabled={LOADING} id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"  />
                     </div>
                     <div className="ml-3 text-sm">
                       <label htmlFor="remember" className="text-pink-700 dark:text-gray-300">Remember me</label>
@@ -278,7 +278,7 @@ const Home = () => {
                  
                  <span className={`text-center  text-sm text-red-600`}>{Error?`${Error}*`:''}</span>
                 <div className='relative flex items-center'>
-                <button onClick={ShowSignUp?HandleSignup:HandleLogin} className={`${LOADING?'cursor-none':'cursor-pointer'} w-full text-pink-200 ${LOADING? 'bg-pink-700':'bg-pink-500 hover:bg-pink-700'} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>{ShowSignUp?'Sign Up':`Sign in`}</button>
+                <button disabled={LOADING} onClick={ShowSignUp?HandleSignup:HandleLogin} className={`${LOADING?'cursor-none':'cursor-pointer'} w-full text-pink-200 ${LOADING? 'bg-pink-700':'bg-pink-500 hover:bg-pink-700'} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>{ShowSignUp?'Sign Up':`Sign in`}</button>
                    <div className={`${LOADING?'cursor-none':'hidden'} absolute right-5`}>
                    <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
