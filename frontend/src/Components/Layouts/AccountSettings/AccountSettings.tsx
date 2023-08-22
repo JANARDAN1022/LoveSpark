@@ -1,9 +1,9 @@
 import {useContext, useState} from 'react';
-import { MainPageContext } from '../../Context/MainPageContext';
+import { MainPageContext } from '../../../Context/MainPageContext';
 import axios from 'axios';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 import { useNavigate } from 'react-router-dom';
-import { LoginContext } from '../../Context/LoginContext';
+import { LoginContext } from '../../../Context/LoginContext';
 
 const AccountSettings = () => {
   const {setShowComponent} = useContext(MainPageContext);

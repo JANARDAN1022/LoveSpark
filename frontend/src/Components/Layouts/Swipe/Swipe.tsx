@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback,useContext } from 'react';
-import TinderCard from 'react-tinder-card';
+import TinderCard from '../../TinderCard/TinderCard';
 import axios from 'axios';
-import { useAppSelector } from '../../Hooks';
-import { User } from '../../Types/UserTypes';
-import { MainPageContext } from '../../Context/MainPageContext';
+import { useAppSelector } from '../../../Hooks';
+import { User } from '../../../Types/UserTypes';
+import { MainPageContext } from '../../../Context/MainPageContext';
 import Skeleton from '@mui/material/Skeleton/Skeleton';
 
 const Swipe = () => {
@@ -160,7 +160,7 @@ const Swipe = () => {
                         </span>
                       ))}
                     </div>
-                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio.slice(0,150)}</span>
+                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] w-[450px] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio.slice(0,150)}</span>
                   </div>
                 </div>
               </TinderCard>

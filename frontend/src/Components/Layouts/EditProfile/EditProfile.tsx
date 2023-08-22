@@ -1,17 +1,17 @@
 import{useContext,useState,useRef,useEffect} from 'react'
 import {RxCross1} from 'react-icons/rx';
-import { MainPageContext } from '../../Context/MainPageContext';
-import Slider from './ImgSlider';
+import { MainPageContext } from '../../../Context/MainPageContext';
+import Slider from '../imgSlider/ImgSlider';
 import {BiSolidEdit} from 'react-icons/bi';
 import {Country} from 'country-state-city';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
-import { storage } from "../../firebase";
+import { storage } from "../../../firebase";
 //import {v4} from 'uuid';
-import { useAppDispatch } from '../../Hooks';
+import { useAppDispatch } from '../../../Hooks';
 //import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { UpdateUser } from '../../Actions/userAction';
+import { UpdateUser } from '../../../Actions/userAction';
 
 const EditProfile = () => {
     const [ProfilePic, setProfilePic] = useState<any | null>(null);
@@ -95,7 +95,7 @@ const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 setCoverPic(file);
   };
-  console.log(PersonalInfo);
+
 
    const HandleCoverEdit = ()=>{
     if(CoverFileInputRef.current){
@@ -119,7 +119,7 @@ setCoverPic(file);
      // Check if the values in the array have changed
 const interestsChanged = Interests.some((interest, index) => interest !== Interests[index]);
 const InterestlengthChange = Interests.length!==user?.interests.length;
-console.log(isEmpty);
+
      if(isEmpty || ProfilePic!==null || CoverPic!==null || interestsChanged || InterestlengthChange){
       try {
         setLOADING(true);
@@ -143,12 +143,11 @@ console.log(isEmpty);
   // Update the User object with the correct ProfileUrl and CoverUrl
   const updatedUser = {
     ...PersonalInfo,
-    Interests,
+    interests:Interests,
     ProfileUrl: profileUrl,
     CoverUrl: coverUrl,
     email
   };
-  
   if(Id){
         // Dispatch the updated User object to update the user's profile in the database
         const response = await dispatch(UpdateUser({ id: Id, data: updatedUser }));

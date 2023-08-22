@@ -89,27 +89,6 @@ overflow: hidden;
     border: none;
 }
 
-/*
-@media (min-width:1025px){
-    .Background{
-       
-    }
-
-}
-
-@media (min-width:769px) and (max-width:1024px){
-    .Background{
-      
-    }
-}
-
-@media (min-width:365px) and (max-width:768px) and (max-height:1200px){
-    .Background{
-             background-size: cover !important;
-             background-position:  !important;
-    }
-}
-*/
 
 .swipe {
     position: absolute;

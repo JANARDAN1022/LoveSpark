@@ -1,14 +1,14 @@
 import {useCallback, useContext, useEffect,useState,useRef} from 'react'
-import { MainPageContext } from '../../Context/MainPageContext';
+import { MainPageContext } from '../../../Context/MainPageContext';
 import {RxCross1} from 'react-icons/rx';
 import {FcVideoCall} from 'react-icons/fc';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 import axios from 'axios';
 import InputEmoji from 'react-input-emoji';
 import {BsSendFill} from 'react-icons/bs';
 import { Socket } from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
-import { MessagesData } from '../../Types/UserTypes';
+import { MessagesData } from '../../../Types/UserTypes';
 import { useNavigate } from 'react-router-dom';
 
 

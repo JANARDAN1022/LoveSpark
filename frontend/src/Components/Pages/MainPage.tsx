@@ -1,16 +1,17 @@
 import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import LeftBar from "../Layouts/LeftBar";
-import Chat from "../Layouts/Chat";
-import Profile from "../Layouts/Profile";
-import Swipe from '../Layouts/Swipe';
-import EditProfile from "../Layouts/EditProfile";
+import LeftBar from "../Layouts/LeftBar/LeftBar";
+import Chat from "../Layouts/Chat/Chat";
+import Profile from "../Layouts/Profile/Profile";
+import Swipe from '../Layouts/Swipe/Swipe';
+import EditProfile from "../Layouts/EditProfile/EditProfile";
 import {useContext,useState} from 'react';
 import { MainPageContext } from '../../Context/MainPageContext';
 import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
 import { LoginContext } from "../../Context/LoginContext";
+
 
 
 

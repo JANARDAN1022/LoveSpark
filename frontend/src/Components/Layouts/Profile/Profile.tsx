@@ -1,10 +1,10 @@
 import {useContext, useState,useEffect, useCallback,useRef} from 'react'
-import { MainPageContext } from '../../Context/MainPageContext'
+import { MainPageContext } from '../../../Context/MainPageContext'
 import {RxCross1} from 'react-icons/rx';
 import {MdReportProblem} from 'react-icons/md';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 import axios from 'axios';
-import { User } from '../../Types/UserTypes';
+import { User } from '../../../Types/UserTypes';
 import { v4 } from 'uuid';
 
 interface Data {

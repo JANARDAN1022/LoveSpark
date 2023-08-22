@@ -1,10 +1,10 @@
 import {useCallback, useContext,useEffect,useRef,useState} from 'react'
-import { MainPageContext } from '../../Context/MainPageContext';
-import { useAppSelector } from '../../Hooks';
+import { MainPageContext } from '../../../Context/MainPageContext';
+import { useAppSelector } from '../../../Hooks';
 import axios from 'axios';
 import {MdDelete} from 'react-icons/md';
 import {BiBlock} from 'react-icons/bi';
-import { Chat } from '../../Types/UserTypes';
+import { Chat } from '../../../Types/UserTypes';
 import {RxCross1} from 'react-icons/rx';
 import Skeleton from '@mui/material/Skeleton/Skeleton';
 

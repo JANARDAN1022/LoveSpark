@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import NavBar from "./Components/Layouts/NavBar";
+import NavBar from "./Components/Layouts/NavBar/NavBar";
 import { useAppSelector } from "./Hooks";
 
 

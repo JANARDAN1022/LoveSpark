@@ -1,17 +1,18 @@
 import { useState,useContext,useCallback,useEffect } from 'react';
-import Matches from './Matches';
-import Messages from "../Layouts/Messages";
-import { MainPageContext } from '../../Context/MainPageContext';
+import Matches from '../Matches/Matches';
+import Messages from "../Messages/Messages";
+import { MainPageContext } from '../../../Context/MainPageContext';
 import {IoMdSettings} from 'react-icons/io';
 import {BiLogOut} from 'react-icons/bi';
-import AccountSettings from './AccountSettings';
-import { useAppSelector,useAppDispatch } from '../../Hooks';
-import { LogoutUser} from '../../Actions/userAction';
+import AccountSettings from '../AccountSettings/AccountSettings';
+import { useAppSelector,useAppDispatch } from '../../../Hooks';
+import { LogoutUser} from '../../../Actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LoginContext } from '../../Context/LoginContext';
+import { LoginContext } from '../../../Context/LoginContext';
 import { Skeleton } from '@mui/material';
+
 
 
 interface Matched {
@@ -134,7 +135,7 @@ const FetchMatches = useCallback( async()=>{
     <div className="h-full  md:w-[280px] lg:w-[392px] flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20">
       <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
         <div className="flex justify-center items-center gap-5">
-          {loading?
+          {loading || LOADING.LogoutLoading?
           <Skeleton animation='wave' width={45} height={45} variant='circular' sx={{bgcolor:'pink'}} className='ml-5 mt-1'/>
           :
           <img
@@ -147,7 +148,7 @@ const FetchMatches = useCallback( async()=>{
             alt="Date"
           />
         }
-        {loading?
+        {loading || LOADING.LogoutLoading?
         <Skeleton width={80} height={40} animation='wave' />
         :       
           <span onClick={()=>{
@@ -159,8 +160,12 @@ const FetchMatches = useCallback( async()=>{
             }
          </div>
         <div className="flex justify-center gap-5 mr-5 items-center">
+          {!LOADING.LogoutLoading?
           <IoMdSettings onClick={()=>setActiveTab('Settings')} size={25} className='text-white cursor-pointer' onMouseEnter={()=>setTooltip({...Tooltip,Settings:true})} onMouseLeave={()=>setTooltip({...Tooltip,Settings:false})}/>
-         {loading?
+        :
+        null  
+        }
+          {loading?
          <Skeleton variant='rectangular' animation='wave' height={30} width={25} />
          :
          <BiLogOut onClick={HandleLogout} onMouseEnter={()=>setTooltip({...Tooltip,Logout:true})} onMouseLeave={()=>setTooltip({...Tooltip,Logout:false})} size={30} className={`text-[rgba(255,255,255,0.7)] hover:text-white ${LOADING.LogoutLoading?'cursor-none':'cursor-pointer'}`}/>

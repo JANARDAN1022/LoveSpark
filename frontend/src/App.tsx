@@ -12,7 +12,7 @@ import { useAppDispatch} from './Hooks';
 import Success from './Components/Pages/Payment/Stripe/Success';
 import Fail from './Components/Pages/Payment/Stripe/Fail';
 //import Calls from './Components/Layouts/Calls';
-import VideoCall from './Components/Layouts/VideoCall';
+import VideoCall from './Components/Layouts/VideoCall/VideoCall';
 import { LoginContext } from './Context/LoginContext';
 //import Footer from './Components/Layouts/Footer';
 

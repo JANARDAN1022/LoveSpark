@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 import {AiFillMessage} from 'react-icons/ai';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 import axios from 'axios';
-import { MainPageContext } from '../../Context/MainPageContext';
+import { MainPageContext } from '../../../Context/MainPageContext';
 import {RxCross1} from 'react-icons/rx';
 import {Skeleton} from '@mui/material';
+import {motion} from 'framer-motion';
 
 interface Matched {
   _id:string,
@@ -41,6 +42,7 @@ const Matches = ({matches,HandleDelete,MatchLoading}:MatchesProp) => {
   const {setShowComponent,setChatUser,setChangeTab,setMatchedId} = useContext(MainPageContext);
   const {user,loading} = useAppSelector((state)=>state.user);
   const [HoverdId,setHoverdId]=useState('');
+  const [ImgClick,setImgClick]=useState(false);
 
 const HandleSendMessage = async(ID:string)=>{
  const Route = `https://love-spark.vercel.app/api/chat/`;
@@ -85,7 +87,7 @@ const HandleSendMessage = async(ID:string)=>{
             {loading?
              <Skeleton animation='wave' width={120} height={120} variant='circular' sx={{bgcolor:'pink'}} className=''/>
              :
-            <img src={user?.ProfileUrl} alt='ProfilePic' className='w-[120px] h-[120px] rounded-full'/>
+            <motion.img onClick={()=>setImgClick(!ImgClick)} animate={{rotate:ImgClick?360:0}} transition={{type:'spring',stiffness:90}} src={user?.ProfileUrl} alt='ProfilePic' className='w-[120px] h-[120px] rounded-full'/>
             }
             </div>
           <div className='flex flex-col items-center'>

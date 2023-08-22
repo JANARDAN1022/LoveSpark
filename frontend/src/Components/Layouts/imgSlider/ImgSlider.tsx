@@ -6,7 +6,7 @@ import 'react-slideshow-image/dist/styles.css';
 //import {arrow_right} from 'react-icons-kit/ikons/arrow_right'
 //import IMG from '../../Assets/freeP.jpeg';
 //import IMG2 from '../../Assets/pexelsPhoto.jpeg';
-import { useAppSelector } from '../../Hooks';
+import { useAppSelector } from '../../../Hooks';
 //import { MainPageContext } from '../../Context/MainPageContext';
 
 
