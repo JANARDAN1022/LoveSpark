@@ -164,7 +164,7 @@ const OnlineIds = onlineUsers.map((User)=>User.userId);
       loading?
       <Skeleton animation='wave' variant='circular' width={120} height={120} sx={{bgcolor:'pink'}} className='border-2 border-pink-500'/>
       :
-        <img onClick={()=>setShowComponent('Profile')} src={user?.ProfileUrl} alt='ProfilePic' className='cursor-pointer hover:border-pink-400 border-2 border-pink-500 w-[120px] h-[120px] rounded-full' />
+        <img onClick={()=>setShowComponent('Profile')} src={user?.ProfileUrl} alt='ProfilePic' className='cursor-pointer object-cover hover:border-pink-400 border-2 border-pink-500 w-[120px] h-[120px] rounded-full' />
           }
         <span className='text-pink-500 font-bold'>No Messages Yet</span>
         <span className='text-pink-500 font-bold'>Find Your Spark And Start Messaging</span>

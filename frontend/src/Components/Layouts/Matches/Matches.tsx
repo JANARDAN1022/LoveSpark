@@ -87,7 +87,7 @@ const HandleSendMessage = async(ID:string)=>{
             {loading?
              <Skeleton animation='wave' width={120} height={120} variant='circular' sx={{bgcolor:'pink'}} className=''/>
              :
-            <motion.img onClick={()=>setImgClick(!ImgClick)} animate={{rotate:ImgClick?360:0}} transition={{type:'spring',stiffness:90}} src={user?.ProfileUrl} alt='ProfilePic' className='w-[120px] h-[120px] rounded-full'/>
+            <motion.img onClick={()=>setImgClick(!ImgClick)} animate={{rotate:ImgClick?360:0}} transition={{type:'spring',stiffness:90}} src={user?.ProfileUrl} alt='ProfilePic' className='w-[120px] h-[120px] object-cover rounded-full'/>
             }
             </div>
           <div className='flex flex-col items-center'>

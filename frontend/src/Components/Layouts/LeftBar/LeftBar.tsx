@@ -143,7 +143,7 @@ const FetchMatches = useCallback( async()=>{
           setShowComponent('Profile')
           setMatchedId('');
           }}
-            className="h-[45px] w-[45px]  ml-5 rounded-full cursor-pointer hover:border hover:border-pink-200"
+            className="h-[45px] w-[45px] object-cover  ml-5 rounded-full cursor-pointer hover:border hover:border-pink-200"
             src={user?.ProfileUrl}
             alt="Date"
           />

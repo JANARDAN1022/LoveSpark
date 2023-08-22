@@ -22,23 +22,23 @@ const EditProfile = () => {
     const [Interests,setInterests]=useState<string[]>(INTERESTS);
     const [Error,setError]=useState('');
     const [LOADING,setLOADING]=useState(false);
-    const [email,setemail]=useState('');
+    const [email,setemail]=useState(user?.email);
     const [PersonalInfo, setPersonalInfo] = useState({
-      FirstName: "",
-      LastName: "",
-      bio: "",
+      FirstName: user?.FirstName,
+      LastName: user?.LastName,
+      bio: user?.bio,
       Location: [
         {
-          country: "",
-          State: "",
-          city: "",
+          country: user?.Location[0].country,
+          State: user?.Location[0].State,
+          city: user?.Location[0].city,
         },
       ],
-      pincode: "",
-      Gender: "",
-      sexuality: "",
-      occupation: "",
-      age:'',
+      pincode: user?.pincode,
+      Gender: user?.Gender,
+      sexuality: user?.sexuality,
+      occupation: user?.occupation,
+      age:user?.age,
     });
     const [Tooltip,setTooltip]=useState({
     Edit:false,
@@ -78,8 +78,11 @@ const EditProfile = () => {
       if( FemaleRef.current!==null){
        FemaleRef.current.checked=false;
      }
-     
+     if(e.target.value.length>=1){
      setPersonalInfo({...PersonalInfo,Gender:e.target.value})
+     }else{
+      setPersonalInfo({...PersonalInfo,Gender:user?.Gender}) 
+     }
    };
 
    const HandleProfileEdit = ()=>{
@@ -197,11 +200,11 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
   :  
   <img src={URL.createObjectURL(ProfilePic)} alt='IMG' className='w-[170px] h-[170px] rounded-full object-cover'/>
   }
-    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,DP:true})} onMouseLeave={()=> setTooltip({...Tooltip,DP:false})} size={30} onClick={HandleProfileEdit} className='text-white absolute right-0 top-5 cursor-pointer'/>
+    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,DP:true})} onMouseLeave={()=> setTooltip({...Tooltip,DP:false})} size={30} onClick={HandleProfileEdit} className='text-white shadow-pink-500 shadow-lg absolute right-0 top-5 cursor-pointer'/>
     <input onChange={handlePhotoChange} type="file" accept="image/*" style={{ display: "none" }} ref={ProfileFileInputRef} />
     </div>
     <RxCross1 onMouseEnter={()=> setTooltip({...Tooltip,Cancel:true})} onMouseLeave={()=> setTooltip({...Tooltip,Cancel:false})} size={40} onClick={()=>setShowComponent('Swipe')} className='text-white absolute right-10 top-10 cursor-pointer'/>
-    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,Edit:true})} onMouseLeave={()=> setTooltip({...Tooltip,Edit:false})} size={30} onClick={HandleCoverEdit} className='text-white absolute left-10 top-10 cursor-pointer'/>
+    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,Edit:true})} onMouseLeave={()=> setTooltip({...Tooltip,Edit:false})} size={30} onClick={HandleCoverEdit} className='text-white shadow-pink-500 shadow-lg absolute left-10 top-10 cursor-pointer'/>
     <input onChange={handleCoverChange} type="file" accept="image/*" style={{ display: "none" }} ref={CoverFileInputRef} />
     <span className={`${Tooltip.Edit===true?'':'hidden'} text-white absolute left-5 top-3`}>Edit Cover Photos</span>
     <span className={`${Tooltip.Cancel===true?'':'hidden'} text-white absolute right-5 top-20`}>Go Back Swiping</span>
@@ -224,8 +227,16 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                     name="username"
                     id="Firstname"
                     autoComplete="username"
-                    onChange={(e)=>setPersonalInfo({...PersonalInfo,FirstName:e.target.value})}
-                    className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-600 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-white placeholder:text-base  sm:text-sm sm:leading-6"
+                    onChange={(e)=>{
+                     if(e.target.value.length>=1){
+                      setPersonalInfo({...PersonalInfo,FirstName:e.target.value})
+                     }else{
+                      setPersonalInfo({...PersonalInfo,FirstName:user?.FirstName});
+                     }
+                    }
+                    }
+                      
+                      className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-600 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-white placeholder:text-base  sm:text-sm sm:leading-6"
                     placeholder={user?.FirstName}
                     value={PersonalInfo.FirstName}
                   />
@@ -243,7 +254,14 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                     autoComplete="username"
                     className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-600 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-white  sm:text-sm sm:leading-6"
                     placeholder={user?.LastName?user.LastName:'Provide Your LastName'}
-                    onChange={(e)=>setPersonalInfo({...PersonalInfo,LastName:e.target.value})}
+                    onChange={(e)=>{
+                      if(e.target.value.length>=1){
+                      setPersonalInfo({...PersonalInfo,LastName:e.target.value})
+                    }else{
+                      setPersonalInfo({...PersonalInfo,LastName:user?.LastName})
+                    }
+                  }
+                }
                     value={PersonalInfo.LastName}
                   />
                 </div>
@@ -262,7 +280,14 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   className="block border-2 border-pink-500 focus:border-pink-700 pl-5 outline-none w-full rounded-md overflow-hidden resize-none max-h-[300px] py-1.5 text-pink-500  placeholder:text-pink-500  sm:text-sm md:text-[18px] sm:leading-6"
                   defaultValue={''}
                   value={PersonalInfo.bio}
-                  onChange={(e)=>setPersonalInfo({...PersonalInfo,bio:e.target.value})}
+                  onChange={(e)=>{
+                    if(e.target.value.length>=1){
+                    setPersonalInfo({...PersonalInfo,bio:e.target.value})
+                  }else{
+                    setPersonalInfo({...PersonalInfo,bio:user?.bio})  
+                  }
+                }
+              }
                   placeholder={user?.bio}
                 />
               </div>
@@ -289,7 +314,14 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-pink-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-500 placeholder:font-bold focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder={user?.email}
                   value={email}
-                  onChange={(e)=>setemail(e.target.value)}
+                  onChange={(e)=>{
+                    if(e.target.value.length>=1){
+                    setemail(e.target.value)
+                    }else{
+                      setemail(user?.email);
+                    }
+                  }
+                }
                />
               </div>
             </div>
@@ -304,7 +336,7 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   name="country"
                   autoComplete="country-name"
                   className="block w-full rounded-md border-0 py-1.5 text-pink  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  onChange={(e) =>
+                  onChange={(e) =>{
                     setPersonalInfo({
                       ...PersonalInfo,
                       Location: [
@@ -312,10 +344,11 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                           ...PersonalInfo.Location[0],
                           country:
                             Country.getCountryByCode(e.target.value)?.name ||
-                            "",
+                            user?.Location[0].country,
                         },
                       ],
                     })
+                  }
                   }
                >
                   <option value={country} className='text-pink-600'>{country}</option>
@@ -344,13 +377,23 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   autoComplete="address-level2"
                   placeholder={city}
                   className=" pl-2 block w-full rounded-md border-0 py-1.5 text-pink-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-500 placeholder:font-bold focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  onChange={(e) =>
+                  onChange={(e) =>{
+                    if(e.target.value.length>=1){
                     setPersonalInfo({
                       ...PersonalInfo,
                       Location: [
                         { ...PersonalInfo.Location[0], city: e.target.value },
                       ],
                     })
+                  }else{
+                    setPersonalInfo({
+                      ...PersonalInfo,
+                      Location: [
+                        { ...PersonalInfo.Location[0], city: user?.Location[0].city },
+                      ],
+                    })
+                  }
+                  }
                   }
                 />
               </div>
@@ -369,12 +412,23 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   placeholder={state}
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-pink-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-500 placeholder:font-bold focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   onChange={(e) =>
-                    setPersonalInfo({
+                    {
+                   if(e.target.value.length>=1){
+                      setPersonalInfo({
                       ...PersonalInfo,
                       Location: [
                         { ...PersonalInfo.Location[0], State: e.target.value },
                       ],
                     })
+                  }else{
+                    setPersonalInfo({
+                      ...PersonalInfo,
+                      Location: [
+                        { ...PersonalInfo.Location[0], State: user?.Location[0].State },
+                      ],
+                    })
+                  }
+                  }
                   }
                />
               </div>
@@ -392,11 +446,13 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   autoComplete="postal-code"
                   placeholder={user?.pincode}
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-pink-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-pink-500 placeholder:font-bold focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  onChange={(e) =>
-                    setPersonalInfo({
-                      ...PersonalInfo,
-                      pincode: e.target.value,
-                    })
+                  onChange={(e) =>{
+                   if(e.target.value.length>=1){
+                    setPersonalInfo({...PersonalInfo, pincode: e.target.value,})
+                  }else{
+                    setPersonalInfo({...PersonalInfo,pincode:user?.pincode});
+                  }
+                  }
                   }
                 />
               </div>
@@ -408,8 +464,12 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
             <h3 className="text-white font-bold">Your Age:</h3>
             <input placeholder={user?.age} type="number" disabled={LOADING}  onChange={(e)=>{
                if (!LOADING) {
+                if(e.target.value.length>=1){
               setPersonalInfo({...PersonalInfo,age:e.target.value.toString()})
-              }  
+                }else{
+                  setPersonalInfo({...PersonalInfo,age:user?.age})   
+                }  
+            }  
             }} className={`${LOADING?'cursor-not-allowed':''} w-[60px] pl-4 outline-none ${LOADING?'text-white':'text-pink-500'} h-[30px] rounded-[5px]`}/>
           </div>
 
@@ -507,11 +567,19 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                         disabled={LOADING}
                         placeholder={user?.sexuality}
                         className={`h-6 sm:h-8 w-52 placeholder:text-[12px] pl-2 md:w-64 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2 md:pl-3`}
-                        onChange={(e) =>
+                        onChange={(e) =>{
+                          if(e.target.value.length>=1){
                           setPersonalInfo({
                             ...PersonalInfo,
                             sexuality: e.target.value,
                           })
+                          }else{
+                            setPersonalInfo({
+                              ...PersonalInfo,
+                              sexuality: user?.sexuality,
+                            })
+                          }
+                        }
                         }
                       />
                     </div>
@@ -540,11 +608,19 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                         placeholder={user?.occupation}
                         disabled={LOADING}
                         className={`h-6 sm:h-8 w-52 placeholder:text-[14px] pl-2 md:w-56 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2 md:pl-3`}
-                        onChange={(e) =>
+                        onChange={(e) =>{
+                          if(e.target.value.length>=1){
                           setPersonalInfo({
                             ...PersonalInfo,
                             occupation: e.target.value,
                           })
+                          }else{
+                            setPersonalInfo({
+                              ...PersonalInfo,
+                              occupation: e.target.value,
+                            })
+                          }
+                        }
                         }
                       />
                     </div>

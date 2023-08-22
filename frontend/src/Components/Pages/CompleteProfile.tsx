@@ -35,10 +35,22 @@ export default function Example() {
     occupation: "",
     age:'',
   });
+  const MaxBioLength = 300;
   const [interests, setinterests] = useState<string[]>([]);
   const [Error,setError]=useState('');
+  const FirstNameRef = useRef<HTMLDivElement>(null);
+  const FirstNameInputRef = useRef<HTMLInputElement>(null);
   const MaleRef = useRef<HTMLInputElement>(null);
   const FemaleRef = useRef<HTMLInputElement>(null);
+  const BioRef = useRef<HTMLTextAreaElement>(null);
+  const PersonalInfoRef = useRef<HTMLDivElement>(null);
+  const StateRef = useRef<HTMLInputElement>(null);
+  const CityRef =  useRef<HTMLInputElement>(null);
+  const PostalRef =  useRef<HTMLInputElement>(null);
+  const AgeRef =  useRef<HTMLInputElement>(null);
+  const SexuailtyRef =  useRef<HTMLInputElement>(null);
+  const OccupationRef =  useRef<HTMLInputElement>(null);
+  const CountryRef = useRef<HTMLSelectElement>(null);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
@@ -120,63 +132,103 @@ setCoverPic(file);
   };
   
   
-  const HandleSave = async (e: any) => {
-    e.preventDefault();
-    const isEmpty = Object.values(PersonalInfo).some((value, index) => {
-      if (index === Object.keys(PersonalInfo).indexOf("LastName")) {
-        return false; // Skip the LastName field
-      }
-      return value === "";
-    });
-  
-    if (isEmpty) {
-      setError('Please Provide All Required Fields');
-      setTimeout(() => {
-        setError('');
-      }, 3000);
-    } else if (Id && !isEmpty && ProfilePic !== null && CoverPic !== null && interests.length >= 2) {
-      const profileRef = ref(storage, `ProfilePics/${ProfilePic.name + user._id + user.FirstName}`);
-      const CoverRef = ref(storage, `CoverPics/${CoverPic.name + user._id + `123#` + user.FirstName}`);
-  
-      try {
-        setLOADING(true);
-        // Upload the profile picture and cover picture to Firebase Storage
-        const snapshots = await Promise.all([
-          uploadBytes(profileRef, ProfilePic),
-          uploadBytes(CoverRef, CoverPic)
-        ]);
-        // Get the download URLs for both images
-        const [profileSnapshot, coverSnapshot] = snapshots;
-        const urls = await Promise.all([
-          getDownloadURL(profileSnapshot.ref),
-          getDownloadURL(coverSnapshot.ref)
-        ]);
-  
-        const [profileUrl, coverUrl] = urls;
-  
-        // Update the User object with the correct ProfileUrl and CoverUrl
-        const updatedUser = {
-          ...PersonalInfo,
-          interests,
-          ProfileUrl: profileUrl,
-          CoverUrl: coverUrl,
-        };
-  
-        // Dispatch the updated User object to update the user's profile in the database
-        const response = await dispatch(UpdateUser({ id: Id, data: updatedUser }));
-        const result = unwrapResult(response); // Unwrap the result to get the action payload
-  
-        if (result?.success) {
-          setLOADING(false);
-          Navigate("/MainPage");
-        }else{
-          setLOADING(false);
-          setError('Save Failed Try Again');
+    const HandleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+    
+      const scrollToAndFocus = (fieldRef: React.RefObject<HTMLElement> | null, focusRef?: React.RefObject<HTMLElement> | null) => {
+        if (fieldRef && fieldRef.current) {
+          fieldRef.current.scrollIntoView({ behavior: 'smooth' });
+          if (focusRef && focusRef.current) {
+            focusRef.current.focus({ preventScroll: true });
+          }
         }
-      } catch (error) {
-        console.error("Error uploading images:", error);
+      };
+      if(Id && ProfilePic !== null && CoverPic !== null && interests.length >= 2) {
+        const profileRef = ref(storage, `ProfilePics/${ProfilePic.name + user._id + user.FirstName}`);
+        const CoverRef = ref(storage, `CoverPics/${CoverPic.name + user._id + `123#` + user.FirstName}`);
+    
+        try {
+          setLOADING(true);
+          // Upload the profile picture and cover picture to Firebase Storage
+          const snapshots = await Promise.all([
+            uploadBytes(profileRef, ProfilePic),
+            uploadBytes(CoverRef, CoverPic)
+          ]);
+          // Get the download URLs for both images
+          const [profileSnapshot, coverSnapshot] = snapshots;
+          const urls = await Promise.all([
+            getDownloadURL(profileSnapshot.ref),
+            getDownloadURL(coverSnapshot.ref)
+          ]);
+    
+          const [profileUrl, coverUrl] = urls;
+    
+          // Update the User object with the correct ProfileUrl and CoverUrl
+          const updatedUser = {
+            ...PersonalInfo,
+            interests,
+            ProfileUrl: profileUrl,
+            CoverUrl: coverUrl,
+          };
+    
+          // Dispatch the updated User object to update the user's profile in the database
+          const response = await dispatch(UpdateUser({ id: Id, data: updatedUser }));
+          const result = unwrapResult(response); // Unwrap the result to get the action payload
+    
+          if (result?.success) {
+            setLOADING(false);
+            Navigate("/MainPage");
+          }else{
+            setLOADING(false);
+            setError('Save Failed Try Again');
+          }
+        } catch (error) {
+          console.error("Error uploading images:", error);
+        }
+      }else if (!PersonalInfo.FirstName) {
+        scrollToAndFocus(FirstNameRef, FirstNameInputRef);
+      } 
+      else if (!PersonalInfo.bio) {
+        scrollToAndFocus(FirstNameRef,BioRef);
+      } else if(!PersonalInfo.Location[0].country){
+        scrollToAndFocus(PersonalInfoRef,CountryRef); 
       }
-    }
+      else if (!PersonalInfo.Location[0].city) {
+        scrollToAndFocus(PersonalInfoRef,CityRef);
+      } 
+      else if (!PersonalInfo.Location[0].State) {
+        scrollToAndFocus(PersonalInfoRef,StateRef);
+      } 
+      else if (!PersonalInfo.pincode) {
+        scrollToAndFocus(PersonalInfoRef,PostalRef);
+      } 
+      else if (!PersonalInfo.age) {
+        scrollToAndFocus(PersonalInfoRef,AgeRef);
+      }
+       else if (!PersonalInfo.sexuality) {
+        scrollToAndFocus(PersonalInfoRef,SexuailtyRef);
+      }
+       else if (!PersonalInfo.occupation) {
+        scrollToAndFocus(PersonalInfoRef,OccupationRef);
+      }
+       else if (ProfilePic === null || CoverPic === null) {
+        setError('Please Provide Both Required Photos');
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      }
+       else if (!PersonalInfo.Gender || PersonalInfo.Gender==='') {
+        setError('Please Provide Your Gender');
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      }
+       else if(interests.length < 2) {
+        setError('Please Provide Atleast Two Interests');
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      } 
   };
 
   useEffect(()=>{
@@ -202,21 +254,22 @@ setCoverPic(file);
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4" ref={FirstNameRef}>
               <label
                 htmlFor="Firstname"
                 className="block text-sm md:text-2xl  font-medium leading-6 text-white"
               >
                 FirstName
               </label>
-              <div className="mt-2">
+              <div className="mt-2" >
                 <div className="flex rounded-[5px]  sm:max-w-md">
                   <input
+                  ref={FirstNameInputRef}
                     type="text"
                     name="username"
                     id="Firstname"
                     autoComplete="username"
-                    className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-600 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-[rgba(255,255,255,0.7)]  sm:text-sm sm:leading-6"
+                    className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-700 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-[rgba(255,255,255,0.7)]  sm:text-sm sm:leading-6"
                     placeholder="ex:- John"
                     onChange={(e) =>
                       setPersonalInfo({
@@ -240,7 +293,7 @@ setCoverPic(file);
                     name="username"
                     id="Lastname"
                     autoComplete="username"
-                    className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-600 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-[rgba(255,255,255,0.7)]  sm:text-sm sm:leading-6"
+                    className="block outline-none border-2 border-pink-400 rounded-[3px] focus:border-pink-700 flex-1 bg-transparent py-1.5 pl-1 md:pl-5 text-white placeholder:text-[rgba(255,255,255,0.7)]  sm:text-sm sm:leading-6"
                     placeholder="ex:- John"
                     onChange={(e) =>
                       setPersonalInfo({
@@ -262,20 +315,35 @@ setCoverPic(file);
               </label>
               <div className="mt-2">
                 <textarea
+                ref={BioRef}
                   id="about"
                   name="about"
-                  rows={6}
-                  className="block border-2 border-pink-500 focus:border-pink-700 pl-5 outline-none w-full rounded-md overflow-hidden resize-none max-h-[300px] py-1.5 text-pink-500  placeholder:text-pink-500  sm:text-sm md:text-[18px] sm:leading-6"
+                  rows={4}
+                  className="block border-2 border-pink-500 focus:border-pink-700 pl-5  outline-none w-full rounded-md overflow-hidden resize-none max-h-[300px] py-1.5 text-pink-500  placeholder:text-pink-500  sm:text-sm md:text-[19px] sm:leading-6"
                   defaultValue={""}
-                  placeholder="example:-  your Hobbies/ What You Do For Fun / What are You Looking For......."
-                  onChange={(e) =>
+                  placeholder="your Hobbies/ What You Do For Fun / What are You Looking For......."
+                  onChange={(e) =>{
+                    const AboutInfo = e.target.value;
+                    const Length = AboutInfo.trim().length;
+                    console.log(Length);
+                    if(Length<=MaxBioLength){
                     setPersonalInfo({ ...PersonalInfo, bio: e.target.value })
+                    }
                   }
+                
+                }
+                maxLength={MaxBioLength}
                 />
               </div>
+              <div className="flex justify-between items-center">
               <p className="mt-3 text-sm md:text-[16px] leading-6 text-[rgba(255,255,255,0.7)]">
                 Write a few sentences about yourself.
               </p>
+              <p className={`mt-3 text-sm md:text-[16px] leading-6 font-bold text-[rgba(255,255,255,0.7)]`}>
+              Characters left: {MaxBioLength - PersonalInfo.bio.length}
+              </p>
+              
+              </div>
             </div>
 
             <div className="col-span-full">
@@ -368,7 +436,7 @@ setCoverPic(file);
           </div>
         </div>
 
-        <div className="pb-12">
+        <div className="pb-12" ref={PersonalInfoRef}>
           <h2 className="text-base md:text-2xl pb-2 border-b-pink-300 border-b-2 font-semibold leading-7 text-white">
             Personal Information
           </h2>
@@ -382,6 +450,7 @@ setCoverPic(file);
               </label>
               <div className="mt-2">
                 <select
+                ref={CountryRef}
                   id="country"
                   name="country"
                   autoComplete="country-name"
@@ -423,6 +492,7 @@ setCoverPic(file);
               </label>
               <div className="mt-2">
                 <input
+                ref={CityRef}
                   type="text"
                   name="city"
                   id="city"
@@ -449,6 +519,7 @@ setCoverPic(file);
               </label>
               <div className="mt-2">
                 <input
+                ref={StateRef}
                   type="text"
                   name="region"
                   id="region"
@@ -475,6 +546,7 @@ setCoverPic(file);
               </label>
               <div className="mt-2">
                 <input
+                ref={PostalRef}
                   type="text"
                   name="postal-code"
                   id="postal-code"
@@ -494,7 +566,7 @@ setCoverPic(file);
 
         <div className={`flex gap-5 items-center`}>
             <h3 className="text-white font-bold">Your Age:</h3>
-            <input type="number" disabled={LOADING}  onChange={(e)=>{
+            <input ref={AgeRef} type="number" disabled={LOADING}  onChange={(e)=>{
                if (!LOADING) {
               setPersonalInfo({...PersonalInfo,age:e.target.value.toString()})
               }  
@@ -586,6 +658,7 @@ setCoverPic(file);
                     </div>
                     <div className="flex h-6 items-center">
                       <input
+                      ref={SexuailtyRef}
                         id="Sexuality"
                         name="sexuality"
                         type="text"
@@ -619,6 +692,7 @@ setCoverPic(file);
                     </div>
                     <div className="flex h-6 items-center">
                       <input
+                      ref={OccupationRef}
                         id="Occupation"
                         name="Occupation"
                         type="text"
