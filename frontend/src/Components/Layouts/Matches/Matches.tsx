@@ -6,6 +6,8 @@ import { MainPageContext } from '../../../Context/MainPageContext';
 import {RxCross1} from 'react-icons/rx';
 import {Skeleton} from '@mui/material';
 import {motion} from 'framer-motion';
+import AnimationTest from '../../FloatingHearts';
+
 
 interface Matched {
   _id:string,
@@ -81,8 +83,8 @@ const HandleSendMessage = async(ID:string)=>{
            </div>
         </div>
       )):
-      <div className='flex justify-center  items-center self-center h-[500px]'>
-         <div className='flex flex-col items-center gap-2'>
+      <div className='flex relative justify-center  items-center self-center h-[500px]'>
+         <div className='z-20 flex flex-col items-center gap-2'>
           <div className='flex justify-center'>
             {loading?
              <Skeleton animation='wave' width={120} height={120} variant='circular' sx={{bgcolor:'pink'}} className=''/>
@@ -95,6 +97,11 @@ const HandleSendMessage = async(ID:string)=>{
               <span className='text-pink-500 text-lg w-[290px]'>Find Your Love Spark Keep Swiping</span>
          </div>
          </div>
+         {!loading &&
+        <div className='absolute top-[-180px]'>
+          <AnimationTest />
+        </div>
+          }
       </div>
     }
 

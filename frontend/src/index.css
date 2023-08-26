@@ -97,6 +97,7 @@ overflow: hidden;
   .cardContainer {
     width: 450px;
     height: 600px;
+    user-select: none;
   }
   
   .card {

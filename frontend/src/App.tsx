@@ -1,4 +1,4 @@
-import {useEffect,useState,useContext} from 'react';
+import {useEffect,useContext} from 'react';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Home from './Components/Pages/Home';
 import NotFound from './Components/Pages/NotFound';
@@ -6,7 +6,7 @@ import NotFound from './Components/Pages/NotFound';
 import ShowNav from './ShowNav';
 import MainPage from './Components/Pages/MainPage';
 import CompleteProfile from './Components/Pages/CompleteProfile';
-import axios from 'axios';
+//import axios from 'axios';
 import { Loaduser } from './Actions/userAction';
 import { useAppDispatch} from './Hooks';
 import Success from './Components/Pages/Payment/Stripe/Success';
@@ -15,13 +15,14 @@ import Fail from './Components/Pages/Payment/Stripe/Fail';
 import VideoCall from './Components/Layouts/VideoCall/VideoCall';
 import { LoginContext } from './Context/LoginContext';
 //import Footer from './Components/Layouts/Footer';
+import AnimationTest from './Components/FloatingHearts';
 
 const App = () => {
-  const [User,setUser]=useState(null);
+  //const [User,setUser]=useState(null);
   const dispatch = useAppDispatch();
   const {LoggedOut} = useContext(LoginContext);
   
-  useEffect(() => {
+  /*useEffect(() => {
     const getUser = async () => {
       try {
         console.log('Starting Request');
@@ -43,7 +44,7 @@ const App = () => {
     };
     console.log(User);
     getUser();
-  }, [User]);
+  }, [User]);*/
 
 
   useEffect(()=>{
@@ -67,6 +68,7 @@ const App = () => {
       <Route path='/VideoCall' element={<VideoCall />} />
       <Route path='/StripeSuccess' element={<Success />} />
       <Route path='/StripeFail' element={<Fail />} />
+      <Route path='/test' element={<AnimationTest />} />
      </Routes>
     </Router>
   )

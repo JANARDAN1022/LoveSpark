@@ -13,10 +13,10 @@ import { RegisterUser, LoginUser } from "../../Actions/userAction";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Skeleton } from "@mui/material";
 import { motion } from "framer-motion";
+import BGimage from '../../Assets/wepik.png';
 
 const Home = () => {
-  const { ShowLogin, setshowLogin, ShowSignUp, setShowSignUp, scroll } =
-    useContext(LoginContext);
+  const { ShowLogin, setshowLogin, ShowSignUp, setShowSignUp, scroll } = useContext(LoginContext);
   const { setLoggedOut } = useContext(LoginContext);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -25,6 +25,7 @@ const Home = () => {
   const [Confirmpassword, setConfirmpassword] = useState("");
   const [Error, setError] = useState("");
   const [LOADING, setLOADING] = useState(false);
+  const [ImageLoading,setImageLoading]=useState(true);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
 
@@ -65,6 +66,18 @@ const Home = () => {
       Navigate("/");
     }
   }, [Navigate, loading, user, error, isAuthenticated]);
+
+  useEffect(() => {
+    const backgroundUrl = BGimage;
+    const tempImage = new Image();
+
+    tempImage.onload = () => {
+      setImageLoading(false);
+    };
+
+    tempImage.src = backgroundUrl;
+  }, []);
+
 
   const HandleGoogleLogin = () => {
     window.open("https://love-spark.vercel.app/auth/google", "_self");
@@ -223,8 +236,9 @@ const Home = () => {
     }
   };
 
-  return loading && !LOADING ? (
+  return (loading || ImageLoading ) && !LOADING ? (
     <Skeleton
+    data-testid="skeleton"
       width="100vw"
       height="100vh"
       className="bg-gradient-to-r from-pink-600 to-rose-400"
@@ -233,7 +247,7 @@ const Home = () => {
     />
   ) : (
     <div
-      className={`Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
+    data-testid="content" className={`Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
     >
       <div>
         <div

@@ -10,6 +10,8 @@ const Swipe = () => {
   const { user,loading } = useAppSelector((state) => state.user);
   const {setReFetchMatches,ReFetchUsers} = useContext(MainPageContext);
   const [users, setUsers] = useState<User[]>([]);
+  const [LoadingCards,setLoadingCards]=useState(false);
+  const [LoadingSwipe,setLoadingSwipe]=useState(false);
   //const [DATA,setDATA]=useState<any>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastDirection, setLastDirection] = useState<string | undefined>();
@@ -25,10 +27,13 @@ const Swipe = () => {
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
 
       try {
+        setLoadingCards(true);
         const { data } = await axios.get<any>(route, config);
         setUsers(data.users);
+        setLoadingCards(false);
       } catch (error) {
         console.log(error);
+        setLoadingCards(false);
       }
     }
   }, [user]);
@@ -38,13 +43,16 @@ const Swipe = () => {
       const Route = `https://love-spark.vercel.app/api/Swipe/AddSwipe`;
       const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
       try {
+        setLoadingSwipe(true);
        await axios.post<any>(Route, { userId: user?._id, SwipedId: ID, direction: Dir }, config);
        setReFetchMatches(true);
        setTimeout(() => {
         setReFetchMatches(false);
        }, 1000);
+       setLoadingSwipe(false);
       } catch (error) {
         console.log(error);
+        setLoadingSwipe(false);
       }
     },[user,setReFetchMatches]);
   
@@ -125,7 +133,7 @@ const Swipe = () => {
   return (
     <div className='SwipeCard flex justify-center h-[743px] w-[1140.5px] bg-gradient-to-r from-pink-500 to-rose-500 hide-scrollbar'>
       <div className='swiper-container flex flex-col justify-center'>
-        {loading?
+        {loading || LoadingCards?
         <Skeleton animation='wave' variant='rectangular' height={590} className='rounded-[10px]'/>
         :
         <div className='cardContainer'>
@@ -160,7 +168,7 @@ const Swipe = () => {
                         </span>
                       ))}
                     </div>
-                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] w-[450px] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio.slice(0,150)}</span>
+                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] w-[450px] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio}</span>
                   </div>
                 </div>
               </TinderCard>
@@ -183,7 +191,7 @@ const Swipe = () => {
           <button
             className={`bg-white w-[100px] h-[30px] rounded-[5px]`}
             onClick={() => swipe('left')}
-            disabled={!canSwipe || loading}
+            disabled={!canSwipe || loading || LoadingSwipe || LoadingCards}
           >
             Left
           </button>
@@ -194,7 +202,7 @@ const Swipe = () => {
           <button
             className={`bg-white w-[200px] h-[30px] rounded-[5px]`}
             onClick={goBack}
-            disabled={!canGoBack || loading}
+            disabled={!canGoBack || loading || LoadingSwipe || LoadingCards}
           >
             Undo Last Swipe
           </button>
@@ -205,7 +213,7 @@ const Swipe = () => {
          <button
             className={`bg-white w-[100px] h-[30px] rounded-[5px]`}
             onClick={() => swipe('right')}
-            disabled={!canSwipe || loading}
+            disabled={!canSwipe || loading || LoadingSwipe || LoadingCards}
           >
             Right
           </button>
