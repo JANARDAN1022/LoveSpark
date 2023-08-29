@@ -11,6 +11,7 @@ import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
 import { LoginContext } from "../../Context/LoginContext";
+import Skeleton from "@mui/material/Skeleton/Skeleton";
 
 
 
@@ -24,6 +25,7 @@ const MainPage = () => {
   const [Messages,setMessages]=useState<MessagesData[]>([]);
   const [unReadMessages,setunReadMessages]=useState<number>(0);
   const {setLoggedOut} = useContext(LoginContext);
+  const [MainPageLoading,setMainPageLoading]=useState(false);
  const Navigate = useNavigate();
 
 
@@ -69,11 +71,20 @@ useEffect(() => {
 
   
   return (
-    <div className={`flex overflow-scroll scrollbar relative`}>
+    <div className={`flex overflow-scroll  scrollbar relative flex-shrink`}>
       <div className="flex-[1]">
-      <LeftBar unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
-    </div>
-    <div className="flex-[3] bg-pink-100 h-[745px]">
+          <LeftBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
+     </div>
+    {
+    MainPageLoading?
+    <Skeleton animation='wave'
+    className="bg-gradient-to-r from-pink-600 to-rose-400"
+    variant="rectangular"
+    height='100vh'
+    width='80%'
+    />
+    :
+    <div className="flex-[3] bg-pink-100 h-[745px] flex-shrink">
     {ShowComponent==='Chat'?
     <Chat socket={socket} Messages={Messages} setMessages={setMessages}/>
     :ShowComponent==='Profile'?
@@ -84,6 +95,7 @@ useEffect(() => {
     <Swipe />
   }
     </div>
+}
     </div>
 
   )

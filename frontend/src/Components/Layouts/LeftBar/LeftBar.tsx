@@ -38,10 +38,12 @@ interface LeftBarProps {
     socKetId:string,
     unreadMessages:number,
     userId:string,
-  }]
+  }],
+  setMainPageLoading:React.Dispatch<React.SetStateAction<boolean>>,
+  MainPageLoading:boolean
 }
 
-const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers}:LeftBarProps) => {
+const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers,setMainPageLoading,MainPageLoading}:LeftBarProps) => {
   const [activeTab, setActiveTab] = useState('matches');
   const [Tooltip,setTooltip]=useState({
     Settings:false,
@@ -84,19 +86,7 @@ const FetchMatches = useCallback( async()=>{
 
 
 
-  const HandleLogout = async()=>{
-    if(user && !loading){
-      setLOADING({...LOADING,LogoutLoading:true});
-   const response = await dispatch(LogoutUser());
-   const result = unwrapResult(response);
-   if(result?.success){
-    setLoggedOut(true);
-    setLOADING({...LOADING,LogoutLoading:false});
-    Navigate('/');  
-    setShowComponent('Swipe');
-   }
-  }
-  }
+ 
   
   const HandleDeleteMatches = async(id:string)=>{
     try {
@@ -129,7 +119,21 @@ const FetchMatches = useCallback( async()=>{
     }
   },[ShowComponent,ChangeTab]);
 
- 
+  const HandleLogout = async()=>{
+    if(user && !loading){
+      setLOADING({...LOADING,LogoutLoading:true});
+      setMainPageLoading(true);
+      handleTabChange('matches', 0)
+   const response = await dispatch(LogoutUser());
+   const result = unwrapResult(response);
+   if(result?.success){
+    setLoggedOut(true);
+    setLOADING({...LOADING,LogoutLoading:false});
+    Navigate('/');  
+    setShowComponent('Swipe');
+   }
+  }
+  }
 
   return (
     <div className="h-full  md:w-[280px] lg:w-[392px] flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20">
@@ -166,7 +170,7 @@ const FetchMatches = useCallback( async()=>{
         null  
         }
           {loading?
-         <Skeleton variant='rectangular' animation='wave' height={30} width={25} />
+         <Skeleton variant='rectangular'  animation='wave' height={30} width={25} />
          :
          <BiLogOut onClick={HandleLogout} onMouseEnter={()=>setTooltip({...Tooltip,Logout:true})} onMouseLeave={()=>setTooltip({...Tooltip,Logout:false})} size={30} className={`text-[rgba(255,255,255,0.7)] hover:text-white ${LOADING.LogoutLoading?'cursor-none':'cursor-pointer'}`}/>
         }
@@ -182,7 +186,11 @@ const FetchMatches = useCallback( async()=>{
       </div>
 
       <div className={`flex flex-col ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''}`}>
-        <div  className="relative h-16 shadow-md flex gap-20 pt-5 pl-5 bg-gray-100 font-bold">
+        <div  className="relative h-16 shadow-md flex md:gap-20 lg:gap-36 pt-5 pl-5 bg-gray-100 font-bold">
+          {
+            MainPageLoading?
+            <Skeleton animation='wave' className='rounded-[5px]' variant='rectangular' width='100px' height='20px' />
+            :
           <span
             className={`
             ${ShowReport.show && ShowReport.for==='Messages'?'b lur-sm cursor-none':'cursor-pointer'}
@@ -198,25 +206,31 @@ const FetchMatches = useCallback( async()=>{
           >
             Matches
           </span>
+}
+           {
+            MainPageLoading?
+            <Skeleton animation='wave' className='rounded-[5px]' variant='rectangular' width='100px' height='20px' />
+            :
           <span
             className={`
             ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':'cursor-pointer'}
             ${
               activeTab === 'messages' ? 'text-pink-500' : 'text-gray-500'
             }`}
-            onClick={() => handleTabChange('messages', 1.2)}
+            onClick={() => handleTabChange('messages', 1.7)}
           >
             Messages
           </span>
+           }
           <div
             className="absolute  bottom-0 left-3 h-1 bg-gradient-to-r from-pink-500 to-rose-500 transition-all duration-300"
             style={{ width: '30%', transform: `translateX(${indicatorPosition * 100}%)` }}
           />
-          <div className={`${matches.length<1?'hidden':''} flex justify-center text-white   h-7 w-7 rounded-full absolute left-24 top-3 bg-gradient-to-r from-pink-500 to-rose-500`}>
+          <div className={`${matches.length<1 && MainPageLoading?'hidden':''} flex justify-center text-white   h-7 w-7 rounded-full absolute left-24 top-3 bg-gradient-to-r from-pink-500 to-rose-500`}>
             <span className='mt-[2px]'>{matches.length}</span>
           </div>
 
-          <div className={`flex ${unReadMessages>0?'':'hidden'} justify-center text-white   h-7 w-7 rounded-full absolute right-[120px] bg-gradient-to-r from-pink-500 to-rose-500 top-3`}>
+          <div className={`flex ${unReadMessages>0 && !MainPageLoading?'':'hidden'} justify-center text-white   h-7 w-7 rounded-full absolute right-[120px] bg-gradient-to-r from-pink-500 to-rose-500 top-3`}>
             <span className='mt-[2px]'>{unReadMessages}</span>
           </div>
         </div>
@@ -227,7 +241,7 @@ const FetchMatches = useCallback( async()=>{
         :activeTab==='Settings'?
         <AccountSettings />
          :
-        <Matches matches={matches} MatchLoading={LOADING.matchesLoading} HandleDelete={HandleDeleteMatches}/>
+        <Matches MainPageLoading={MainPageLoading} matches={matches} MatchLoading={LOADING.matchesLoading} HandleDelete={HandleDeleteMatches}/>
       }
            
     </div>

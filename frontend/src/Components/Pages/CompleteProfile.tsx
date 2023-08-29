@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect,useContext,useCallback } from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
-import { Country } from "country-state-city";
+import { Country,State,City} from "country-state-city";
 import { useAppDispatch } from "../../Hooks";
 import { UpdateUser } from "../../Actions/userAction";
 import { useAppSelector } from "../../Hooks";
@@ -11,14 +11,17 @@ import { storage } from "../../firebase";
 import { MainPageContext } from "../../Context/MainPageContext";
 import { unwrapResult } from '@reduxjs/toolkit';
 import axios from "axios";
+import { PersonalInfoType } from "../../Types/UserTypes";
 
 export default function Example() {
   const [ProfilePic, setProfilePic] = useState<any | null>(null);
   const [CoverPic, setCoverPic] = useState<any | null>(null);
   const [LOADING,setLOADING]=useState(false);
   const {setUsers} = useContext(MainPageContext);
+
+  
  
- const [PersonalInfo, setPersonalInfo] = useState({
+ const [PersonalInfo, setPersonalInfo] = useState<PersonalInfoType>({
     FirstName: "",
     LastName: "",
     bio: "",
@@ -35,6 +38,8 @@ export default function Example() {
     occupation: "",
     age:'',
   });
+  const [CountryCode,setCountryCode] = useState(''); 
+  const [StateCode,setStateCode]=useState('');
   const MaxBioLength = 300;
   const [interests, setinterests] = useState<string[]>([]);
   const [Error,setError]=useState('');
@@ -44,13 +49,14 @@ export default function Example() {
   const FemaleRef = useRef<HTMLInputElement>(null);
   const BioRef = useRef<HTMLTextAreaElement>(null);
   const PersonalInfoRef = useRef<HTMLDivElement>(null);
-  const StateRef = useRef<HTMLInputElement>(null);
-  const CityRef =  useRef<HTMLInputElement>(null);
+  const StateRef = useRef<HTMLSelectElement>(null);
+  const CityRef =  useRef<HTMLSelectElement>(null);
   const PostalRef =  useRef<HTMLInputElement>(null);
   const AgeRef =  useRef<HTMLInputElement>(null);
   const SexuailtyRef =  useRef<HTMLInputElement>(null);
   const OccupationRef =  useRef<HTMLInputElement>(null);
   const CountryRef = useRef<HTMLSelectElement>(null);
+  const CustomGenderRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
@@ -89,14 +95,22 @@ export default function Example() {
     if (FemaleRef.current !== null) {
       FemaleRef.current.checked = false;
     }
+    if (CustomGenderRef.current !== null) {
+      CustomGenderRef.current.value = ""
+    }
     setPersonalInfo({ ...PersonalInfo, Gender: "Male" });
   };
 
   const HandleFemaleGender = () => {
     if (MaleRef.current !== null) {
       MaleRef.current.checked = false;
-      setPersonalInfo({ ...PersonalInfo, Gender: "Female" });
+      
+    if (CustomGenderRef.current !== null) {
+      CustomGenderRef.current.value = ""
     }
+    }
+    setPersonalInfo({ ...PersonalInfo, Gender: "Female" });
+    
   };
 
   const HandleCustomGender = (e: any) => {
@@ -192,12 +206,12 @@ setCoverPic(file);
         scrollToAndFocus(FirstNameRef,BioRef);
       } else if(!PersonalInfo.Location[0].country){
         scrollToAndFocus(PersonalInfoRef,CountryRef); 
-      }
-      else if (!PersonalInfo.Location[0].city) {
-        scrollToAndFocus(PersonalInfoRef,CityRef);
       } 
       else if (!PersonalInfo.Location[0].State) {
         scrollToAndFocus(PersonalInfoRef,StateRef);
+      } 
+      else if (!PersonalInfo.Location[0].city) {
+        scrollToAndFocus(PersonalInfoRef,CityRef);
       } 
       else if (!PersonalInfo.pincode) {
         scrollToAndFocus(PersonalInfoRef,PostalRef);
@@ -455,7 +469,7 @@ setCoverPic(file);
                   name="country"
                   autoComplete="country-name"
                   className="block w-full rounded-md border-0 py-1.5 text-pink-500 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  onChange={(e) =>
+                  onChange={(e) =>{
                     setPersonalInfo({
                       ...PersonalInfo,
                       Location: [
@@ -466,7 +480,9 @@ setCoverPic(file);
                             "",
                         },
                       ],
-                    })
+                    });
+                    setCountryCode(e.target.value);
+                  }
                   }
                 >
                   <option value=" ">Select Country</option>
@@ -483,17 +499,55 @@ setCoverPic(file);
               </div>
             </div>
 
-            <div className="sm:col-span-2 sm:col-start-1">
+            <div className={`sm:col-span-2 sm:col-start-1`}>
+              <label
+                htmlFor="region"
+                className="block text-sm font-medium leading-6 text-white"
+              >
+                State / Province
+              </label>
+              <div className="mt-2">
+                <select
+                ref={StateRef}
+                  name="region"
+                  id="region"
+                  autoComplete="address-level1"
+                  className="block w-full rounded-md border-0 py-1.5 text-pink-500 pl-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[rgba(255,255,255,0.7)] focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={(e) =>{
+                    setPersonalInfo({
+                      ...PersonalInfo,
+                      Location: [
+                        { ...PersonalInfo.Location[0],State:State.getStateByCodeAndCountry(e.target.value,CountryCode)?State.getStateByCodeAndCountry(e.target.value,CountryCode)?.name:""},
+                      ],
+                    });
+                    setStateCode(e.target.value);
+                  }
+                  }
+                >
+                  <option value=" ">Select State</option>
+                  {State && CountryCode!=='' &&
+                    State.getStatesOfCountry(CountryCode).map((state) => (
+                      <option
+                        key={`STATE_${state.isoCode}`}
+                        value={state.isoCode}
+                      >
+                        {state.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+
+            <div className={`${StateCode==='' || PersonalInfo.Location[0].State===''?'hidden':''} sm:col-span-2`}>
               <label
                 htmlFor="city"
                 className="block text-sm font-medium leading-6 text-white"
               >
                 City
               </label>
-              <div className="mt-2">
-                <input
+              <div className={`mt-2`}>
+                <select
                 ref={CityRef}
-                  type="text"
                   name="city"
                   id="city"
                   autoComplete="address-level2"
@@ -506,36 +560,23 @@ setCoverPic(file);
                       ],
                     })
                   }
-                />
+                >
+                  <option value=" ">Select City</option>
+                  {City && StateCode!=='' && 
+                    City.getCitiesOfState(CountryCode,StateCode).map((city) => (
+                      <option
+                        key={`STATE_City_${city.name}`}
+                        value={city.name}
+                      >
+                        {city.name}
+                      </option>
+                    ))}
+
+                </select>
               </div>
             </div>
 
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="region"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                State / Province
-              </label>
-              <div className="mt-2">
-                <input
-                ref={StateRef}
-                  type="text"
-                  name="region"
-                  id="region"
-                  autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-pink-500 pl-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-[rgba(255,255,255,0.7)] focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  onChange={(e) =>
-                    setPersonalInfo({
-                      ...PersonalInfo,
-                      Location: [
-                        { ...PersonalInfo.Location[0], State: e.target.value },
-                      ],
-                    })
-                  }
-                />
-              </div>
-            </div>
+           
 
             <div className="sm:col-span-2">
               <label
@@ -547,7 +588,7 @@ setCoverPic(file);
               <div className="mt-2">
                 <input
                 ref={PostalRef}
-                  type="text"
+                  type="number"
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
@@ -555,7 +596,7 @@ setCoverPic(file);
                   onChange={(e) =>
                     setPersonalInfo({
                       ...PersonalInfo,
-                      pincode: e.target.value,
+                      pincode: e.target.value.toString(),
                     })
                   }
                 />
@@ -591,7 +632,7 @@ setCoverPic(file);
                 />
               </div>
               <div className="text-sm  md:text-[20px] leading-6">
-                <label htmlFor="Male" className="font-medium  text-white">
+                <label htmlFor="Male" className="font-bold text-base  text-white">
                   Male
                 </label>
               </div>
@@ -610,7 +651,7 @@ setCoverPic(file);
                 />
               </div>
               <div className="text-sm  md:text-[20px] leading-6">
-                <label htmlFor="Female" className="font-medium  text-white">
+                <label htmlFor="Female" className="font-bold text-base  text-white">
                   Female
                 </label>
               </div>
@@ -620,13 +661,14 @@ setCoverPic(file);
               <div className="text-sm md:text-base leading-6">
                 <label
                   htmlFor="Customgender"
-                  className="font-medium text-white"
+                  className="font-bold text-base text-white"
                 >
                   Write Your Gender Instead :
                 </label>
               </div>
               <div className="flex h-6 items-center">
                 <input
+                ref={CustomGenderRef}
                   id="Customgender"
                   name="Customgender"
                   type="text"
@@ -651,7 +693,7 @@ setCoverPic(file);
                     <div className="text-xs sm:text-sm md:text-base sm:leading-6">
                       <label
                         htmlFor="Sexuality"
-                        className="font-medium text-white"
+                        className="text-base mr-2 font-bold text-white"
                       >
                         write Your Sexuality :
                       </label>
@@ -663,7 +705,7 @@ setCoverPic(file);
                         name="sexuality"
                         type="text"
                         disabled={LOADING}
-                        placeholder="ex:- Straight or Lesbian Or Bi or...."
+                        placeholder=" Straight / Lesbian / Bi-Sexual ...."
                         className={`h-6 sm:h-8 w-52 placeholder:text-[12px] pl-2 md:w-64 rounded-[5px] border-pink-500 border-2 ${LOADING?'text-white':'text-pink-600'} outline-none md:text-base md:p-2 md:pl-3`}
                         onChange={(e) =>
                           setPersonalInfo({
@@ -681,11 +723,11 @@ setCoverPic(file);
                   Occupation
                 </legend>
                 <div className="mt-6 space-y-6">
-                  <div className="relative  lg:flex-row md:flex-col md:gap-5 lg:gap-0 items-center flex gap-x-3">
+                  <div className="relative   lg:flex-row md:flex-col md:gap-5 lg:gap-0 items-center flex gap-x-3">
                     <div className="text-xs sm:text-sm md:text-base leading-6">
                       <label
                         htmlFor="Occupation"
-                        className="font-medium text-white"
+                        className="text-white text-base mr-2 font-bold"
                       >
                         Your Current Work State :
                       </label>

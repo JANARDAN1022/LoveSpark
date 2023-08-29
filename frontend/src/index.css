@@ -133,6 +133,7 @@ overflow: hidden;
         width: 100vw;
         height: 106.5vh;
     }
+    
 }
 
 
@@ -151,12 +152,14 @@ overflow: hidden;
         width: 99.9vw;
         height: 83.5vh;
     }
+    
 }
 @media(max-width:407px) and (max-height:700px){
     .layer{
         width: 99.9vw;
         height: 105.5vh;
     }
+    
 }
 @media(max-width:370px) and (max-height:800px){
     .layer{

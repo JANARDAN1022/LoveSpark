@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../Hooks';
 import axios from 'axios';
 import { User } from '../../../Types/UserTypes';
 import { v4 } from 'uuid';
+import Skeleton from '@mui/material/Skeleton/Skeleton';
 
 interface Data {
   Success:boolean,
@@ -22,6 +23,7 @@ const Profile = () => {
     const [MatchedUser,setMatchedUser]=useState<User | null>(null);
     const [ShowReport,setShowReport]=useState(false);
     const [Reason,setReason]=useState('');
+    const [ProfileLoading,setProfileLoading]=useState(true);
     const TextRef = useRef<HTMLTextAreaElement>(null);
     const Bio = user?.bio;
     const coverUrl = user?.CoverUrl;
@@ -82,6 +84,17 @@ useEffect(()=>{
   }
 },[ShowReport]);
 
+useEffect(() => {
+  const backgroundUrl =  MatchedId!=='' && MatchedUser!==null?MatchedUser.CoverUrl:coverUrl?coverUrl:'';
+  const tempImage = new Image();
+
+  tempImage.onload = () => {
+    setProfileLoading(false);
+  };
+
+  tempImage.src = backgroundUrl;
+}, [MatchedId,MatchedUser,coverUrl]);
+
     
   return (
     MatchedId!=='' && MatchedUser!==null?
@@ -102,6 +115,9 @@ useEffect(()=>{
     </div>
     <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className={`${ShowReport?'blur-sm':''} text-white absolute top-10 cursor-pointer right-[25%]`} size={40} onClick={()=>{setShowComponent('Swipe'); setMatchedId(''); setMatchedUser(null);}} />
     <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
+      {ProfileLoading?
+   <Skeleton animation='wave' variant='rectangular' width={450} height={600} />
+      :
       <div style={{ backgroundImage:`url(${MatchedUser.CoverUrl})`}} className={`${ShowReport?'blur-sm':''} Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white`}>
     <MdReportProblem onClick={()=>setShowReport(true)} size={38} onMouseEnter={()=>setTooltip({...Tooltip,Report:true})} onMouseLeave={()=>setTooltip({...Tooltip,Report:false})} className='absolute right-5 top-5 text-[rgba(255,255,255,0.8)] hover:text-white transition-all duration-100 ease-in-out  cursor-pointer'/>
      <span className={`text-white ${Tooltip.Report?'':'hidden'} absolute right-16 top-5`}>Report {MatchedUser.FirstName}</span>
@@ -120,11 +136,15 @@ useEffect(()=>{
       <span className={` text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.1)]`}>{MatchedUser.bio}</span>
    </div>
     </div>
+    }
     </div>
    :
     <div  className={`flex justify-center items-center relative w-[1140.5px] h-[742px] bg-pink-600`}>
     <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className='text-white absolute top-10 cursor-pointer right-[25%]' size={40} onClick={()=>setShowComponent('Swipe')} />
     <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
+    {ProfileLoading?
+   <Skeleton animation='wave' variant='rectangular' width={450} height={600} />
+      :
     <div style={{ backgroundImage:`url(${coverUrl})`}} className='Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white'>
        <span onClick={()=>setShowComponent('EditInfo')} className='absolute text-[rgba(255,255,255,0.7)] right-5 top-3 hover:text-white text-xl cursor-pointer'>Edit</span>
      
@@ -143,6 +163,7 @@ useEffect(()=>{
       <span className={` text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.1)]`}>{Bio}</span>
    </div>
     </div>
+    }
     </div>
   )
 }

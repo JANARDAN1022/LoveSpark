@@ -155,7 +155,7 @@ const data = {
          <img onClick={()=>{
           setMatchedId(ID!==''?ID:'')
           setShowComponent('Profile');
-          }} src={ProfilePic} alt='img' className='cursor-pointer w-[60px] h-[60px] rounded-full' />
+          }} src={ProfilePic} alt='img' className='cursor-pointer w-[60px] h-[60px] rounded-full object-cover' />
          <span onClick={()=>{
           setMatchedId(ID!==''?ID:'')
           setShowComponent('Profile');

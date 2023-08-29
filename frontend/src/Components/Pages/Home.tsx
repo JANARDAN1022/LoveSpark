@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 import BGimage from '../../Assets/wepik.png';
 
 const Home = () => {
-  const { ShowLogin, setshowLogin, ShowSignUp, setShowSignUp, scroll } = useContext(LoginContext);
+  const { ShowLogin, setshowLogin, ShowSignUp,ImageLoading,setImageLoading, setShowSignUp, scroll } = useContext(LoginContext);
   const { setLoggedOut } = useContext(LoginContext);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -25,7 +25,6 @@ const Home = () => {
   const [Confirmpassword, setConfirmpassword] = useState("");
   const [Error, setError] = useState("");
   const [LOADING, setLOADING] = useState(false);
-  const [ImageLoading,setImageLoading]=useState(true);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
 
@@ -76,7 +75,7 @@ const Home = () => {
     };
 
     tempImage.src = backgroundUrl;
-  }, []);
+  }, [setImageLoading]);
 
 
   const HandleGoogleLogin = () => {

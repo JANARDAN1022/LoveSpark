@@ -79,3 +79,22 @@ export interface MessagesData {
   totalUnreadMessages:number,
   
 }
+
+
+export interface PersonalInfoType {
+  FirstName: String,
+  LastName: String,
+  bio: String,
+  Location: [
+    {
+      country: String,
+      State: String | undefined,
+      city: String,
+    },
+  ],
+  pincode: String,
+  Gender: String,
+  sexuality:String,
+  occupation: String,
+  age:String,
+}

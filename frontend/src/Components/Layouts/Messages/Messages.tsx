@@ -141,7 +141,7 @@ const OnlineIds = onlineUsers.map((User)=>User.userId);
           
           <span className={`${OnlineIds.includes(data.participants[0]?._id)?'':'hidden'} z-20 bg-green-500 top-2 left-12 w-[20px] h-[20px] rounded-full absolute`}></span>
           <div className='flex relative  gap-6 items-center' onClick={()=>HandleMessageClick(data?._id)}>
-        <img src={data.participants[0]?.ProfileUrl} alt='URL' className='h-[45px] w-[45px] rounded-full hover:border border-pink-500' />
+        <img src={data.participants[0]?.ProfileUrl} alt='URL' className='h-[45px] w-[45px] object-cover rounded-full hover:border border-pink-500' />
         <span className='text-[20px] text-pink-500'>{data.participants[0]?.FirstName}</span>
         </div>
         <div className='flex gap-5 mr-1'>
@@ -167,7 +167,7 @@ const OnlineIds = onlineUsers.map((User)=>User.userId);
         <img onClick={()=>setShowComponent('Profile')} src={user?.ProfileUrl} alt='ProfilePic' className='cursor-pointer object-cover hover:border-pink-400 border-2 border-pink-500 w-[120px] h-[120px] rounded-full' />
           }
         <span className='text-pink-500 font-bold'>No Messages Yet</span>
-        <span className='text-pink-500 font-bold'>Find Your Spark And Start Messaging</span>
+        <span className='text-pink-500 font-bold md:text-sm lg:text-base'>Find Your Spark And Start Messaging</span>
         </div>
         </div>
       }

@@ -12,6 +12,7 @@ const Swipe = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [LoadingCards,setLoadingCards]=useState(false);
   const [LoadingSwipe,setLoadingSwipe]=useState(false);
+  const [SwipeLoading,setSwipeLoading]=useState(true);
   //const [DATA,setDATA]=useState<any>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastDirection, setLastDirection] = useState<string | undefined>();
@@ -130,13 +131,24 @@ const Swipe = () => {
     }
   };
 
+  useEffect(() => {
+    const backgroundUrl = users.map((user)=>user.CoverUrl);
+    const tempImage = new Image();
+  
+    tempImage.onload = () => {
+      setSwipeLoading(false);
+    };
+  
+    tempImage.src = backgroundUrl[0];
+  }, [users]);
+
   return (
-    <div className='SwipeCard flex justify-center h-[743px] w-[1140.5px] bg-gradient-to-r from-pink-500 to-rose-500 hide-scrollbar'>
+    <div className='SwipeCard flex justify-center h-[100%]  bg-gradient-to-r from-pink-500 to-rose-500 hide-scrollbar'>
       <div className='swiper-container flex flex-col justify-center'>
-        {loading || LoadingCards?
+        {loading || LoadingCards || SwipeLoading?
         <Skeleton animation='wave' variant='rectangular' height={590} className='rounded-[10px]'/>
         :
-        <div className='cardContainer'>
+        <div className='cardContainer md:w-[350px] md:h-[500px] lg:w-[450px] lg:h-[600px] md:ml-16 lg:ml-2'>
           {users.length > 0 &&
             users.map((character, index) => (
               <TinderCard
@@ -147,14 +159,14 @@ const Swipe = () => {
                 onCardLeftScreen={() => outOfFrame(character.FirstName,lastDirection,index)}
                 preventSwipe={['down', 'up']}
               >
-                <div style={{ backgroundImage: `url(${character.CoverUrl})` }} className='card relative flex'>
+                <div style={{ backgroundImage: `url(${character.CoverUrl})` }} className='card relative flex md:w-[350px] md:h-[500px] lg:w-[450px] lg:h-[600px] md:ml-20'>
                   <div className='flex flex-col self-end gap-5 cursor-default'>
                     <div className='flex gap-5 items-center'>
-                      <span className='text-white text-4xl ml-5'>{character.FirstName}</span>
-                      <span className='text-white text-xl mt-2 items-center bg-gradient-to-r from-pink-500 to-rose-500 rounded-full w-[35px] flex justify-center h-[35px]'>
+                      <span className='text-white md:text-xl lg:text-4xl ml-5 '>{character.FirstName}</span>
+                      <span className='text-white md:text-base lg:text-xl mt-2 items-center bg-gradient-to-r from-pink-500 to-rose-500 rounded-full w-[35px] flex justify-center h-[35px]'>
                         {character.age}
                       </span>
-                      <span className='text-white text-lg mt-2 items-center bg-gradient-to-r from-pink-500 to-rose-500 rounded-full w-max p-1 pl-2 pr-2 flex justify-center h-[35px]'>
+                      <span className='text-white  md:text-sm lg:text-lg mt-2 items-center bg-gradient-to-r from-pink-500 to-rose-500 rounded-full w-max p-1 pl-2 pr-2 flex justify-center h-[35px]'>
                         {character.occupation}
                       </span>
                     </div>
@@ -162,20 +174,20 @@ const Swipe = () => {
                       {character.interests.map((Interest) => (
                         <span
                           key={Interest}
-                          className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base p-1 rounded-[5px]`}
+                          className={`bg-gradient-to-r from-pink-500 to-rose-500 text-white md:text-xs lg:text-base p-1 rounded-[5px]`}
                         >
                           {Interest}
                         </span>
                       ))}
                     </div>
-                    <span className={`text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] w-[450px] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio}</span>
+                    <span className={`md:text-xs lg:text-base font-bold p-2 text-white bg-[rgba(236,72,153,0.2)] w-[350px] lg:w-[450px] rounded-bl-[18px] rounded-br-[18px] `}>{character.bio}</span>
                   </div>
                 </div>
               </TinderCard>
             ))}
         </div>
         }
-        <div className='p-2'>
+        <div className='p-2 ml-20'>
           {lastDirection ? (
             <h2 className='infoText text-white text-center text-xl'>
               You swiped {lastDirection}
@@ -184,7 +196,7 @@ const Swipe = () => {
             <h2 className='infoText text-white text-center text-xl'>Swipe Left Or Right</h2>
             )}
         </div>
-        <div className='flex justify-center text-pink-400 gap-10 mt-2'>
+        <div className='flex justify-center text-pink-400 gap-10 mt-2 md:ml-20'>
           {loading?
           <Skeleton animation='wave' width={100} variant='rectangular' height={30} className='rounded-[5px]'/>
           :
