@@ -133,7 +133,11 @@ const Home = () => {
           if (loginEmailRef.current) {
             loginEmailRef.current?.focus();
           }
+          if(error==="User Has Been Banned"){
+            setError(error);
+          }else{
           setError("Invalid Email or Password");
+          }
           setLOADING(false);
           setloginEmail("");
           setloginpassword("");
