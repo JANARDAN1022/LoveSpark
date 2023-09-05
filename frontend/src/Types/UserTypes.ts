@@ -23,6 +23,7 @@ export interface User {
     ExtraUrl:string[] | [],
     role:string,
     sexuality:string | '',
+    Blocked:Boolean,
     _V:number,
     _id:string,
     pincode:string,

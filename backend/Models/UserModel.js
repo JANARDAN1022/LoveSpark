@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:'Incomplete',
     },
+    Blocked:{
+      type:Boolean,
+      default:false
+    },
     resetpasswordtoken:String,
     resetpasswordexpired:Date
 });

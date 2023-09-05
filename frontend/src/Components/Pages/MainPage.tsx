@@ -28,7 +28,11 @@ const MainPage = () => {
   const [MainPageLoading,setMainPageLoading]=useState(false);
  const Navigate = useNavigate();
 
-
+useEffect(()=>{
+  if(user?.Blocked===true){
+    Navigate('/');
+  }
+},[user])
 
 
   useEffect(() => {

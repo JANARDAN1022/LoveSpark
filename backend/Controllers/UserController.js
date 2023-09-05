@@ -16,7 +16,11 @@ exports.RegisterUser = asyncerrorhandler(async(req,res,next)=>{
 
    const UserExists = await User.findOne({email});
    if(UserExists){
-    return next({message:'User already Exists LogIn Instead',statusCode:404});
+    if(UserExists.Blocked===true){
+      return next({message:'User Has Been Banned',statusCode:403});
+    }else{
+      return next({message:'User already Exists LogIn Instead',statusCode:404});
+    }
    }else{
     const user = await User.create({
       FirstName:'',
@@ -60,7 +64,11 @@ exports.LoginUser= asyncerrorhandler(async(req,res,next)=>{
   if(!passwordmatched){
     return next({message:'Incorrect Email or password',statusCode:401});
   } 
+  if(user.Blocked===true){
+    return next({message:'User Has Been Banned',statusCode:403});
+  }else{
   sendToken(user,200,res);
+  }
 });
 
 
