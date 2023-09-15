@@ -22,7 +22,7 @@ const Fail = () => {
         </p>
         <p> Have a great day Please Try Again later!</p>
         <div className="py-10 text-center">
-          <Link to={'/'}>Go Back To MainPage</Link>
+          <Link to={'/MainPage'}>Go Back To MainPage</Link>
         </div>
       </div>
     </div>
