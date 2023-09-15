@@ -271,8 +271,8 @@ const Home = () => {
           } absolute top-10 right-0 left-0 m-auto `}
         >
           <section className="bg-transparent ">
-            <div className="flex  flex-col items-center justify-center  md:h-screen lg:py-0">
-              <div className="sm:w-full  relative bg-pink-200 z-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex  flex-col items-center justify-center md:h-screen lg:py-0">
+              <div className="w-full  relative bg-pink-200 z-50  border border-red-500   rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <RxCross1
                   size={30}
                   onClick={() => {
@@ -462,7 +462,7 @@ const Home = () => {
                       OR
                     </span>
 
-                    <div className="flex  p-2 w-[410px]">
+                    <div className="flex  p-2 sm:w-[410px]">
                       <button
                         type="button"
                         disabled={LOADING}
