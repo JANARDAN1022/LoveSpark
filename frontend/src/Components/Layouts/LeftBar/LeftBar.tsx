@@ -226,7 +226,7 @@ const FetchMatches = useCallback( async()=>{
             className="absolute  bottom-0 left-3 h-1 bg-gradient-to-r from-pink-500 to-rose-500 transition-all duration-300"
             style={{ width: '30%', transform: `translateX(${indicatorPosition * 100}%)` }}
           />
-          <div className={`${matches.length<1 && MainPageLoading?'hidden':''} flex justify-center text-white   h-7 w-7 rounded-full absolute left-24 top-3 bg-gradient-to-r from-pink-500 to-rose-500`}>
+          <div className={`${matches.length<1 || MainPageLoading?'hidden':''} flex justify-center text-white   h-7 w-7 rounded-full absolute left-24 top-3 bg-gradient-to-r from-pink-500 to-rose-500`}>
             <span className='mt-[2px]'>{matches.length}</span>
           </div>
 

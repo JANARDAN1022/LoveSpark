@@ -183,7 +183,7 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
      },[LOADING]);
   
   return (
-    <div className='relative  flex flex-col h-full w-[1140.5px]'>
+    <div className='relative  flex flex-col h-full w-[1152.5px]'>
       <div className='slide-container'>
         {CoverPic===null || CoverPic===''?
     <Slider />

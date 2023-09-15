@@ -240,6 +240,7 @@ const Home = () => {
   };
 
   return (loading || ImageLoading ) && !LOADING ? (
+    <div className="flex relative">
     <Skeleton
     data-testid="skeleton"
       width="100vw"
@@ -248,9 +249,20 @@ const Home = () => {
       variant="rectangular"
       animation="wave"
     />
+    <div className="absolute top-[40%] left-[40%]">
+    <motion.a  transition={{ease:'easeInOut'}}  className="flex title-font font-medium items-center text-gray-900 mb-4 sm:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="animate-spin md:w-20 md:h-20 w-8 h-8 text-white p-2 bg-pink-500 rounded-full" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+        <motion.span  className="animate-pulse ml-3 sm:text-[14px] md:text-4xl text-white tracking-wide">
+          LoveSpark
+          </motion.span>
+      </motion.a>    
+    </div>
+    </div>
   ) : (
     <div
-    data-testid="content" className={`Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
+    data-testid="content" className={` Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
     >
       <div>
         <div
@@ -527,11 +539,11 @@ const Home = () => {
         </div>
       </div>
       <div className="flex flex-col bg-pink-100 shadow-[0_0px_10px_5px_rgba(255,192,203,1)]">
-        <span className="text-center text-pink-500 text-sm sm:text-lg md:text-3xl mt-2 sm:mt-5 md:mt-10">
+        <span className="text-center ml-5 sm:ml-0 text-pink-500 text-sm sm:text-lg md:text-3xl mt-2 sm:mt-5 md:mt-10">
           How LoveSpark Works
         </span>
-        <div className="flex h-auto justify-center gap-8  pl-2 pr-2 sm:gap-12 sm:pt-10 sm:pr-10 sm:pl-10  md:gap-20 md:pt-16 md:pl-20 md:pr-20 items-center">
-          <div className=" w-[300px] h-[250px] md:w-[500px] flex flex-col rounded-[10px] md:h-[400px] ">
+        <div className="flex flex-col sm:flex-row h-auto justify-center mt-2 sm:mt-0  gap-2  pl-2 pr-2 sm:gap-12 sm:pt-10 sm:pr-10 sm:pl-10  md:gap-20 md:pt-16 md:pl-20 md:pr-20 items-center">
+          <div className=" w-[250px] h-[100px] sm:w-[300px] sm:h-[250px] md:w-[500px] flex flex-col rounded-[10px] md:h-[400px] ">
             <motion.div
               whileInView={{ scale: 1 }}
               initial={{ scale: 0 }}
@@ -552,7 +564,7 @@ const Home = () => {
               whileInView={{ x: 0, opacity: 1 }}
               initial={{ x: -100, opacity: 0 }}
               transition={{ type: "tween", duration: 1, delay: 0.2 }}
-              className="text-pink-500 text-center   md:mt-5 lg:mt-10 text-[8.5px] sm:text-[10px] mt-2 lg:text-[13.5px] md:text-[12px]"
+              className="text-pink-500 text-center hidden sm:flex  md:mt-5 lg:mt-10 text-[8.5px] sm:text-[10px] mt-2 lg:text-[13.5px] md:text-[12px]"
             >
               Creating an account is the first exciting step towards finding
               your perfect match. Simply sign up and provide some basic
@@ -563,7 +575,7 @@ const Home = () => {
             </motion.span>
           </div>
 
-          <div className="w-[300px] h-[250px] md:w-[500px] flex flex-col rounded-[10px] md:h-[400px] gap-2 ">
+          <div className="w-[250px] h-[100px] sm:w-[300px] sm:h-[250px] md:w-[500px] flex flex-col rounded-[10px] md:h-[400px] gap-2 ">
             <div className="flex flex-col justify-center items-center p-2  lg:p-5 gap-2">
               <motion.div
                 whileInView={{ scale: 1 }}
@@ -591,13 +603,13 @@ const Home = () => {
               transition={{ type: "tween", duration: 1, delay: 0.6 }}
               className="text-pink-500 text-center  text-[10.5px]  sm:text-xs font-bold md:text-sm lg:text-xl"
             >
-              Create Your Account And Complete Your Profile
+             Explore And start swiping!
             </motion.span>
             <motion.span
               whileInView={{ x: 0, opacity: 1 }}
               initial={{ x: -100, opacity: 0 }}
               transition={{ type: "tween", duration: 1, delay: 0.5 }}
-              className="text-pink-500 text-center sm:text-[10px]  md:mt-5 lg:mt-10 text-[8.5px] lg:text-[13.5px] md:text-[12px]"
+              className="text-pink-500 hidden sm:flex text-center sm:text-[10px]  md:mt-5 lg:mt-10 text-[8.5px] lg:text-[13.5px] md:text-[12px]"
             >
               Once your profile is set up, it's time to start swiping! Explore a
               diverse community of potential matches by swiping right if you're
@@ -609,7 +621,7 @@ const Home = () => {
             </motion.span>
           </div>
 
-          <div className="w-[300px] h-[250px] md:w-[500px]  flex flex-col rounded-[10px] md:h-[400px]">
+          <div className="w-[250px] h-[100px] sm:w-[300px] sm:h-[250px] md:w-[500px]  flex flex-col rounded-[10px] md:h-[400px]">
             <motion.div
               whileInView={{ scale: 1 }}
               initial={{ scale: 0 }}
@@ -628,13 +640,13 @@ const Home = () => {
               transition={{ type: "tween", duration: 1, delay: 0.8 }}
               className="text-pink-500 text-center  text-[10.5px]  sm:text-xs font-bold md:text-sm lg:text-xl"
             >
-              Create Your Account And Complete Your Profile
+              Chat or Start a VideoCall With Your Matches
             </motion.span>
             <motion.span
               whileInView={{ x: 0, opacity: 1 }}
               initial={{ x: -100, opacity: 0 }}
               transition={{ type: "tween", duration: 1, delay: 0.7 }}
-              className="text-pink-500 text-center sm:text-[10px]  md:mt-5 lg:mt-10 text-[8.5px] lg:text-[13.5px] md:text-[12px] mt-2"
+              className="text-pink-500 hidden sm:flex text-center sm:text-[10px]  md:mt-5 lg:mt-10 text-[8.5px] lg:text-[13.5px] md:text-[12px] mt-2"
             >
               Now that you've found someone who shares a mutual interest, it's
               time to dive deeper and explore the connection. Engage in
@@ -648,7 +660,7 @@ const Home = () => {
         </div>
 
         <footer className="text-pink body-font bg-transparent">
-          <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start sm:flex-row md:flex-nowrap flex-wrap flex-col">
+          <div className="container  sm:px-5 sm:py-24 mx-auto flex md:items-center lg:items-start sm:flex-row md:flex-nowrap flex-wrap flex-col">
             <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
               <a
                 href="/"

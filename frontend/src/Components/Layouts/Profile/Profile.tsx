@@ -98,7 +98,7 @@ useEffect(() => {
     
   return (
     MatchedId!=='' && MatchedUser!==null?
-   <div  className={`flex justify-center items-center relative w-[1140.5px] h-[742px] bg-pink-600`}>
+   <div  className={`flex justify-center items-center relative w-[1152.5px] h-[742px] bg-pink-600`}>
     <div  className={`absolute z-20 justify-center items-center gap-5 right-0 left-0 m-auto flex flex-col bg-white ${ShowReport?'':'hidden'} w-[400px] h-[300px] rounded-[10px]`}>
     <RxCross1 className='text-pink-500  cursor-pointer ml-[88%]' size={25} onClick={()=>{
       setShowReport(false)
@@ -139,7 +139,7 @@ useEffect(() => {
     }
     </div>
    :
-    <div  className={`flex justify-center items-center relative w-[1140.5px] h-[742px] bg-pink-600`}>
+    <div  className={`flex justify-center items-center relative w-[1152.5px] h-[742px] bg-pink-600`}>
     <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className='text-white absolute top-10 cursor-pointer right-[25%]' size={40} onClick={()=>setShowComponent('Swipe')} />
     <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
     {ProfileLoading?

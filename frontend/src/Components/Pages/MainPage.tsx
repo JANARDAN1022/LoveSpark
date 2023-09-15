@@ -16,6 +16,7 @@ import Skeleton from "@mui/material/Skeleton/Skeleton";
 
 
 
+
 export const socket = io('http://localhost:8800');
  
 const MainPage = () => {
@@ -32,7 +33,7 @@ useEffect(()=>{
   if(user?.Blocked===true){
     Navigate('/');
   }
-},[user])
+},[user,Navigate])
 
 
   useEffect(() => {
@@ -75,8 +76,8 @@ useEffect(() => {
 
   
   return (
-    <div className={`flex overflow-scroll  scrollbar relative flex-shrink`}>
-      <div className="flex-[1]">
+    <div className={`SwipeCard flex overflow-scroll  scrollbar relative flex-shrink`}>
+      <div className="md:flex-[1] md:block hidden">
           <LeftBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
      </div>
     {
