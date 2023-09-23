@@ -142,35 +142,51 @@ overflow: hidden;
     }
 }
 
+@media (min-width:569px) and (max-width:597px) {
+  .CardButtons{
+    left: 10px;
+  }
+}
+
 @media (min-width:524px) and (max-width:569px){
   .CardButtons{
-    left: 55px;
+    gap: 170px;
+    left: 5px;
   }
 }
 
 @media (min-width:489px) and (max-width:524px){
   .CardButtons{
-    left: 25px;
+    left: 0px;
+    gap: 165px;
   }
 }
 @media (min-width:459px) and (max-width:489px){
   .CardButtons{
     left: 0px;
+    gap: 155px;
   }
 }
-@media (min-width:400px) and (max-width:459px){
+@media (min-width:432px) and (max-width:459px){
+  .CardButtons{
+    left: 0px;
+    gap: 140px;
+  }
+}
+@media (min-width:392px) and (max-width:432px){
   .CardButtons{
     left: 0px;
     gap: 120px;
   }
 }
-@media (min-width:359px) and (max-width:400px){
+@media (min-width:352px) and (max-width:392px){
   .CardButtons{
     left: 0px;
     gap: 100px;
   }
 }
-@media (min-width:300px) and (max-width:359px){
+
+@media (max-width:352px){
   .CardButtons{
     left: 0px;
     gap: 80px;

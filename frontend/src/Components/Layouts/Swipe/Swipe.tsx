@@ -213,7 +213,7 @@ const Swipe = () => {
             ))}
         </div>
         }
-        <div className={`${loading || LoadingCards || SwipeLoading?'hidden':''} flex CardButtons absolute min-[1441px]:left-0 min-[1441px]:top-16 min-[1441px]:gap-[100px] top-28 left-24 sm:left-[45px] md:left-[-20px]   justify-center gap-[150px] sm:gap-[92px] text-pink-400  items-center mt-2 md:ml-20`}>
+        <div className={`${loading || LoadingCards || SwipeLoading?'hidden':''}  flex CardButtons absolute min-[1441px]:left-0  min-[768px]:top-28 min-[1441px]:top-16 min-[1441px]:gap-[100px]  top-4 left-10 sm:left-[45px] md:left-[-20px]   justify-center gap-[200px] sm:gap-[92px] text-pink-400  items-center mt-2 md:ml-20`}>
          <GiCancel 
             className={`${loading || LoadingCards || SwipeLoading || LoadingSwipe?'cursor-none':'cursor-pointer hover:text-red-600'} w-14 h-14  text-red-400`}
             onClick={() => 

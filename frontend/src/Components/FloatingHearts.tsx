@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 
-const AnimationTest = () => {
+const HeartAnimation = () => {
   return (
     <div
     style={{
@@ -114,4 +114,4 @@ const AnimationTest = () => {
   )
 }
 
-export default AnimationTest
+export default HeartAnimation

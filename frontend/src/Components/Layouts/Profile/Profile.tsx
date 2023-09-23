@@ -139,13 +139,13 @@ useEffect(() => {
     }
     </div>
    :
-    <div  className={`flex justify-center items-center relative w-[1152.5px] h-[742px] bg-pink-600`}>
-    <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className='text-white absolute top-10 cursor-pointer right-[25%]' size={40} onClick={()=>setShowComponent('Swipe')} />
+    <div  className={`flex justify-center items-center relative w-[100%] h-[100%] bg-pink-600`}>
+    <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className='text-white absolute lg:top-10 sm:top-10 sm:right-[10%] hidden sm:flex cursor-pointer md:top-20 md:right-[5%]' size={40} onClick={()=>setShowComponent('Swipe')} />
     <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
     {ProfileLoading?
    <Skeleton animation='wave' variant='rectangular' width={450} height={600} />
       :
-    <div style={{ backgroundImage:`url(${coverUrl})`}} className='Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white'>
+    <div style={{ backgroundImage:`url(${coverUrl})`}} className='md:ml-20   Profile flex relative lg:h-[600px] lg:w-[450px] h-[500px]   sm:w-[350px]    rounded-[5px] shadow-2xl border border-white'>
        <span onClick={()=>setShowComponent('EditInfo')} className='absolute text-[rgba(255,255,255,0.7)] right-5 top-3 hover:text-white text-xl cursor-pointer'>Edit</span>
      
      <div className='flex flex-col self-end  gap-5  cursor-default'>

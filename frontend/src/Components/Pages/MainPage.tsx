@@ -1,6 +1,7 @@
 import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import LeftBar from "../Layouts/LeftBar/LeftBar";
+import ResponsiveBar from "../Layouts/LeftBar/ResponsiveBar";
 import Chat from "../Layouts/Chat/Chat";
 import Profile from "../Layouts/Profile/Profile";
 import Swipe from '../Layouts/Swipe/Swipe';
@@ -11,6 +12,7 @@ import { useAppSelector } from "../../Hooks";
 import {io} from 'socket.io-client';
 import {MessagesData} from '../../Types/UserTypes';
 import { LoginContext } from "../../Context/LoginContext";
+import AccountSettings from "../Layouts/AccountSettings/AccountSettings";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
 
 
@@ -76,7 +78,7 @@ useEffect(() => {
 
   
   return (
-    <div className={`SwipeCard flex overflow-scroll  scrollbar relative flex-shrink`}>
+    <div className={`SwipeCard flex  h-[100vh] flex-col md:flex-row overflow-scroll  scrollbar relative flex-shrink`}>
       <div className="md:flex-[1] md:block hidden">
           <LeftBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
      </div>
@@ -89,19 +91,24 @@ useEffect(() => {
     width='80%'
     />
     :
-    <div className="flex-[3] bg-pink-100 h-[745px] flex-shrink">
+    <div className="flex-[3]  bg-pink-100 h-[745px] flex-shrink">
     {ShowComponent==='Chat'?
     <Chat socket={socket} Messages={Messages} setMessages={setMessages}/>
     :ShowComponent==='Profile'?
     <Profile />
     :ShowComponent==='EditInfo'?
     <EditProfile />
+    :ShowComponent==='Settings'?
+    <AccountSettings />
     :
     <Swipe />
   }
     </div>
 }
-    </div>
+<div className="flex-1 md:hidden">
+    <ResponsiveBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} />
+     </div>
+</div>
 
   )
 }

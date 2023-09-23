@@ -6,7 +6,7 @@ import { MainPageContext } from '../../../Context/MainPageContext';
 import {RxCross1} from 'react-icons/rx';
 import {Skeleton} from '@mui/material';
 import {motion} from 'framer-motion';
-import AnimationTest from '../../FloatingHearts';
+import HeartAnimation from '../../FloatingHearts';
 
 
 
@@ -107,13 +107,13 @@ const HandleSendMessage = async(ID:string)=>{
             }
             </div>
           <div className='flex flex-col items-center'>
-              <span className='text-pink-500 text-lg'>No Matches Yet {user?.FirstName}</span>
-              <span className='text-pink-500 text-lg w-[290px]'>Find Your Love Spark Keep Swiping</span>
+              <span className='text-pink-500 md:text-sm lg:text-lg'>No Matches Yet {user?.FirstName}</span>
+              <span className='text-pink-500 md:text-sm lg:text-lg md:text-center w-[290px]'>Find Your Love Spark Keep Swiping</span>
          </div>
          </div>
          {!loading &&
         <div className='absolute top-[-180px]'>
-          <AnimationTest />
+          <HeartAnimation />
         </div>
           }
       </div>
