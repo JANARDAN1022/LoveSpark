@@ -75,8 +75,9 @@ useEffect(() => {
   useEffect(()=>{
  setLoggedOut(false);
   },[setLoggedOut]);
-
   
+
+
   return (
     <div className={`SwipeCard flex  h-[100vh] flex-col md:flex-row overflow-scroll  scrollbar relative flex-shrink`}>
       <div className="md:flex-[1] md:block hidden">
@@ -100,6 +101,8 @@ useEffect(() => {
     <EditProfile />
     :ShowComponent==='Settings'?
     <AccountSettings />
+    :ShowComponent==='Matches'?
+    <LeftBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
     :
     <Swipe />
   }

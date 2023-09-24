@@ -16,8 +16,7 @@ import { motion } from "framer-motion";
 import BGimage from '../../Assets/wepik.png';
 
 const Home = () => {
-  const { ShowLogin, setshowLogin, ShowSignUp,ImageLoading,setImageLoading, setShowSignUp, scroll } = useContext(LoginContext);
-  const { setLoggedOut } = useContext(LoginContext);
+  const { ShowLogin, setshowLogin, ShowSignUp,ImageLoading,setImageLoading, setShowSignUp, scroll,setLoggedOut } = useContext(LoginContext);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loginEmail, setloginEmail] = useState("");
@@ -33,6 +32,7 @@ const Home = () => {
   const ConfirmPassRef = useRef<HTMLInputElement>(null);
   const loginEmailRef = useRef<HTMLInputElement>(null);
   const loginPassRef = useRef<HTMLInputElement>(null);
+
 
   useEffect(() => {
     // Hide the scrollbar on the home page
