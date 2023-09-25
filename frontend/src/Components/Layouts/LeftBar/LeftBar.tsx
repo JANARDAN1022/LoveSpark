@@ -44,7 +44,6 @@ interface LeftBarProps {
 }
 
 const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers,setMainPageLoading,MainPageLoading}:LeftBarProps) => {
-  const [activeTab, setActiveTab] = useState('matches');
   const [Tooltip,setTooltip]=useState({
     Settings:false,
     Logout: false
@@ -54,7 +53,7 @@ const LeftBar = ({unReadMessages,setunReadMessages,onlineUsers,setMainPageLoadin
     for:'Messages'
   });
   const [indicatorPosition, setIndicatorPosition] = useState(0);
-  const {setShowComponent,ShowComponent,ChangeTab,setChangeTab,setMatchedId,ReFetchMatches,setReFetchUsers} = useContext(MainPageContext);
+  const {activeTab, setActiveTab, setShowComponent,ShowComponent,ChangeTab,setChangeTab,setMatchedId,ReFetchMatches,setReFetchUsers} = useContext(MainPageContext);
   const {setLoggedOut} = useContext(LoginContext);
   const {user,loading} = useAppSelector((state)=>state.user);
   const Navigate = useNavigate();
@@ -136,8 +135,8 @@ const FetchMatches = useCallback( async()=>{
   }
 
   return (
-    <div className="h-full  md:w-[280px] lg:w-[392px] flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20">
-      <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
+    <div className={`h-[548px] md:h-full ${ShowComponent==='Matches'?'w-[100%]':'w-[100%] md:w-[280px] lg:w-[392px]'} flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20`}>
+      <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} hidden  md:flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
         <div className="flex justify-center items-center gap-5">
           {loading || LOADING.LogoutLoading?
           <Skeleton animation='wave' width={45} height={45} variant='circular' sx={{bgcolor:'pink'}} className='ml-5 mt-1'/>
@@ -185,8 +184,8 @@ const FetchMatches = useCallback( async()=>{
         </div>
       </div>
 
-      <div className={`flex flex-col ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''}`}>
-        <div  className="relative h-16 shadow-md flex md:gap-20 lg:gap-36 pt-5 pl-5 bg-gray-100 font-bold">
+      <div className={`border md:border-none flex flex-col ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''}`}>
+        <div  className="relative h-16 shadow-md gap-52 flex md:gap-20 lg:gap-36 pt-5 pl-5 bg-gray-100 font-bold">
           {
             MainPageLoading?
             <Skeleton animation='wave' className='rounded-[5px]' variant='rectangular' width='100px' height='20px' />

@@ -16,16 +16,14 @@ interface ResponsiveBarProps {
 }
 
 const ResponsiveBar = ({setMainPageLoading,MainPageLoading}:ResponsiveBarProps) => {
-  const {setShowComponent,setMatchedId,ShowComponent} = useContext(MainPageContext);
+  const {setActiveTab,setShowComponent,setMatchedId,ShowComponent} = useContext(MainPageContext);
   const {user,loading} = useAppSelector((state)=>state.user);
   const {setLoggedOut} = useContext(LoginContext);
-  const [FillHeart,setFillHeart]=useState(false);
   const dispatch = useAppDispatch();
   const Navigate = useNavigate();
 
   const HandleLogout = async()=>{
     if(user && !loading){
-      setFillHeart(false);
       setMainPageLoading(true);
    const response = await dispatch(LogoutUser());
    const result = unwrapResult(response);
@@ -41,7 +39,6 @@ const ResponsiveBar = ({setMainPageLoading,MainPageLoading}:ResponsiveBarProps) 
     <div className='flex justify-around items-center  h-[100%] w-[100%] bg-gradient-to-r from-pink-500 to-rose-500'>
      <TbSwipe onClick={()=>{
         setShowComponent('Swipe')
-        setFillHeart(false);
       }} size={30} className={`cursor-pointer ${ShowComponent==='Swipe'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white`}/>  
      <img
          onClick={()=>{
@@ -52,22 +49,24 @@ const ResponsiveBar = ({setMainPageLoading,MainPageLoading}:ResponsiveBarProps) 
             src={user?.ProfileUrl}
             alt="Date"
           />
-          {
-            FillHeart===true && ShowComponent==='Matches'?
+          <div className='relative flex'>
+     {
+          ShowComponent==='Matches'?
          <AiTwotoneHeart size={30} className={`text-white`}/>
          :   
      <AiOutlineHeart size={30} onClick={()=>{
       setShowComponent('Matches')
-      setFillHeart(true);
-    }} className={`${ShowComponent==='Matches'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white cursor-pointer`}/>
+    }} className={`z-20 ${ShowComponent==='Matches'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white cursor-pointer`}/>
           }
-     <BiMessageDetail size={30} onClick={()=>{
-      setShowComponent('Chat');
-      setFillHeart(false);
-      }} className={`cursor-pointer ${ShowComponent==='Chat'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white`}/> 
+    <BiMessageDetail size={30} onClick={()=>{
+      setShowComponent('Matches');
+      }} 
+      className={`cursor-pointer absolute left-5 rotate-[30deg] top-1 ${ShowComponent==='Matches'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white`}
+      /> 
+     
+          </div>
      <IoMdSettings size={30} onClick={()=>{
       setShowComponent('Settings')
-      setFillHeart(false);
       }} className={`${ShowComponent==='Settings'?'text-white':'text-[rgba(255,255,255,0.5)]'}  transition-all ease-in-out hover:text-white cursor-pointer`}/>
      <BiLogOut onClick={HandleLogout} size={30} className={`text-[rgba(255,255,255,0.5)] transition-all ease-in-out hover:text-white cursor-pointer`}/>
     </div>

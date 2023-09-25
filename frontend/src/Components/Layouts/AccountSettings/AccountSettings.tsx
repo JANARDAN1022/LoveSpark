@@ -53,7 +53,7 @@ const HandleDeleteAccount = async()=>{
       
 
 
-      <div className={`${user?.role==='user'?'':'hidden'} flex flex-col gap-10 relative justify-center items-center bg-gray-200 h-[300px]`}>
+      <div className={`${user?.role==='user'?'':'hidden'} flex flex-col gap-10 relative justify-center items-center bg-gray-200 h-[160px] md:h-[300px]`}>
       <div onClick={HandlePayment} className='border gap-2 p-5 cursor-pointer shadow-md shadow-yellow-500 mt-2 flex flex-col justify-center items-center w-[330px]   rounded-[5px] bg-white'>
       <div className='flex gap-2 items-center text-yellow-500 font-bold'>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-8 h-8 text-white p-2 bg-yellow-500 rounded-full" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ const HandleDeleteAccount = async()=>{
 </div>
       </div>
       <div className='flex flex-col bg-white'>
-        <div className='bg-gray-200'>
+        <div className='bg-gray-200 hidden md:block'>
           <span className={`${user?.role==='user'?'':'hidden'}  ml-5`}>Account Settings</span>
         </div>
         <div onClick={()=>setShowComponent('EditInfo')} className='flex justify-center text-pink-600  cursor-pointer border-b  border-[rgba(0,0,0,0.5)]  hover:bg-gray-200 p-5'>

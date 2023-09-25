@@ -15,6 +15,8 @@ interface MainPageContextType {
     ShowVid:boolean;
     ReFetchMatches:boolean;
     ReFetchUsers:boolean;
+    activeTab:string; 
+    setActiveTab:React.Dispatch<React.SetStateAction<string>>;
     setReFetchUsers:React.Dispatch<React.SetStateAction<boolean>>;
     setReFetchMatches:React.Dispatch<React.SetStateAction<boolean>>;
     setShowVid:React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,6 +44,8 @@ export const MainPageContext = createContext<MainPageContextType>({
     ShowVid:false,
     ReFetchMatches:false,
     ReFetchUsers:false,
+    activeTab:'matches',
+    setActiveTab:()=>{},
     setReFetchUsers:()=>{},
     setReFetchMatches:()=>{},
     setShowVid:()=>{},
@@ -73,6 +77,7 @@ export const MainPageContextProvider = ({children}:MainPageContextproviderProps)
     const [ShowVid,setShowVid]=useState(false);
     const [ReFetchMatches,setReFetchMatches]=useState(false);
     const [ReFetchUsers,setReFetchUsers]=useState(false);
+    const [activeTab, setActiveTab]= useState('matches');
 
 const contextValue: MainPageContextType ={
     ShowComponent,
@@ -87,6 +92,8 @@ const contextValue: MainPageContextType ={
     ShowVid,
     ReFetchMatches,
     ReFetchUsers,
+    activeTab,
+    setActiveTab,
     setReFetchUsers,
     setReFetchMatches,
     setShowVid,

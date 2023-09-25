@@ -97,7 +97,7 @@ const HandleSendMessage = async(ID:string)=>{
 }
         </div>
       )):
-      <div className='flex relative justify-center  items-center self-center h-[500px]'>
+      <div className='flex overflow-hidden relative justify-center  items-center self-center h-[500px]'>
          <div className='z-20 flex flex-col items-center gap-2'>
           <div className='flex justify-center'>
             {loading?
