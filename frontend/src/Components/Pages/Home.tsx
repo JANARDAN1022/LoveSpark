@@ -249,12 +249,12 @@ const Home = () => {
       variant="rectangular"
       animation="wave"
     />
-    <div className="absolute top-[40%] left-[40%]">
+    <div className="absolute top-[40%] left-[28%] sm:left-[40%]">
     <motion.a  transition={{ease:'easeInOut'}}  className="flex title-font font-medium items-center text-gray-900 mb-4 sm:mb-0">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="animate-spin md:w-20 md:h-20 w-8 h-8 text-white p-2 bg-pink-500 rounded-full" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="animate-spin md:w-20 md:h-20 w-12 h-12 text-white p-2 bg-pink-500 rounded-full" viewBox="0 0 24 24">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
-        <motion.span  className="animate-pulse ml-3 sm:text-[14px] md:text-4xl text-white tracking-wide">
+        <motion.span  className="animate-pulse ml-3 text-[18px] md:text-4xl text-white tracking-wide">
           LoveSpark
           </motion.span>
       </motion.a>    
@@ -262,7 +262,7 @@ const Home = () => {
     </div>
   ) : (
     <div
-    data-testid="content" className={` Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
+    data-testid="content" className={`min-[320px]:w-[111%] min-[350px]:w-[100%] Background bg-no-repeat flex flex-col gap-[172px]  bg-[url('./Assets/wepik.png')]  relative`}
     >
       <div>
         <div

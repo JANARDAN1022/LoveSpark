@@ -104,10 +104,10 @@ const FetchMatches = useCallback( async()=>{
     }
   }
 
-  const handleTabChange = (tab:string, position:number) => {
+  const handleTabChange = useCallback((tab:string, position:number) => {
     setActiveTab(tab);
     setIndicatorPosition(position);
-  };
+  },[setActiveTab,setIndicatorPosition]);
 
   useEffect(()=>{
     if(ShowComponent==='Chat' || ChangeTab===true){
@@ -116,7 +116,7 @@ const FetchMatches = useCallback( async()=>{
     }else{
       handleTabChange('matches', 0)
     }
-  },[ShowComponent,ChangeTab]);
+  },[ShowComponent,ChangeTab,handleTabChange,setActiveTab]);
 
   const HandleLogout = async()=>{
     if(user && !loading){
@@ -135,7 +135,7 @@ const FetchMatches = useCallback( async()=>{
   }
 
   return (
-    <div className={`h-[548px] md:h-full ${ShowComponent==='Matches'?'w-[100%]':'w-[100%] md:w-[280px] lg:w-[392px]'} flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20`}>
+    <div className={`h-[525px] md:h-full ${ShowComponent==='Matches'?'w-[100%]':'w-[100%] md:w-[280px] lg:w-[392px]'} flex flex-col border-2 border-pink-500 fixed left-0 top-0 z-20`}>
       <div className={`${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''} hidden  md:flex justify-between bg-gradient-to-r from-pink-500 to-rose-500 h-[90px] relative`}>
         <div className="flex justify-center items-center gap-5">
           {loading || LOADING.LogoutLoading?
@@ -185,7 +185,7 @@ const FetchMatches = useCallback( async()=>{
       </div>
 
       <div className={`border md:border-none flex flex-col ${ShowReport.show && ShowReport.for==='Messages'?'blur-sm cursor-none':''}`}>
-        <div  className="relative h-16 shadow-md gap-52 flex md:gap-20 lg:gap-36 pt-5 pl-5 bg-gray-100 font-bold">
+        <div  className="relative h-16 shadow-md max-[320px]:gap-28 min-[351px]:gap-44 min-[401px]:gap-52 min-[466px]:gap-64  min-[520px]:gap-72 min-[571px]:gap-80 min-[620px]:gap-96 min-[680px]:gap-[450px] min-[680px]:pl-10 gap-32 flex md:gap-20 lg:gap-36 pt-5 min-[766px]:pl-5 pl-5 bg-gray-100 font-bold">
           {
             MainPageLoading?
             <Skeleton animation='wave' className='rounded-[5px]' variant='rectangular' width='100px' height='20px' />

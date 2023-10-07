@@ -89,7 +89,7 @@ useEffect(() => {
     className="bg-gradient-to-r from-pink-600 to-rose-400"
     variant="rectangular"
     height='100vh'
-    width='80%'
+    width='100%'
     />
     :
     <div className="flex-[3]  bg-pink-100 h-[745px] flex-shrink">
