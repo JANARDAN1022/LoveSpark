@@ -33,12 +33,12 @@ const App = () => {
         if (response.status === 200) {
           const resObject = response.data;
           setUser(resObject.user);
-          console.log(`User Set To ${resObject.user}`);
+          //console.log(`User Set To ${resObject.user}`);
         } else {
           throw new Error("Authentication has failed");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
         console.log('Request Failed');
       }
     };
