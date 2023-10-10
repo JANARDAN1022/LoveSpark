@@ -100,8 +100,8 @@ useEffect(() => {
     
   return (
     MatchedId!=='' && MatchedUser!==null?
-   <div  className={`flex justify-center items-center relative w-[1152.5px] h-[742px] bg-pink-600`}>
-    <div  className={`absolute z-20 justify-center items-center gap-5 right-0 left-0 m-auto flex flex-col bg-white ${ShowReport?'':'hidden'} w-[400px] h-[300px] rounded-[10px]`}>
+    <div  className={`flex justify-center items-center relative w-[100%] h-[100%] md:h-screen bg-pink-600`}>
+    <div  className={`absolute z-20 justify-center items-center gap-5 right-0 left-0 m-auto flex flex-col bg-white ${ShowReport?'':'hidden'} w-[100%] min-[311px]:w-[300px]  min-[353px]:w-[350px] min-[405px]:w-[400px] h-[300px] rounded-[10px]`}>
     <RxCross1 className='text-pink-500  cursor-pointer ml-[88%]' size={25} onClick={()=>{
       setShowReport(false)
       setReason('');
@@ -111,16 +111,16 @@ useEffect(() => {
      <span className='text-pink-500 font-bold'>Reason For Reporting :</span>
      <span className='text-pink-500 text-sm'>(Brief Detail)</span>
     </div>
-    <textarea value={Reason} onChange={(e)=>setReason(e.target.value)} ref={TextRef} className='pl-3 text-white border-2 border-pink-800 bg-pink-400 w-[300px] h-[100px] rounded-[5px]' />
+    <textarea value={Reason} onChange={(e)=>setReason(e.target.value)} ref={TextRef} className='pl-3 text-white border-2 border-pink-800 bg-pink-400 w-[90%] min-[311px]:w-[250px] min-[353px]:w-[300px] h-[100px] rounded-[5px]' />
     </div>
     <button onClick={()=>HandleReportSubmit(MatchedUser._id)} className='bg-pink-500 rounded-[10px] cursor-pointer w-[150px] h-[30px] flex justify-center items-center text-white'>Report {MatchedUser.FirstName}</button>
     </div>
-    <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className={`${ShowReport?'blur-sm':''} text-white absolute top-10 cursor-pointer right-[25%]`} size={40} onClick={()=>{setShowComponent('Swipe'); setMatchedId(''); setMatchedUser(null);}} />
-    <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
+    <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className={`${ShowReport?'blur-sm':''} text-white absolute lg:top-10 sm:top-10 sm:right-[10%] hidden sm:flex cursor-pointer md:top-20 md:right-[5%]`} size={40} onClick={()=>{setShowComponent('Swipe'); setMatchedId(''); setMatchedUser(null);}} />
+    <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute sm:top-2 md:top-10 lg:top-2 sm:right-[1%] md:right-[5%]  text-white`} >Go Back Swiping</span>
       {ProfileLoading?
    <Skeleton animation='wave' variant='rectangular' className='w-[300px] h-[300px] sm:w-[450px] sm:h-[600px]' width={450} height={600} />
       :
-      <div style={{ backgroundImage:`url(${MatchedUser.CoverUrl})`}} className={`${ShowReport?'blur-sm':''} Profile flex  relative h-[600px] w-[450px] rounded-[5px] shadow-2xl border border-white`}>
+      <div style={{ backgroundImage:`url(${MatchedUser.CoverUrl})`}} className={`${ShowReport?'blur-sm':''} Profile flex  relative lg:h-[600px] lg:w-[450px] h-[500px]   sm:w-[350px] rounded-[5px] shadow-2xl border border-white`}>
     <MdReportProblem onClick={()=>setShowReport(true)} size={38} onMouseEnter={()=>setTooltip({...Tooltip,Report:true})} onMouseLeave={()=>setTooltip({...Tooltip,Report:false})} className='absolute right-5 top-5 text-[rgba(255,255,255,0.8)] hover:text-white transition-all duration-100 ease-in-out  cursor-pointer'/>
      <span className={`text-white ${Tooltip.Report?'':'hidden'} absolute right-16 top-5`}>Report {MatchedUser.FirstName}</span>
      <div className='flex flex-col self-end  gap-5  cursor-default'>
@@ -141,9 +141,9 @@ useEffect(() => {
     }
     </div>
    :
-    <div  className={`flex justify-center items-center relative w-[100%] h-[100%] bg-pink-600`}>
+    <div  className={`flex justify-center items-center relative w-[100%] h-[100%] md:h-screen bg-pink-600`}>
     <RxCross1 onMouseEnter={()=>setTooltip({...Tooltip,Swipe:true})} onMouseLeave={()=>setTooltip({...Tooltip,Swipe:false})} className='text-white absolute lg:top-10 sm:top-10 sm:right-[10%] hidden sm:flex cursor-pointer md:top-20 md:right-[5%]' size={40} onClick={()=>setShowComponent('Swipe')} />
-    <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute right-[14%] top-12 text-white`} >Go Back Swiping</span>
+    <span className={`${Tooltip.Swipe===true?'':'hidden'} text-base absolute sm:top-2 md:top-10 lg:top-2 sm:right-[1%] md:right-[5%]  text-white`} >Go Back Swiping</span>
     {ProfileLoading?
    <Skeleton animation='wave' variant='rectangular' height='100%' width='100%' />
       :

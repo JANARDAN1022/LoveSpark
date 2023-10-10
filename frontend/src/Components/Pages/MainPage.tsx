@@ -108,7 +108,7 @@ useEffect(() => {
   }
     </div>
 }
-<div className="flex-1 md:hidden">
+<div className={`flex-1 z-[1000] ${ShowComponent==='EditInfo'?'hidden':''}  md:hidden`}>
     <ResponsiveBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} />
      </div>
 </div>

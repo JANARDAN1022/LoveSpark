@@ -14,10 +14,10 @@ const Slider = () => {
   ]
 
     return (
-      <div className="slide-container">  
-        <div className='slideshowdivIMG'>
-              <div className='slideshowdiv'>
-              <img src={slideImages[0].url} alt='Slider'/>
+      <div className="slide-container w-[100%]  h-[200px] lg:h-[470px]">  
+        <div className='slideshowdivIMG w-[100%] h-[100%]'>
+              <div className='slideshowdiv w-[100%] h-[100%]'>
+              <img src={slideImages[0].url} alt='Slider' className='w-[100%] h-[100%] object-cover'/>
               </div>
             </div>
       </div>

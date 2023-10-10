@@ -169,12 +169,12 @@ const Swipe = () => {
   }
 
   return (
-    <div className='SwipeCard flex justify-center h-[100%] relative  bg-gradient-to-r from-pink-500 to-rose-500 '>
+    <div className='SwipeCard flex justify-center h-[100%] md:h-screen relative  bg-gradient-to-r from-pink-500 to-rose-500 '>
       <div className=' flex flex-col justify-center gap-5 relative'>
         {loading || LoadingCards || SwipeLoading?
         <Skeleton animation='wave' variant='rectangular'  height={500}  className='w-[350px] md:ml-36 rounded-[10px]'/>
         :
-        <div className='select-none CARD-DIV flex justify-center min-[1441px]:w-[400px] min-[1441px]:h-[600px]  w-[98vw] sm:w-[350px] h-[500px] md:ml-2 sm:mr-20 md:mr-0'>
+        <div className='relative select-none CARD-DIV flex justify-center min-[1441px]:w-[400px] min-[1441px]:h-[600px]  w-[98vw] sm:w-[350px] h-[500px] md:ml-2 sm:mr-20 md:mr-0'>
           {users.length > 0 &&
             users.map((character, index) => (
               <TinderCard
@@ -211,9 +211,7 @@ const Swipe = () => {
                 </div>
               </TinderCard>
             ))}
-        </div>
-        }
-        <div className={`${loading || LoadingCards || SwipeLoading?'hidden':''}  flex CardButtons absolute min-[1441px]:left-0  min-[768px]:top-28 min-[1441px]:top-16 min-[1441px]:gap-[100px]  top-4 left-10 sm:left-[45px] md:left-[-20px]   justify-center gap-[200px] sm:gap-[92px] text-pink-400  items-center mt-2 md:ml-20`}>
+             <div className={`${loading || LoadingCards || SwipeLoading?'hidden':''}  flex  w-[100%] absolute min-[640px]:left-9  justify-around  text-pink-400  items-center`}>
          <GiCancel 
             className={`${loading || LoadingCards || SwipeLoading || LoadingSwipe?'cursor-none':'cursor-pointer hover:text-red-600'} w-14 h-14  text-red-400`}
             onClick={() => 
@@ -246,6 +244,9 @@ const Swipe = () => {
         }}
           />
      </div>
+        </div>
+        }
+       
       </div>
       <motion.div onAnimationComplete={()=>setSwipeAnimation(false)}  animate={{x:[-10,0,-10,0]}} transition={{duration:1.5,repeat:1,ease:'easeInOut'}} className={`absolute left-[20%] top-[40%] ${!SwipeAnimation || loading || LoadingCards?'hidden':''}`}>
         <MdSwipeLeft  className='h-20 w-20 text-white'/>

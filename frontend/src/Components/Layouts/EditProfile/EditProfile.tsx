@@ -183,18 +183,18 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
      },[LOADING]);
   
   return (
-    <div className='relative  flex flex-col h-full w-[1152.5px]'>
-      <div className='slide-container'>
-        {CoverPic===null || CoverPic===''?
+    <div className='relative  flex flex-col h-[100%] w-[100%]'>
+        {
+        CoverPic===null || CoverPic===''?
     <Slider />
     :
     <div className='slideshowdivIMG'>
     <div className='slideshowdiv'>
-    <img src={URL.createObjectURL(CoverPic)} alt='Sider'/>
+    <img src={URL.createObjectURL(CoverPic)} alt='Slider'/>
     </div>
-  </div>    }
-    </div>
-    <div className='absolute left-[42%] top-[50%] '>
+  </div>    
+  }
+    <div className='absolute  left-[25%] min-[394px]:left-[28%] min-[465px]:left-[32%] min-[613px]:left-[37%] lg:left-[42%] top-[15%] lg:top-[50%]'>
     {ProfilePic===null?
     <img src={user?.ProfileUrl} alt='IMG' className='w-[170px] h-[170px] rounded-full object-cover'/>
   :  
@@ -204,14 +204,14 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
     <input onChange={handlePhotoChange} type="file" accept="image/*" style={{ display: "none" }} ref={ProfileFileInputRef} />
     </div>
     <RxCross1 onMouseEnter={()=> setTooltip({...Tooltip,Cancel:true})} onMouseLeave={()=> setTooltip({...Tooltip,Cancel:false})} size={40} onClick={()=>setShowComponent('Swipe')} className='text-white absolute right-10 top-10 cursor-pointer'/>
-    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,Edit:true})} onMouseLeave={()=> setTooltip({...Tooltip,Edit:false})} size={30} onClick={HandleCoverEdit} className='text-white shadow-pink-500 shadow-lg absolute left-10 top-10 cursor-pointer'/>
+    <BiSolidEdit onMouseEnter={()=> setTooltip({...Tooltip,Edit:true})} onMouseLeave={()=> setTooltip({...Tooltip,Edit:false})} size={30} onClick={HandleCoverEdit} className='text-white shadow-pink-500 shadow-lg absolute left-10 min-[768px]:left-28 min-[845px]:left-20 min-[1024px]:left-44 min-[1075px]:left-32 min-[1256px]:left-20 min-[1413px]:left-10 top-10 cursor-pointer'/>
     <input onChange={handleCoverChange} type="file" accept="image/*" style={{ display: "none" }} ref={CoverFileInputRef} />
     <span className={`${Tooltip.Edit===true?'':'hidden'} text-white absolute left-5 top-3`}>Edit Cover Photos</span>
     <span className={`${Tooltip.Cancel===true?'':'hidden'} text-white absolute right-5 top-20`}>Go Back Swiping</span>
     <span className={`${Tooltip.DP===true?'':'hidden'} text-white absolute left-[57.5%] top-[52%]`}>Edit Profile Photo</span>
 
     <form className='flex flex-col items-center  justify-center bg-gradient-to-r from-pink-500 to-rose-500'>
-      <div className="space-y-12 p-10  lg:w-[1000px] flex flex-col">
+      <div className="space-y-12  min-[893px]:pl-20 min-[1024px]:pl-36 min-[1089px]:pl-32 min-[1269px]:pl-20 min-[1421px]:pl-10 p-10   w-[100%] flex flex-col">
         <span className='text-3xl text-white  border-b-2 self-center border-pink-300 p-2 rounded-[5px] mt-20'>Edit Your Profile</span>
         <div className="pb-12">
           <h2 className="text-base md:text-2xl border-b border-b-pink-300 font-semibold leading-7 text-white">Profile</h2>

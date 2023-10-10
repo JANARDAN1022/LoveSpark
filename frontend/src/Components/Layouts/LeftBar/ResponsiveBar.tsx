@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext} from 'react';
 import {TbSwipe} from 'react-icons/tb';
 import {BiMessageDetail,BiLogOut} from 'react-icons/bi';
 import {IoMdSettings} from 'react-icons/io';
@@ -16,7 +16,7 @@ interface ResponsiveBarProps {
 }
 
 const ResponsiveBar = ({setMainPageLoading,MainPageLoading}:ResponsiveBarProps) => {
-  const {setActiveTab,setShowComponent,setMatchedId,ShowComponent} = useContext(MainPageContext);
+  const {setShowComponent,setMatchedId,ShowComponent} = useContext(MainPageContext);
   const {user,loading} = useAppSelector((state)=>state.user);
   const {setLoggedOut} = useContext(LoginContext);
   const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ const ResponsiveBar = ({setMainPageLoading,MainPageLoading}:ResponsiveBarProps) 
   }
 
   return (
-    <div className='flex justify-around items-center  h-[100%] w-[100%] bg-gradient-to-r from-pink-500 to-rose-500'>
+    <div className='flex z-[1000] justify-around items-center  h-[100%] w-[100%] bg-gradient-to-r from-pink-500 to-rose-500'>
      <TbSwipe onClick={()=>{
         setShowComponent('Swipe')
       }} size={30} className={`cursor-pointer ${ShowComponent==='Swipe'?'text-white':'text-[rgba(255,255,255,0.5)]'} transition-all ease-in-out hover:text-white`}/>  
