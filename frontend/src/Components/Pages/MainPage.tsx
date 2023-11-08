@@ -80,7 +80,7 @@ useEffect(() => {
 
   return (
     <div className={`SwipeCard flex  h-[100vh] flex-col md:flex-row overflow-scroll  scrollbar relative flex-shrink`}>
-      <div className="md:flex-[1] md:block hidden">
+      <div className="md:flex-[1] md:block  hidden">
           <LeftBar setMainPageLoading={setMainPageLoading} MainPageLoading={MainPageLoading} unReadMessages={unReadMessages} onlineUsers={OnlineUsers} setunReadMessages={setunReadMessages}/>
      </div>
     {
@@ -92,7 +92,7 @@ useEffect(() => {
     width='100%'
     />
     :
-    <div className="flex-[3]  bg-pink-100 h-[745px] flex-shrink">
+    <div className="flex-[3]  bg-pink-100 h-screen flex-shrink">
     {ShowComponent==='Chat'?
     <Chat socket={socket} Messages={Messages} setMessages={setMessages}/>
     :ShowComponent==='Profile'?

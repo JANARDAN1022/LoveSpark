@@ -2,11 +2,11 @@ import {Link } from 'react-router-dom'
 
 const Fail = () => {
   return (
-    <div className="bg-gray-100 h-screen">
+    <div className="bg-white h-[100vh]">
     <div className="bg-white p-6  md:mx-auto">
       <svg
         viewBox="0 0 24 24"
-        className="text-green-600 w-16 h-16 mx-auto my-6"
+        className="text-red-600 w-16 h-16 mx-auto my-6"
       >
         <path
           fill="currentColor"
@@ -14,7 +14,7 @@ const Fail = () => {
         ></path>
       </svg>
       <div className="text-center">
-        <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
+        <h3 className="md:text-2xl text-base text-red-500 font-semibold text-center">
           Payment Failed!
         </h3>
         <p className="text-gray-600 my-2">

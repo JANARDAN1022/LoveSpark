@@ -143,7 +143,6 @@ const Home = () => {
           setloginpassword("");
         }
       } catch (error) {
-        // Handle any errors that might occur during the dispatch
         console.error("Login failed:", error);
       }
     }

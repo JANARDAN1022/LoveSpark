@@ -13,6 +13,7 @@ import { useAppDispatch } from '../../../Hooks';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { UpdateUser } from '../../../Actions/userAction';
 
+
 const EditProfile = () => {
     const [ProfilePic, setProfilePic] = useState<any | null>(null);
     const [CoverPic, setCoverPic] = useState<any | null>(null);
@@ -23,6 +24,7 @@ const EditProfile = () => {
     const [Error,setError]=useState('');
     const [LOADING,setLOADING]=useState(false);
     const [email,setemail]=useState(user?.email);
+    const [Checked,setChecked]=useState('');
     const [PersonalInfo, setPersonalInfo] = useState({
       FirstName: user?.FirstName,
       LastName: user?.LastName,
@@ -40,6 +42,23 @@ const EditProfile = () => {
       occupation: user?.occupation,
       age:user?.age,
     });
+    const CheckChange = {
+      FirstName: user?.FirstName,
+      LastName: user?.LastName,
+      bio: user?.bio,
+      Location: [
+        {
+          country: user?.Location[0].country,
+          State: user?.Location[0].State,
+          city: user?.Location[0].city,
+        },
+      ],
+      pincode: user?.pincode,
+      Gender: user?.Gender,
+      sexuality: user?.sexuality,
+      occupation: user?.occupation,
+      age:user?.age,
+    };
     const [Tooltip,setTooltip]=useState({
     Edit:false,
     Cancel:false,
@@ -59,13 +78,15 @@ const EditProfile = () => {
  
    const HandleMaleGender = ()=>{
      if(FemaleRef.current!==null){
-       FemaleRef.current.checked=false;
+      setChecked('Male');
+      FemaleRef.current.checked=false;
      }
      setPersonalInfo({...PersonalInfo,Gender:'Male'});
    };
  
    const HandleFemaleGender =()=>{
      if(MaleRef.current!==null){
+      setChecked('Female');
        MaleRef.current.checked=false;
        setPersonalInfo({...PersonalInfo,Gender:'Female'})
        }
@@ -73,6 +94,7 @@ const EditProfile = () => {
  
    const HandleCustomGender = (e:any)=>{
      if(MaleRef.current!==null){
+      setChecked('');
      MaleRef.current.checked=false;
      }
       if( FemaleRef.current!==null){
@@ -119,11 +141,13 @@ setCoverPic(file);
    const HandleSave = async(e:any)=>{
      e.preventDefault();
      const isEmpty = Object.values(PersonalInfo).some((value)=>value!=='');
+const Changes = JSON.stringify(CheckChange)!==JSON.stringify(PersonalInfo);
+     
      // Check if the values in the array have changed
 const interestsChanged = Interests.some((interest, index) => interest !== Interests[index]);
 const InterestlengthChange = Interests.length!==user?.interests.length;
 
-     if(isEmpty || ProfilePic!==null || CoverPic!==null || interestsChanged || InterestlengthChange){
+     if((isEmpty && Changes) || ProfilePic!==null || CoverPic!==null || interestsChanged || InterestlengthChange){
       try {
         setLOADING(true);
   
@@ -486,6 +510,7 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   type="checkbox"
                   disabled={LOADING}
                   defaultChecked={user?.Gender && user.Gender==='Male'?true:false}
+                  checked={Checked==='Male'?true:false}
                   className="h-4 w-4 md:h-6 md:w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   onClick={HandleMaleGender}
                   ref={MaleRef}
@@ -506,6 +531,7 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
                   type="checkbox"
                   disabled={LOADING}
                   defaultChecked={user?.Gender && user.Gender==='Female'?true:false}
+                  checked={Checked==='Female'?true:false}
                   className="h-4 w-4 md:h-6 md:w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   onClick={HandleFemaleGender}
                   ref={FemaleRef}
