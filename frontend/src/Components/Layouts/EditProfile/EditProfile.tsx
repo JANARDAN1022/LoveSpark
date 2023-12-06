@@ -212,9 +212,10 @@ const InterestlengthChange = Interests.length!==user?.interests.length;
         CoverPic===null || CoverPic===''?
     <Slider />
     :
-    <div className='slideshowdivIMG'>
-    <div className='slideshowdiv'>
-    <img src={URL.createObjectURL(CoverPic)} alt='Slider'/>
+    <div className=''>
+    <div className=''>
+    <img src={URL.createObjectURL(CoverPic)} alt='Slider' 
+    className='h-[470px] w-full object-cover slideshowdivImg'/>
     </div>
   </div>    
   }

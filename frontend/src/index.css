@@ -84,6 +84,10 @@ width: 100%;
 object-position:0px 30%;
 }
 
+.slideshowdivImg{
+  object-position:0px 35%;
+}
+
 .swipe {
     position: absolute;
   }
