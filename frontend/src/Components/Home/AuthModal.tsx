@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaGoogle } from "react-icons/fa";
 import { useAuth } from "../../Hooks/useAuth";
+import { Toaster } from "react-hot-toast";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -14,8 +15,16 @@ const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   initialMode,
 }) => {
-  const [mode, setMode] = useState<"login" | "signup">(initialMode);
+  const [mode, setMode] = useState<"login" | "signup">("signup");
   const { login, signup, loginWithGoogle } = useAuth();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (initialMode) {
+      setMode(initialMode);
+    }
+    console.log(initialMode, "mode");
+  }, [initialMode]);
 
   useEffect(() => {
     if (isOpen) {
@@ -29,16 +38,22 @@ const AuthModal: React.FC<AuthModalProps> = ({
   }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    if (mode === "login") {
-      await login(email, password);
-    } else {
-      const confirmPassword = formData.get("confirmPassword") as string;
-      await signup(email, password, confirmPassword);
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+      setLoading(true);
+      if (mode === "login") {
+        await login(email, password);
+      } else {
+        const confirmPassword = formData.get("confirmPassword") as string;
+        await signup(email, password, confirmPassword);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -64,7 +79,8 @@ const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      <Toaster />
+      {isOpen && initialMode && (
         <motion.div
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
           initial="hidden"
@@ -90,6 +106,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <input
+                  disabled={loading}
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -99,6 +116,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               </div>
               <div>
                 <input
+                  disabled={loading}
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -109,6 +127,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               {mode === "signup" && (
                 <div>
                   <input
+                    disabled={loading}
                     type="password"
                     name="confirmPassword"
                     placeholder="Confirm Password"
@@ -119,15 +138,25 @@ const AuthModal: React.FC<AuthModalProps> = ({
               )}
               <motion.button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-lg font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105"
+                disabled={loading}
+                className={`${
+                  loading ? "animate-pulse" : ""
+                } w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-lg font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {mode === "login" ? "Log In" : "Sign Up"}
+                {mode === "login"
+                  ? !loading
+                    ? "Log In"
+                    : "Loggin In..."
+                  : !loading
+                  ? "Sign Up"
+                  : "Signing In..."}
               </motion.button>
             </form>
             <div className="mt-6">
               <motion.button
+                disabled={loading}
                 onClick={loginWithGoogle}
                 className="w-full bg-white text-gray-900 py-3 rounded-lg font-semibold flex items-center justify-center hover:bg-gray-100 transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
@@ -141,6 +170,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                 ? "Don't have an account?"
                 : "Already have an account?"}
               <button
+                disabled={loading}
                 onClick={() => setMode(mode === "login" ? "signup" : "login")}
                 className="ml-2 text-pink-500 hover:text-pink-400 transition-colors duration-300"
               >

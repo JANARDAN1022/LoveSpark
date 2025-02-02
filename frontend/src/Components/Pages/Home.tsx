@@ -25,6 +25,10 @@ const Home: React.FC = () => {
     img.onload = () => setImageLoading(false);
   }, []);
 
+  useEffect(() => {
+    console.log(showLogin, showSignUp, "sign");
+  }, [showLogin, showSignUp]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-100 to-white relative">
       {imageLoading ? (

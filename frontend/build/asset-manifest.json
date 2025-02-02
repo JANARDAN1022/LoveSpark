@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.846d54ff.css",
+    "main.js": "/static/js/main.92ca63f3.js",
+    "static/media/wepik.png": "/static/media/wepik.647d1360482dc03653a5.png",
+    "index.html": "/index.html",
+    "main.846d54ff.css.map": "/static/css/main.846d54ff.css.map",
+    "main.92ca63f3.js.map": "/static/js/main.92ca63f3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.846d54ff.css",
+    "static/js/main.92ca63f3.js"
+  ]
+}

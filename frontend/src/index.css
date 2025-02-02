@@ -9,17 +9,15 @@
   }
 }
 
-
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
 
-
 .SwipeCard::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
-.Profile{
+.Profile {
   object-fit: cover;
   background-position: center;
   overflow: hidden;
@@ -27,135 +25,128 @@ body{
   background-size: cover;
 }
 
-.hide-scrollbar::-webkit-scrollbar{
-display: none;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-  
-.Background{
-    background-repeat: no-repeat;
-    background-size:auto;
-    background-position: top;
-    background-attachment: fixed;
-}
-.scrollbar{
-overflow-x: hidden;  
-}
-body::-webkit-scrollbar{
-    width: 14px;
-  }
-.scrollbar::-webkit-scrollbar{
-  width: 15px;
-  }
 
-body::-webkit-scrollbar-track,.scrollbar::-webkit-scrollbar-track{
+.Background {
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: top;
+  background-attachment: fixed;
+}
+.scrollbar {
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  width: 14px;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track {
   background-color: pink;
 }
 
-
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
   background-color: palevioletred;
   border-radius: 3px;
 }
 
-.scrollbar::-webkit-scrollbar-thumb{
-    background: linear-gradient(to Right,rgba(236, 72, 153),rgba(244, 63, 94));
-    border-radius: 3px;
-  }
+.scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to Right, rgba(236, 72, 153), rgba(244, 63, 94));
+  border-radius: 3px;
+}
 
-body::-webkit-scrollbar-thumb:hover,.scrollbar::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover,
+.scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgb(249, 126, 147);
 }
 
-.CardImg{
-object-fit: cover;
-overflow: hidden;
-height:599px;
-width: 450px;
-border-radius: 5px;
+.CardImg {
+  object-fit: cover;
+  overflow: hidden;
+  height: 599px;
+  width: 450px;
+  border-radius: 5px;
 }
 
-
-.slide-container{
-width: 100%;
-
+.slide-container {
+  width: 100%;
 }
 
-.slideshowdiv>img{
-object-position:0px 30%;
+.slideshowdiv > img {
+  object-position: 0px 30%;
 }
 
-.slideshowdivImg{
-  object-position:0px 35%;
+.slideshowdivImg {
+  object-position: 0px 35%;
 }
 
 .swipe {
-    position: absolute;
-  }
-  
-  .cardContainer {
-    user-select: none;
-  }
-
-  
-  .card {
-    position: relative;
-    background-color: #fff;
-    box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
-    border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-  }
-  .cardContent {
-    width: 100%;
-    height: 100%;
-  }
-  
-  
-  
-  
-  .card h3 {
-    position: absolute;
-    bottom: 0;
-    margin: 10px;
-    color: #fff;
-  }
-
-
-
-
-@media (min-width:641px) and (max-width:768px){
-    .layer{
-        width: 100vw;
-        height: 106.5vh;
-    }
-    
+  position: absolute;
 }
 
-
-@media (min-width:408px) and (max-width:640px){
-    .layer{
-        width: 100vw;
-        height: 73.5vh;
-    }
+.cardContainer {
+  user-select: none;
 }
 
-  @media(max-width:407px){
-    .layer{
-        width: 99.9vw;
-        height: 83.5vh;
-    }
-    
+.card {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
 }
-@media(max-width:407px) and (max-height:700px){
-    .layer{
-        width: 99.9vw;
-        height: 105.5vh;
-    }
-    
+.cardContent {
+  width: 100%;
+  height: 100%;
 }
-@media(max-width:370px) and (max-height:800px){
-    .layer{
-        width: 99.9vw;
-        height: 95.5vh;
-    }
+
+.card h3 {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  color: #fff;
+}
+
+.Toast {
+  background-color: palevioletred;
+  color: white;
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .layer {
+    width: 100vw;
+    height: 106.5vh;
+  }
+}
+
+@media (min-width: 408px) and (max-width: 640px) {
+  .layer {
+    width: 100vw;
+    height: 73.5vh;
+  }
+}
+
+@media (max-width: 407px) {
+  .layer {
+    width: 99.9vw;
+    height: 83.5vh;
+  }
+}
+@media (max-width: 407px) and (max-height: 700px) {
+  .layer {
+    width: 99.9vw;
+    height: 105.5vh;
+  }
+}
+@media (max-width: 370px) and (max-height: 800px) {
+  .layer {
+    width: 99.9vw;
+    height: 95.5vh;
+  }
 }

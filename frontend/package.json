@@ -27,6 +27,7 @@
     "image-compressor": "^2.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.5.1",
     "react-icons": "^4.10.1",
     "react-icons-kit": "^2.0.0",
     "react-input-emoji": "^5.1.1",
